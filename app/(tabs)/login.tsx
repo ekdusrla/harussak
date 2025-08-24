@@ -1,6 +1,17 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+//import { useNavigation } from '@react-navigation/native';
 
 export default function Login() {
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [showWarning, setShowWarning] = useState(false);
+
+    //const navigation = useNavigation();
+
+
     return (
         <View style={styles.view}>
             <View style={styles.view1}>
@@ -9,31 +20,55 @@ export default function Login() {
                 <Image style={[styles.icon1, styles.iconPosition]} resizeMode="contain" source={require("../../assets/images/google.png")} />
                 <View style={styles.item} />
                 <Text style={[styles.text1, styles.textTypo]}>회원이 아니신가요?</Text>
-                    <Pressable style={[styles.wrapper, styles.view2FlexBox]} onPress={()=>{}}>
+                    <Pressable style={[styles.wrapper, styles.view2FlexBox]} onPress={()=>{//navigation.navigate("Signup")
+                    }}>
                             <Text style={styles.text2}>회원가입</Text>
                     </Pressable>
                     <View style={[styles.view2, styles.view2FlexBox]}>
                             <Text style={[styles.text3, styles.textTypo]}>소셜 로그인</Text>
                     </View>
-                    <View style={styles.lineargradient}>
-                            <Pressable style={[styles.pressable, styles.pressableShadowBox]} onPress={()=>{}}>
-                                <Text style={[styles.text4, styles.textPosition]}>비밀번호</Text>
-                                <Image style={styles.iconPw} resizeMode="cover" source={require("../../assets/images/icon-pw.png")} />
-                                <Image style={[styles.iconHide, styles.textPosition1]} resizeMode="cover" source={require("../../assets/images/icon-hide.png")} />
-                            </Pressable>
-                    </View>
+                <View style={styles.lineargradient}>
+                <View style={[styles.pressable, styles.pressableShadowBox]}>
+                <Image style={styles.iconPw} resizeMode="cover" source={require("../../assets/images/icon-pw.png")} />
+                <TextInput
+                style={[styles.textInput, styles.textPosition, { color: "#1C1E1F" }]}
+                placeholder="비밀번호" placeholderTextColor="#9EA4A9" secureTextEntry={!showPassword}
+                value={password} onChangeText={setPassword}/>
+                <Pressable style={[styles.iconHide, styles.textPosition1]} onPress={() => setShowPassword((prev) => !prev)}>
+                <Image style={{ width: 44, height: 40 }} resizeMode="cover"
+                        source={
+                        showPassword
+                        ? require("../../assets/images/icon-show.png")
+                        : require("../../assets/images/icon-hide.png")
+                        }/>
+                </Pressable>
+                </View>
+                </View>
+
                     <Text style={[styles.text5, styles.textPosition1]}>로고영역</Text>
                     <View style={styles.lineargradient}>
-                            <Pressable style={[styles.pressable1, styles.pressableShadowBox]} onPress={()=>{}}>
-                                <Image style={styles.iconPw} resizeMode="cover" source={require("../../assets/images/icon-id.png")} />
-                                <Text style={[styles.text6, styles.textPosition]}>이메일</Text>
-                            </Pressable>
+                        <View style={[styles.pressable1, styles.pressableShadowBox]}>
+                        <Image style={styles.iconPw} resizeMode="cover" source={require("../../assets/images/icon-id.png")} />
+                        <TextInput style={[styles.textInput, styles.textPosition, { color: "#1C1E1F" }]}
+                        placeholder="이메일" placeholderTextColor="#9EA4A9"
+                        value={email} onChangeText={setEmail}/>
+                        </View>
                     </View>
-                    <Pressable style={styles.pressable2} onPress={()=>{}}>
+                    {showWarning && (
+                    <Text style={styles.warningtext}>
+                        { !email
+                                ? "이메일을 입력하시오"
+                                : email && !password
+                                ? "비밀번호를 입력하시오"
+                                : "" }
+                    </Text>
+                    )}
+                    <Pressable style={({ pressed }) => [styles.pressable2, pressed && { backgroundColor: "#7acb3e" } ]} 
+                    onPress={()=>{setShowWarning(true);}}>
                             <Text style={styles.text7}>로그인</Text>
                     </Pressable>
             </View>
-        </View>
+        </View> 
     );
 
 }
@@ -137,7 +172,6 @@ const styles = StyleSheet.create({
             position: "absolute"
     },
     text2: {
-            textDecorationLine: "underline",
             color: "#26282c",
             textAlign: "center",
             fontFamily: "Pretendard-Regular",
@@ -236,5 +270,24 @@ const styles = StyleSheet.create({
             width: "100%",
             backgroundColor: "#f8f8f8",
             flex: 1
+    },
+    textInput: {
+        flex: 1,
+        height: "100%",
+        paddingLeft: -100,
+        fontFamily: "NanumSquareNeo-Rg",
+        fontSize: 16,
+        textAlign: "left",
+    },
+    warningtext: {
+        width: "100%",
+        fontSize: 12,
+        letterSpacing: -0.43,
+        lineHeight: 22,
+        fontFamily: "Pretendard-Regular",
+        color: "#fd3333",
+        top: 460,
+        textAlign: "center",
     }
+
 });

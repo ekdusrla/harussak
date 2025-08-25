@@ -1,6 +1,8 @@
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-//import { useNavigation } from '@react-navigation/native';
+
+
 
 export default function Login() {
 
@@ -9,7 +11,14 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [showWarning, setShowWarning] = useState(false);
 
-    //const navigation = useNavigation();
+    const router = useRouter();
+
+    const handleLogin = () => {
+    setShowWarning(true);
+    if (email && password) {
+      router.replace("./signup");
+    }
+  };
 
 
     return (
@@ -64,7 +73,8 @@ export default function Login() {
                     </Text>
                     )}
                     <Pressable style={({ pressed }) => [styles.pressable2, pressed && { backgroundColor: "#7acb3e" } ]} 
-                    onPress={()=>{setShowWarning(true);}}>
+                    onPress={()=>{setShowWarning(true);
+                        if (email && password) {router.replace("./signup"); }}}>
                             <Text style={styles.text7}>로그인</Text>
                     </Pressable>
             </View>

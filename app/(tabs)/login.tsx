@@ -16,7 +16,7 @@ export default function Login() {
     const handleLogin = () => {
     setShowWarning(true);
     if (email && password) {
-      router.replace("./signup");
+      router.replace("./home");
     }
   };
 
@@ -29,8 +29,7 @@ export default function Login() {
                 <Image style={[styles.icon1, styles.iconPosition]} resizeMode="contain" source={require("../../assets/images/google.png")} />
                 <View style={styles.item} />
                 <Text style={[styles.text1, styles.textTypo]}>회원이 아니신가요?</Text>
-                    <Pressable style={[styles.wrapper, styles.view2FlexBox]} onPress={()=>{//navigation.navigate("Signup")
-                    }}>
+                    <Pressable style={[styles.wrapper, styles.view2FlexBox]} onPress={()=>router.push("./signup")}>
                             <Text style={styles.text2}>회원가입</Text>
                     </Pressable>
                     <View style={[styles.view2, styles.view2FlexBox]}>
@@ -74,7 +73,7 @@ export default function Login() {
                     )}
                     <Pressable style={({ pressed }) => [styles.pressable2, pressed && { backgroundColor: "#7acb3e" } ]} 
                     onPress={()=>{setShowWarning(true);
-                        if (email && password) {router.replace("./signup"); }}}>
+                        if (email && password) {router.replace("./home"); }}}>
                             <Text style={styles.text7}>로그인</Text>
                     </Pressable>
             </View>

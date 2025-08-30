@@ -52,8 +52,6 @@ export default function Login() {
                 </Pressable>
                 </View>
                 </View>
-
-                    <Text style={[styles.text5, styles.textPosition1]}>로고영역</Text>
                     <View style={styles.lineargradient}>
                         <View style={[styles.pressable1, styles.pressableShadowBox]}>
                         <Image style={styles.iconPw} resizeMode="cover" source={require("../../assets/images/icon-id.png")} />
@@ -231,17 +229,6 @@ const styles = StyleSheet.create({
             left: "50%",
             top: "50%",
             position: "absolute",
-    },
-    text5: {
-            marginTop: -259,
-            marginLeft: -65,
-            fontSize: 34,
-            letterSpacing: 0.4,
-            lineHeight: 41,
-            fontWeight: "800",
-            color: "#91e04c",
-            fontFamily: "NanumSquareNeo-Rg",
-            textAlign: "center"
     },
     text6: {
             top: "30%",

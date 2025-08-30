@@ -5,7 +5,6 @@ export default function TabLayout(){
         <Tabs screenOptions={{headerShown : false}}>
             <Tabs.Screen name="home"/>
             <Tabs.Screen name="login"/>
-            <Tabs.Screen name="signup"/>
         </Tabs>
     );
 }

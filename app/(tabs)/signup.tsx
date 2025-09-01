@@ -7,56 +7,54 @@ export default function Signup() {
 
 
     const [showPassword, setShowPassword] = useState(false);
+    const [focused, setFocused] = useState(false);
     
     const router = useRouter();
 
     return (
-      			<View style={styles.safeareaview}>
-        				<View style={styles.view}>
-          					<View style={styles.lineargradientPosition}>
-            						<View style={[styles.pressable, styles.pressableLayout]}>
-              							<TextInput
-                                         style={[styles.text, styles.textPosition, { color: "#1C1E1F" }]}
+        <View style={styles.safeareaview}>
+                <View style={styles.view}>
+                        <View style={styles.lineargradientPosition}>
+                                <View style={[styles.pressable, styles.pressableLayout]}>
+                                        <TextInput style={[styles.text, styles.textPosition, { color: "#1C1E1F"}]}
                                         placeholder="이메일 주소" placeholderTextColor="#74777D"/>
-            						</View>
-          					</View>
-          					<View style={styles.lineargradientPosition}>
-            						<View style={[styles.safeareaviewPressable, styles.pressableLayout]}>
-                                        <TextInput
-                                         style={[styles.text, styles.textPosition, { color: "#1C1E1F" }]}
-                                        placeholder="비밀번호(8자 이상, 문자/숫자/기호)" placeholderTextColor="#74777D" secureTextEntry={!showPassword} />
-                                        <Pressable style={[styles.iconPosition]} onPress={() => setShowPassword((prev) => !prev)}>
-                                            <Image style={{ width: 44, height: 40 }} resizeMode="cover"
-                                            source={
-                                            showPassword
-                                            ? require("../../assets/images/icon-show.png")
-                                            : require("../../assets/images/icon-hide.png")
-                                            }/>
-                                        </Pressable>
-            						</View>
-          					</View>
-          					<View style={styles.lineargradientPosition}>
-                                <View style={[styles.lineargradient2, styles.pressableLayout]}>
-                                    <TextInput
-                                         style={[styles.text, styles.textPosition, { color: "#1C1E1F" }]}
-                                        placeholder="비밀번호 재입력" placeholderTextColor="#74777D" secureTextEntry={!showPassword}/>
                                 </View>
-          					</View>
-          					<Text style={[styles.text3, styles.textTypo]}>이메일</Text>
-          					<Text style={[styles.text4, styles.textTypo]}>비밀번호</Text>
-          					<Text style={styles.text5}>비밀번호 확인</Text>
-          					<View style={styles.view2}>
-            						<Text style={[styles.text6, styles.textTypo1]}>회원가입</Text>
-          					</View>
-          					<View style={[styles.wrap, styles.wrapPosition]}>
-            						<Text style={[styles.text7, styles.textTypo1]}>회원가입</Text>
-            						<Pressable style={[styles.iconBack, styles.wrapPosition]} onPress={()=> router.push("./login")}>
-              							<Image style={[styles.icon, styles.pressableLayout]} resizeMode="cover" source={require("../../assets/images/icon-back.png")} />
-            						</Pressable>
-          					</View>
-        				</View>
-      			</View>
-                );
+                        </View>
+                        <View style={styles.lineargradientPosition}>
+                                <View style={[styles.safeareaviewPressable, styles.pressableLayout]}>
+                                <TextInput style={[styles.text, styles.textPosition, { color: "#1C1E1F"}]}
+                                placeholder="비밀번호(8자 이상, 문자/숫자/기호)" placeholderTextColor="#74777D" secureTextEntry={!showPassword} />
+                                <Pressable style={[styles.iconPosition]} onPress={() => setShowPassword((prev) => !prev)}>
+                                <Image style={{ width: 44, height: 40 }} resizeMode="cover"
+                                source={
+                                showPassword
+                                ? require("../../assets/images/icon-show.png")
+                                : require("../../assets/images/icon-hide.png")
+                                }/>
+                                </Pressable>
+                                </View>
+                        </View>
+                        <View style={styles.lineargradientPosition}>
+                                <View style={[styles.lineargradient2, styles.pressableLayout]}>
+                        <TextInput style={[styles.text, styles.textPosition, { color: "#1C1E1F"}]}
+                        placeholder="비밀번호 재입력" placeholderTextColor="#74777D" secureTextEntry={!showPassword}/>
+                        </View>
+                        </View>
+                        <Text style={[styles.text3, styles.textTypo]}>이메일</Text>
+                        <Text style={[styles.text4, styles.textTypo]}>비밀번호</Text>
+                        <Text style={styles.text5}>비밀번호 확인</Text>
+                        <View style={styles.view2}>
+                                <Text style={[styles.text6, styles.textTypo1]}>회원가입</Text>
+                        </View>
+                        <View style={[styles.wrap, styles.wrapPosition]}>
+                                <Text style={[styles.text7, styles.textTypo1]}>회원가입</Text>
+                                <Pressable style={[styles.iconBack, styles.wrapPosition]} onPress={()=> router.push("./login")}>
+                                <Image style={[styles.icon, styles.pressableLayout]} resizeMode="cover" source={require("../../assets/images/icon-back.png")} />
+                                </Pressable>
+                        </View>
+                </View>
+        </View>
+        );
 
 }
 
@@ -66,9 +64,16 @@ const styles = StyleSheet.create({
             flex: 1
     },
     pressableLayout: {
+            borderWidth: 0.4,
+            borderColor: "#ffffff",
+            backgroundColor: "#fafafa",
+            borderRadius: 12,
+            elevation: 6,
+            marginLeft: -160,
+            borderStyle: "solid",
             height: "100%",
-            width: "100%",
-            backgroundColor: "rgba(255, 255, 255, 0.2)",
+            overflow: "hidden",
+            width: "100%"
     },
     textPosition: { 
             textAlign: "left",
@@ -285,15 +290,26 @@ const styles = StyleSheet.create({
         height: 24,
         position: "absolute",
         overflow: "hidden"
-},
-            
-    textInput: {
-        flex: 1,
-        height: "100%",
-        paddingLeft: -100,
-        fontFamily: "NanumSquareNeo-Rg",
-        fontSize: 16,
-        textAlign: "left",
     },
+    shadowBox: {
+        borderRadius: 12,
+        shadowOpacity: 1,
+        elevation: 4,
+        shadowRadius: 4,
+        shadowOffset: { width: 0, height: 0 },
+        shadowColor: "rgba(0, 0, 0, 0.08)",
+    },
+    inputContainer: {
+        borderWidth: 1,
+        borderColor: "transparent", // 기본은 투명
+        borderRadius: 12,
+        backgroundColor: "#fff",
+    },
+    textInput: {
+        paddingHorizontal: 12,
+        fontSize: 14,
+        color: "#1C1E1F",
+    },
+
 
 });

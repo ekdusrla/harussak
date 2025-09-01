@@ -124,13 +124,20 @@ const styles = StyleSheet.create({
             borderColor: "#ffffff",
             backgroundColor: "#fafafa",
             borderRadius: 30,
-            elevation: 6,
-            shadowColor: "rgba(0, 0, 0, 0.3)",
             marginLeft: -160,
             borderStyle: "solid",
             height: "100%",
             overflow: "hidden",
-            width: "100%"
+            width: "100%",
+            boxShadow: [
+                {
+                        offsetX: 0,
+                        offsetY: 0,
+                        blurRadius: 10,
+                        spreadDistance: 0.2,
+                        color: "rgba(0, 0, 0, 0.05)",
+                },
+                ],
     },
     textPosition: {
             letterSpacing: 0.43,
@@ -229,6 +236,7 @@ const styles = StyleSheet.create({
             left: "50%",
             top: "50%",
             position: "absolute",
+            marginVertical: 10,
     },
     text6: {
             top: "30%",
@@ -238,7 +246,7 @@ const styles = StyleSheet.create({
             marginTop: -110
     },
     text7: {
-            fontWeight: "700",
+            fontWeight: "600",
             color: "#fff",
             fontFamily: "NanumSquareNeo-Bd",
             fontSize: 16,

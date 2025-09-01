@@ -7,7 +7,44 @@ export default function Signup() {
 
 
     const [showPassword, setShowPassword] = useState(false);
-    const [focused, setFocused] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [passwordConfirm, setPasswordConfirm] = useState("");
+
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [passwordConfirmError, setPasswordConfirmError] = useState("");
+
+    const handleSignup = () => {
+        let hasError = false;
+
+        if (!email) {
+        setEmailError("이메일은 필수 입력입니다");
+        hasError = true;
+        } else {
+        setEmailError("");
+        }
+
+        if (!password) {
+        setPasswordError("비밀번호는 필수 입력입니다");
+        hasError = true;
+        } else {
+        setPasswordError("");
+        }
+
+        if (passwordConfirm !== password) {
+        setPasswordConfirmError("비밀번호가 일치하지 않습니다");
+        hasError = true;
+        } else {
+        setPasswordConfirmError("");
+        }
+
+        if (!hasError) {
+        router.push("./login");
+        }
+        };
+
+
     
     const router = useRouter();
 
@@ -15,41 +52,68 @@ export default function Signup() {
         <View style={styles.safeareaview}>
                 <View style={styles.view}>
                         <View style={styles.lineargradientPosition}>
-                                <View style={[styles.pressable, styles.pressableLayout]}>
-                                        <TextInput style={[styles.text, styles.textPosition, { color: "#1C1E1F"}]}
-                                        placeholder="이메일 주소" placeholderTextColor="#74777D"/>
+                                <View style={[styles.pressable, styles.pressableLayout, emailError && { borderColor: "red" }]}>
+                                <TextInput
+                                value={email}
+                                onChangeText={setEmail}
+                                placeholder="이메일 주소"
+                                placeholderTextColor="#74777D"
+                                style={[styles.text, styles.textPosition, { color: "#1C1E1F" }]}
+                                />
                                 </View>
+                                {emailError ? <Text style={{ color: "red", marginTop: 4 , textAlign: "left", marginLeft: -155 ,fontFamily : "Pretendard-Regular", fontSize: 12 }}>{emailError}</Text> : null}
                         </View>
                         <View style={styles.lineargradientPosition}>
-                                <View style={[styles.safeareaviewPressable, styles.pressableLayout]}>
-                                <TextInput style={[styles.text, styles.textPosition, { color: "#1C1E1F"}]}
-                                placeholder="비밀번호(8자 이상, 문자/숫자/기호)" placeholderTextColor="#74777D" secureTextEntry={!showPassword} />
-                                <Pressable style={[styles.iconPosition]} onPress={() => setShowPassword((prev) => !prev)}>
-                                <Image style={{ width: 44, height: 40 }} resizeMode="cover"
+                                <View style={[styles.safeareaviewPressable, styles.pressableLayout, passwordError && { borderColor: "red" }]}>
+                                <TextInput
+                                value={password}
+                                onChangeText={setPassword}
+                                placeholder="비밀번호(8자 이상, 문자/숫자/기호)"
+                                placeholderTextColor="#74777D"
+                                secureTextEntry={!showPassword}
+                                style={[styles.text, styles.textPosition, { color: "#1C1E1F" }]}
+                                />
+                                <Pressable style={styles.iconPosition} onPress={() => setShowPassword(prev => !prev)}>
+                                <Image
+                                style={{ width: 44, height: 40 }}
+                                resizeMode="cover"
                                 source={
-                                showPassword
-                                ? require("../../assets/images/icon-show.png")
-                                : require("../../assets/images/icon-hide.png")
-                                }/>
+                                        showPassword
+                                        ? require("../../assets/images/icon-show.png")
+                                        : require("../../assets/images/icon-hide.png")
+                                }
+                                />
                                 </Pressable>
                                 </View>
+                                {passwordError ? <Text style={{ color: "red", marginTop: 4 , textAlign: "left", marginLeft: -155, fontFamily : "Pretendard-Regular", fontSize: 12}}>{passwordError}</Text> : null}
+
                         </View>
                         <View style={styles.lineargradientPosition}>
-                                <View style={[styles.lineargradient2, styles.pressableLayout]}>
-                        <TextInput style={[styles.text, styles.textPosition, { color: "#1C1E1F"}]}
-                        placeholder="비밀번호 재입력" placeholderTextColor="#74777D" secureTextEntry={!showPassword}/>
-                        </View>
+                                <View style={[styles.lineargradient2, styles.pressableLayout, passwordConfirmError && { borderColor: "red" }]}>
+                                <TextInput
+                                value={passwordConfirm}
+                                onChangeText={setPasswordConfirm}
+                                placeholder="비밀번호 재입력"
+                                placeholderTextColor="#74777D"
+                                secureTextEntry={!showPassword}
+                                style={[styles.text, styles.textPosition, { color: "#1C1E1F" }]}
+                                />
+                                </View>
+                                {passwordConfirmError ? <Text style={{ color: "red", marginTop: 4 , textAlign: "left", marginLeft: -155, fontFamily : "Pretendard-Regular", fontSize: 12}}>{passwordConfirmError}</Text> : null}
                         </View>
                         <Text style={[styles.text3, styles.textTypo]}>이메일</Text>
                         <Text style={[styles.text4, styles.textTypo]}>비밀번호</Text>
                         <Text style={styles.text5}>비밀번호 확인</Text>
-                        <View style={styles.view2}>
-                                <Text style={[styles.text6, styles.textTypo1]}>회원가입</Text>
+                        <View style={[styles.view2, { backgroundColor: email && password && passwordConfirm && password === passwordConfirm ? "#A1E82D" : "rgba(28,30,31,0.25)" }]}>
+                        <Pressable onPress={handleSignup}>
+                        <Text style={[styles.text6, styles.textTypo1]}>회원가입</Text>
+                        </Pressable>
                         </View>
+
                         <View style={[styles.wrap, styles.wrapPosition]}>
                                 <Text style={[styles.text7, styles.textTypo1]}>회원가입</Text>
                                 <Pressable style={[styles.iconBack, styles.wrapPosition]} onPress={()=> router.push("./login")}>
-                                <Image style={[styles.icon, styles.pressableLayout]} resizeMode="cover" source={require("../../assets/images/icon-back.png")} />
+                                <Image style={styles.icon} resizeMode="cover" source={require("../../assets/images/icon-back.png")} />
                                 </Pressable>
                         </View>
                 </View>
@@ -284,10 +348,10 @@ const styles = StyleSheet.create({
             width: 55
     },
     icon: {
-        top: 16,
+        top: 20,
         left: 20,
-        width: 24,
-        height: 24,
+        width: 48,
+        height: 48,
         position: "absolute",
         overflow: "hidden"
     },

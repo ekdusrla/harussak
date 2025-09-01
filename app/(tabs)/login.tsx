@@ -16,7 +16,7 @@ export default function Login() {
     const handleLogin = () => {
     setShowWarning(true);
     if (email && password) {
-      router.replace("./home");
+      router.replace("./generateroutine1");
     }
   };
 
@@ -71,7 +71,7 @@ export default function Login() {
                     )}
                     <Pressable style={({ pressed }) => [styles.pressable2, pressed && { backgroundColor: "#7acb3e" } ]} 
                     onPress={()=>{setShowWarning(true);
-                        if (email && password) {router.replace("./home"); }}}>
+                        if (email && password) {router.replace("./generateroutine1"); }}}>
                             <Text style={styles.text7}>로그인</Text>
                     </Pressable>
             </View>
@@ -190,9 +190,10 @@ const styles = StyleSheet.create({
             textAlign: "center",
             fontFamily: "Pretendard-Regular",
             fontWeight: "300",
-            lineHeight: 22,
+            lineHeight: 14,
             letterSpacing: -0.43,
-            fontSize: 12
+            fontSize: 12,
+            borderBottomWidth: 1,
     },
     wrapper: {
             marginTop: 314,

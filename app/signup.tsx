@@ -56,7 +56,7 @@ export default function Signup() {
                                 <TextInput
                                 value={email}
                                 onChangeText={setEmail}
-                                placeholder="이메일 주소ebebeb"
+                                placeholder="이메일 주소"
                                 placeholderTextColor="#74777D"
                                 style={[styles.text, styles.textPosition, { color: "#1C1E1F" }]}
                                 />

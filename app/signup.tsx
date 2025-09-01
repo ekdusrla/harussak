@@ -40,7 +40,7 @@ export default function Signup() {
         }
 
         if (!hasError) {
-        router.push("./login");
+        router.push("./(tabs)/login");
         }
         };
 
@@ -56,7 +56,7 @@ export default function Signup() {
                                 <TextInput
                                 value={email}
                                 onChangeText={setEmail}
-                                placeholder="이메일 주소"
+                                placeholder="이메일 주소ebebeb"
                                 placeholderTextColor="#74777D"
                                 style={[styles.text, styles.textPosition, { color: "#1C1E1F" }]}
                                 />
@@ -79,8 +79,8 @@ export default function Signup() {
                                 resizeMode="cover"
                                 source={
                                         showPassword
-                                        ? require("../../assets/images/icon-show.png")
-                                        : require("../../assets/images/icon-hide.png")
+                                        ? require("../assets/images/icon-show.png")
+                                        : require("../assets/images/icon-hide.png")
                                 }
                                 />
                                 </Pressable>
@@ -112,8 +112,8 @@ export default function Signup() {
 
                         <View style={[styles.wrap, styles.wrapPosition]}>
                                 <Text style={[styles.text7, styles.textTypo1]}>회원가입</Text>
-                                <Pressable style={[styles.iconBack, styles.wrapPosition]} onPress={()=> router.push("./login")}>
-                                <Image style={styles.icon} resizeMode="cover" source={require("../../assets/images/icon-back.png")} />
+                                <Pressable style={[styles.iconBack, styles.wrapPosition]} onPress={()=> router.push("./(tabs)/login")}>
+                                <Image style={styles.icon} resizeMode="cover" source={require("../assets/images/icon-back.png")} />
                                 </Pressable>
                         </View>
                 </View>

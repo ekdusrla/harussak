@@ -29,7 +29,7 @@ export default function Login() {
                 <Image style={[styles.icon1, styles.iconPosition]} resizeMode="contain" source={require("../../assets/images/google.png")} />
                 <View style={styles.item} />
                 <Text style={[styles.text1, styles.textTypo]}>회원이 아니신가요?</Text>
-                    <Pressable style={[styles.wrapper, styles.view2FlexBox]} onPress={()=>router.push("./signup")}>
+                    <Pressable style={[styles.wrapper, styles.view2FlexBox]} onPress={()=>router.push("../signup")}>
                             <Text style={styles.text2}>회원가입</Text>
                     </Pressable>
                     <View style={[styles.view2, styles.view2FlexBox]}>

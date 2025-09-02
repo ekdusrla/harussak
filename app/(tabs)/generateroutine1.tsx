@@ -1,13 +1,187 @@
-import { Text } from "react-native";
+import { useState } from "react";
+import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 
 
-export default function GenerateRoutine1() {
+export default function GenerateRoutine2() {
 
+    const [text, setText] = useState("");
+    const maxLength = 1000;
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
 
     return (
-        <Text>Hello word</Text>
+        <View style={styles.safeareaview}>
+      			<View style={[styles.view, styles.viewBg]}>
+        				<View style={styles.child} />
+        				<Text style={[styles.text, styles.textTypo]}>지금 감정을 적어주세요{"\n"}변화의 시작이 될 거에요</Text>
+        				<View style={[styles.lineargradient, styles.wrapperPosition]}>
+                        <TextInput
+                            style={styles.input}
+                            multiline
+                            placeholder={"현재 나의 상태 및 목표를 기록하고\n루틴을 추천해줍니다"}
+                            placeholderTextColor="#9EA4A9"
+                            value={text}
+                            onChangeText={setText}
+                        />
+                        <Text style={[styles.safeareaviewText, styles.textFlexBox]}>
+                            {text.length}/{maxLength}자
+                        </Text>
+                        </View>
+        				<View style={[styles.buttonWrap, styles.itemPosition]}>
+                            {isSubmitted && text.length > maxLength && (
+                        <Text style={styles.errorText}>입력수를 초과하였습니다</Text>
+                        )}
+          					<Pressable
+                                style={[
+                                    styles.wrapper,
+                                    styles.wrapperPosition,
+                                    text.length > 0 && styles.wrapperActive
+                                ]}
+                                onPress={() => setIsSubmitted(true)}
+                                >
+                                <Text style={[styles.text2, styles.itemPosition]}>확인</Text>
+                                </Pressable>
+
+        				</View>
+        				<Image style={[styles.item, styles.itemPosition]} width={153} height={28} resizeMode="contain" source={require("../../assets/images/bar1.png")} />
+      			</View>
+    		</View>
     );
 
 }
+
+
+const styles = StyleSheet.create({
+  	safeareaview: {
+    		backgroundColor: "#f8f8f8",
+    		flex: 1
+  	},
+  	viewBg: {
+    		overflow: "hidden",
+    		backgroundColor: "#f8f8f8"
+  	},
+  	textTypo: {
+    		fontFamily: "NanumSquareNeo-Bd",
+    		fontWeight: "600"
+  	},
+  	wrapperPosition: {
+    		shadowOpacity: 1,
+    		left: 20,
+    		position: "absolute",
+    		overflow: "hidden"
+  	},
+  	textFlexBox: {
+    		textAlign: "center",
+    		lineHeight: 22,
+    		letterSpacing: -0.43
+  	},
+  	itemPosition: {
+    		left: "50%",
+    		position: "absolute"
+  	},
+  	view: {
+    		width: "100%",
+    		height: 758,
+    		flex: 1,
+    		overflow: "hidden"
+  	},
+  	child: {
+    		top: 157,
+    		left: 0,
+    		height: 137,
+    		backgroundColor: "transparent",
+    		width: 360,
+    		position: "absolute"
+  	},
+  	text: {
+    		top: 100,
+    		fontSize: 20,
+    		letterSpacing: -0.26,
+    		lineHeight: 28,
+    		color: "#26282c",
+    		textAlign: "left",
+    		left: 20,
+    		fontFamily: "NanumSquareNeo-Bd",
+    		fontWeight: "600",
+    		position: "absolute"
+  	},
+  	lineargradient: {
+    		top: 200,
+    		right: 20,
+    		boxShadow: "2px 8px 20px rgba(28, 30, 31, 0.08)",
+    		shadowColor: "rgba(28, 30, 31, 0.08)",
+    		shadowOffset: {
+      			width: 2,
+      			height: 8
+    		},
+    		shadowRadius: 20,
+    		elevation: 20,
+    		borderRadius: 12,
+    		height: 450,
+    		backgroundColor: "#fafafa"
+  	},
+  	safeareaviewText: {
+    		top: 415,
+    		right: 16,
+    		fontSize: 12,
+    		fontFamily: "Pretendard-Regular",
+    		color: "#cacdd3",
+    		width: 55,
+    		height: 19,
+    		position: "absolute"
+  	},
+  	buttonWrap: {
+    		marginLeft: -180,
+    		top: 900,
+    		height: 80,
+    		width: 360,
+    		overflow: "hidden",
+    		backgroundColor: "#f8f8f8"
+  	},
+  	wrapper: {
+    		top: 18,
+            marginLeft: -20,
+    		borderRadius: 8,
+    		backgroundColor: "#C1C1C2",
+    		width: 360,
+    		height: 44
+  	},
+  	text2: {
+    		marginTop: -11,
+    		marginLeft: -14,
+    		top: "50%",
+    		fontSize: 14,
+    		color: "#fff",
+    		textAlign: "center",
+    		lineHeight: 22,
+    		letterSpacing: -0.43,
+    		fontFamily: "NanumSquareNeo-Bd",
+    		fontWeight: "600"
+  	},
+  	item: {
+    		marginLeft: -77,
+    		top: 60,
+    		width: 153,
+    		height: 28
+  	},
+    input: {
+        marginLeft: 10,
+        marginTop: 10,
+        marginRight: 10,
+        flex: 1,
+        fontSize: 14,
+        color: "#26282c",
+        textAlignVertical: "top",
+    },
+    wrapperActive: {
+        backgroundColor: "#91E04C", // 연두색
+    },
+    errorText: {
+        marginTop: 10,
+        marginLeft: 12,
+        fontSize: 12,
+        color: "red",
+        fontFamily: "Pretendard-Regular",
+    },
+});

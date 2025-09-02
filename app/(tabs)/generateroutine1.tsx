@@ -1,13 +1,16 @@
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 
 
-export default function GenerateRoutine2() {
+export default function GenerateRoutine1() {
 
     const [text, setText] = useState("");
     const maxLength = 1000;
     const [isSubmitted, setIsSubmitted] = useState(false);
+
+	const router = useRouter();
 
 
     return (
@@ -29,20 +32,26 @@ export default function GenerateRoutine2() {
                         </Text>
                         </View>
         				<View style={[styles.buttonWrap, styles.itemPosition]}>
-                            {isSubmitted && text.length > maxLength && (
-                        <Text style={styles.errorText}>입력수를 초과하였습니다</Text>
-                        )}
+						{ text.length > maxLength && (
+						<Text style={[styles.errorText]}>
+							입력수를 초과하였습니다
+						</Text>
+						)}
           					<Pressable
-                                style={[
-                                    styles.wrapper,
-                                    styles.wrapperPosition,
-                                    text.length > 0 && styles.wrapperActive
-                                ]}
-                                onPress={() => setIsSubmitted(true)}
-                                >
-                                <Text style={[styles.text2, styles.itemPosition]}>확인</Text>
-                                </Pressable>
-
+							style={[
+								styles.wrapper,
+								styles.wrapperPosition,
+								text.length > 0 && text.length <= 1000 && styles.wrapperActive
+							]}
+							onPress={() => {
+								// 글자 수가 1~1000일 때만 이동
+								if (text.length > 0 && text.length <= 1000) {
+								router.push("./generateroutine2"); // 이동할 페이지 경로
+								}
+							}}
+							>
+							<Text style={[styles.text2, styles.itemPosition]}>확인</Text>
+							</Pressable>
         				</View>
         				<Image style={[styles.item, styles.itemPosition]} width={153} height={28} resizeMode="contain" source={require("../../assets/images/bar1.png")} />
       			</View>
@@ -133,7 +142,7 @@ const styles = StyleSheet.create({
   	},
   	buttonWrap: {
     		marginLeft: -180,
-    		top: 900,
+    		top: 700,
     		height: 80,
     		width: 360,
     		overflow: "hidden",
@@ -175,11 +184,10 @@ const styles = StyleSheet.create({
         textAlignVertical: "top",
     },
     wrapperActive: {
-        backgroundColor: "#91E04C", // 연두색
+        backgroundColor: "#91E04C",
     },
     errorText: {
-        marginTop: 10,
-        marginLeft: 12,
+        marginLeft: 120,
         fontSize: 12,
         color: "red",
         fontFamily: "Pretendard-Regular",

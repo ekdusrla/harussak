@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 
@@ -6,6 +7,23 @@ import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-nati
 export default function GenerateRoutine2() {
 
 	const router = useRouter();
+	const [selectedCard, setSelectedCard] = useState<number | null>(null);
+	const cards = [
+  { text: "📖 도서 30분 읽기" },
+  { text: "☀️ 오전 10시에 일어나기" },
+  { text: "🧘‍♂️ 명상 30분 하기" },
+  { text: "🌙 오후 10시에 취침하기" },
+  { text: "💊 비타민 먹기" },
+  { text: "🚶️ 산책 10분하기" },
+  { text: "💊 영양제 먹기" },
+  { text: "📖 도서 30분 읽기" },
+  { text: "☀️ 오전 11시에 일어나기" },
+  { text: "🧘‍♂️ 요가하기" },
+  { text: "🌙 오전 1시에 전 취침하기" },
+  { text: "💊 유산균 먹기" },
+  { text: "나의 루틴 만들기"}
+];
+
 
         return (
     		    <View style={styles.safeareaview}>
@@ -24,75 +42,46 @@ export default function GenerateRoutine2() {
       {/* 루틴 카드들만 스크롤 */}
 	  <View style={styles.scrollWrapper}>
       <ScrollView style={styles.scrollArea} contentContainerStyle={styles.scrollContent}>
-        <Pressable style={[styles.lineargradientShadowBox]}>
-          //<Text style={styles.safeareaviewText}>📖</Text>
-          <Text style={styles.text2}>도서 30분 읽기</Text>
-        </Pressable>
-
-        <Pressable style={[styles.lineargradientShadowBox]}>
-          <Text style={styles.safeareaviewText}>☀️</Text>
-          <Text style={styles.text2}>오전 10시에 일어나기</Text>
-        </Pressable>
-
-        <Pressable style={[styles.lineargradientShadowBox]}>
-          <Text style={styles.safeareaviewText}>🧘‍♂️</Text>
-          <Text style={styles.text2}>명상 30분 하기</Text>
-        </Pressable>
-
-        <Pressable style={[styles.lineargradientShadowBox]}>
-          <Text style={styles.safeareaviewText}>🌙</Text>
-          <Text style={styles.text2}>오후 10시에 취침하기</Text>
-        </Pressable>
-
-        <Pressable style={[styles.lineargradientShadowBox]}>
-          <Text style={styles.safeareaviewText}>💊</Text>
-          <Text style={styles.text2}>비타민 먹기</Text>
-        </Pressable>
-
-        <Pressable style={[styles.lineargradientShadowBox]}>
-          <Text style={styles.safeareaviewText}>🚶️</Text>
-          <Text style={styles.text2}>산책 10분하기</Text>
-        </Pressable>
-
-        <Pressable style={[styles.lineargradientShadowBox]}>
-          <Text style={styles.safeareaviewText}>💊</Text>
-          <Text style={styles.text2}>영양제 먹기</Text>
-        </Pressable>
-
-        <Pressable style={[styles.lineargradientShadowBox]}>
-          <Text style={styles.safeareaviewText}>☀️</Text>
-          <Text style={styles.text2}>오전 11시에 전에 일어나기</Text>
-        </Pressable>
-
-        <Pressable style={[styles.lineargradientShadowBox]}>
-          <Text style={styles.safeareaviewText}>🧘‍♂️</Text>
-          <Text style={styles.text2}>요가하기</Text>
-        </Pressable>
-
-        <Pressable style={[styles.lineargradientShadowBox]}>
-          <Text style={styles.safeareaviewText}>🌙</Text>
-          <Text style={styles.text2}>오전 1시에 전 취침하기</Text>
-        </Pressable>
-
-        <Pressable style={[styles.lineargradientShadowBox]}>
-          <Text style={styles.safeareaviewText}>💊</Text>
-          <Text style={styles.text2}>유산균 먹기</Text>
-        </Pressable>
-
-        <Pressable style={[styles.lineargradientShadowBox]}>
-          <Text style={styles.text2}>나의 루틴 만들기</Text>
-        </Pressable>
+        {cards.map((card, index) => (
+  <Pressable
+    key={index}
+    style={[
+      styles.lineargradientShadowBox,
+	  card.text === "나의 루틴 만들기" && { backgroundColor: "#FFD700" },
+      selectedCard === index && { backgroundColor: "#EBF5E3" } // 배경색 변경
+    ]}
+    onPress={() => setSelectedCard(index)}
+  >
+    <Text style={styles.text2}>{card.text}</Text>
+    {selectedCard === index && (
+      <Image
+        source={require('../../assets/images/cardborder.png')}
+        style={styles.cardBorderImage}
+        resizeMode="stretch"
+      />
+    )}
+  </Pressable>
+))}
       </ScrollView>
 	  </View>
-
-      {/* 고정되는 하단 버튼 */}
       <View style={[styles.buttonWrap, styles.itemPosition]}>
-        <View style={[styles.wrapper, styles.wrapperLayout]}>
-          <Text style={[styles.text30, styles.textPosition]}>확인</Text>
-        </View>
-        <View style={[styles.container, styles.wrapperLayout]}>
-          <Text style={[styles.text31, styles.textPosition]}>이전으로</Text>
-        </View>
+        <Pressable
+  style={[
+    styles.wrapper,
+    styles.wrapperLayout,
+    selectedCard !== null && { backgroundColor: "#91E04C" } // 카드 선택 시 연두색
+  ]}
+  onPress={() => {
+    if (selectedCard !== null) {
+      router.push("../generateroutine1"); // 원하는 페이지 경로로 이동
+    }
+  }}
+>
+  <Text style={[styles.text30, styles.textPosition]}>확인</Text>
+</Pressable>
+        <Pressable style={[styles.container, styles.wrapperLayout]} onPress={()=>router.push("../generateroutine1")}>
+          <Text style={[styles.text31, styles.textPosition] }>이전으로</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -128,7 +117,7 @@ const styles = StyleSheet.create({
     		boxShadow: "0px 0px 4px rgba(70, 75, 83, 0.12)",
     		backgroundColor: "#fafafa",
 			marginHorizontal: 20,
-			marginVertical: 10,
+			marginVertical: 8,
   	},
   	containerBorder: {
     		borderWidth: 1,
@@ -287,4 +276,25 @@ scrollContent: {
   flex: 1,
   marginTop: 60,
 },
+bottomFadeImage: {
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  right: 0,
+  height: 300, // PNG 높이
+},
+cardSelected: {
+  backgroundColor: "#EBF5E3",
+},
+cardBorderImage: {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  borderRadius: 32,
+  width: 372, // 카드 테두리 반경과 맞춰주세요
+}
+
+
 });

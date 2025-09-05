@@ -1,88 +1,101 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 
 
 export default function GenerateRoutine2() {
 
+	const router = useRouter();
+
         return (
-    		<View style={styles.safeareaview}>
-      			<View style={styles.view}>
-        				<View style={[styles.child, styles.childPosition]} />
-        				<Text style={styles.text}>{`당신에게 꼭 맞는
-          					루틴을 찾아드릴게요`}</Text>
-        				<View style={[styles.lineargradient, styles.lineargradientShadowBox]}>
-          					<Text style={styles.safeareaviewText}>📖</Text>
-          					<Text style={styles.text2}>도서 30분 읽기</Text>
-        				</View>
-        				<View style={[styles.safeareaviewLineargradient, styles.lineargradientShadowBox]}>
-          					<Text style={styles.safeareaviewText}>☀️</Text>
-          					<Text style={styles.text2}>오전 10시에 일어나기</Text>
-        				</View>
-        				<View style={[styles.lineargradient2, styles.lineargradientShadowBox]}>
-          					<Text style={styles.safeareaviewText}>🧘‍♂️</Text>
-          					<Text style={styles.text2}>명상 30분 하기</Text>
-        				</View>
-        				<View style={[styles.lineargradient3, styles.lineargradientShadowBox]}>
-          					<Text style={styles.safeareaviewText}>🌙</Text>
-          					<Text style={styles.text2}>오후 10시에 취침하기</Text>
-        				</View>
-        				<View style={[styles.lineargradient4, styles.lineargradientShadowBox]}>
-          					<Text style={styles.safeareaviewText}>💊</Text>
-          					<Text style={styles.text2}>비타민 먹기</Text>
-        				</View>
-        				<View style={[styles.lineargradient5, styles.lineargradientShadowBox]}>
-          					<Text style={styles.safeareaviewText}>🚶️</Text>
-          					<Text style={styles.text2}>산책 10분하기</Text>
-        				</View>
-        				<View style={[styles.lineargradient6, styles.lineargradientShadowBox]}>
-          					<Text style={styles.safeareaviewText}>💊</Text>
-          					<Text style={styles.text2}>영양제 먹기</Text>
-        				</View>
-        				<View style={[styles.lineargradient7, styles.lineargradientShadowBox]}>
-          					<Text style={styles.safeareaviewText}>📖</Text>
-          					<Text style={styles.text2}>도서 30분 읽기</Text>
-        				</View>
-        				<View style={[styles.lineargradient8, styles.lineargradientShadowBox]}>
-          					<Text style={styles.safeareaviewText}>☀️</Text>
-          					<Text style={styles.text2}>오전 11시에 전에 일어나기</Text>
-        				</View>
-        				<View style={[styles.lineargradient9, styles.lineargradientShadowBox]}>
-          					<Text style={styles.safeareaviewText}>🧘‍♂️</Text>
-          					<Text style={styles.text2}>요가하기</Text>
-        				</View>
-        				<View style={[styles.lineargradient10, styles.lineargradientShadowBox]}>
-          					<Text style={styles.safeareaviewText}>🌙</Text>
-          					<Text style={styles.text2}>오전 1시에 전 취침하기</Text>
-        				</View>
-        				<View style={[styles.lineargradient11, styles.lineargradientShadowBox]}>
-          					<Text style={styles.safeareaviewText}>💊</Text>
-          					<Text style={styles.text2}>유산균 먹기</Text>
-        				</View>
-        				<View style={[styles.lineargradient12, styles.containerBorder]}>
-          					<Text style={styles.text2}>나의 루틴 만들기</Text>
-        				</View>
-        				<View style={[styles.lineargradient13, styles.lineargradientShadowBox]}>
-          					<Text style={styles.safeareaviewText}>🚶️</Text>
-          					<Text style={styles.text2}>동네 산책하기</Text>
-        				</View>
-        				<View style={[styles.lineargradient14, styles.lineargradientShadowBox]}>
-          					<Text style={styles.safeareaviewText}>💊</Text>
-          					<Text style={styles.text2}>영양제 먹기</Text>
-        				</View>
-        				<Image style={[styles.item, styles.itemPosition]} width={153} height={28} />
-        				<View style={[styles.lineargradient15, styles.childPosition]} />
-        				<View style={[styles.buttonWrap, styles.itemPosition]}>
-          					<View style={[styles.wrapper, styles.wrapperLayout]}>
-            						<Text style={[styles.text30, styles.textPosition]}>확인</Text>
-          					</View>
-          					<View style={[styles.container, styles.wrapperLayout]}>
-            						<Text style={[styles.text31, styles.textPosition]}>이전으로</Text>
-          					</View>
-        				</View>
-      			</View>
-    		</View>);
+    		    <View style={styles.safeareaview}>
+      {/* 고정되는 상단 로고 + 제목 */}
+      <Image
+        style={[styles.item, styles.itemPosition]}
+        width={153}
+        height={28} 
+        resizeMode="contain"
+        source={require("../../assets/images/bar2.png")}
+      />
+      <Text style={styles.text}>
+        {`당신에게 꼭 맞는\n루틴을 찾아드릴게요`}
+      </Text>
 
+      {/* 루틴 카드들만 스크롤 */}
+	  <View style={styles.scrollWrapper}>
+      <ScrollView style={styles.scrollArea} contentContainerStyle={styles.scrollContent}>
+        <Pressable style={[styles.lineargradientShadowBox]}>
+          //<Text style={styles.safeareaviewText}>📖</Text>
+          <Text style={styles.text2}>도서 30분 읽기</Text>
+        </Pressable>
 
+        <Pressable style={[styles.lineargradientShadowBox]}>
+          <Text style={styles.safeareaviewText}>☀️</Text>
+          <Text style={styles.text2}>오전 10시에 일어나기</Text>
+        </Pressable>
+
+        <Pressable style={[styles.lineargradientShadowBox]}>
+          <Text style={styles.safeareaviewText}>🧘‍♂️</Text>
+          <Text style={styles.text2}>명상 30분 하기</Text>
+        </Pressable>
+
+        <Pressable style={[styles.lineargradientShadowBox]}>
+          <Text style={styles.safeareaviewText}>🌙</Text>
+          <Text style={styles.text2}>오후 10시에 취침하기</Text>
+        </Pressable>
+
+        <Pressable style={[styles.lineargradientShadowBox]}>
+          <Text style={styles.safeareaviewText}>💊</Text>
+          <Text style={styles.text2}>비타민 먹기</Text>
+        </Pressable>
+
+        <Pressable style={[styles.lineargradientShadowBox]}>
+          <Text style={styles.safeareaviewText}>🚶️</Text>
+          <Text style={styles.text2}>산책 10분하기</Text>
+        </Pressable>
+
+        <Pressable style={[styles.lineargradientShadowBox]}>
+          <Text style={styles.safeareaviewText}>💊</Text>
+          <Text style={styles.text2}>영양제 먹기</Text>
+        </Pressable>
+
+        <Pressable style={[styles.lineargradientShadowBox]}>
+          <Text style={styles.safeareaviewText}>☀️</Text>
+          <Text style={styles.text2}>오전 11시에 전에 일어나기</Text>
+        </Pressable>
+
+        <Pressable style={[styles.lineargradientShadowBox]}>
+          <Text style={styles.safeareaviewText}>🧘‍♂️</Text>
+          <Text style={styles.text2}>요가하기</Text>
+        </Pressable>
+
+        <Pressable style={[styles.lineargradientShadowBox]}>
+          <Text style={styles.safeareaviewText}>🌙</Text>
+          <Text style={styles.text2}>오전 1시에 전 취침하기</Text>
+        </Pressable>
+
+        <Pressable style={[styles.lineargradientShadowBox]}>
+          <Text style={styles.safeareaviewText}>💊</Text>
+          <Text style={styles.text2}>유산균 먹기</Text>
+        </Pressable>
+
+        <Pressable style={[styles.lineargradientShadowBox]}>
+          <Text style={styles.text2}>나의 루틴 만들기</Text>
+        </Pressable>
+      </ScrollView>
+	  </View>
+
+      {/* 고정되는 하단 버튼 */}
+      <View style={[styles.buttonWrap, styles.itemPosition]}>
+        <View style={[styles.wrapper, styles.wrapperLayout]}>
+          <Text style={[styles.text30, styles.textPosition]}>확인</Text>
+        </View>
+        <View style={[styles.container, styles.wrapperLayout]}>
+          <Text style={[styles.text31, styles.textPosition]}>이전으로</Text>
+        </View>
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -113,11 +126,9 @@ const styles = StyleSheet.create({
     		},
     		shadowColor: "rgba(70, 75, 83, 0.12)",
     		boxShadow: "0px 0px 4px rgba(70, 75, 83, 0.12)",
-    		right: 20,
-    		left: 20,
-    		backgroundColor: "transparent",
-    		position: "absolute",
-    		overflow: "hidden"
+    		backgroundColor: "#fafafa",
+			marginHorizontal: 20,
+			marginVertical: 10,
   	},
   	containerBorder: {
     		borderWidth: 1,
@@ -143,8 +154,8 @@ const styles = StyleSheet.create({
     		letterSpacing: -0.43,
     		fontSize: 14,
     		textAlign: "center",
-    		fontFamily: "NanumSquare Neo",
-    		fontWeight: "700",
+    		fontFamily: "NanumSquareNeo-Bd",
+    		fontWeight: "600",
     		position: "absolute"
   	},
   	view: {
@@ -163,8 +174,8 @@ const styles = StyleSheet.create({
     		lineHeight: 28,
     		textAlign: "left",
     		color: "#26282c",
-    		fontFamily: "NanumSquare Neo",
-    		fontWeight: "700",
+    		fontFamily: "NanumSquareNeo-Bd",
+    		fontWeight: "600",
     		letterSpacing: -0.26,
     		fontSize: 20,
     		left: 20,
@@ -177,7 +188,7 @@ const styles = StyleSheet.create({
     		lineHeight: 25,
     		color: "#000",
     		textAlign: "center",
-    		fontFamily: "NanumSquare Neo",
+    		fontFamily: "NanumSquareNeo-Rg",
     		letterSpacing: -0.26,
     		fontSize: 20
   	},
@@ -187,40 +198,7 @@ const styles = StyleSheet.create({
     		fontSize: 14,
     		textAlign: "center",
     		color: "#26282c",
-    		fontFamily: "NanumSquare Neo"
-  	},
-  	safeareaviewLineargradient: {
-    		top: 488
-  	},
-  	lineargradient2: {
-    		top: 272
-  	},
-  	lineargradient3: {
-    		top: 560
-  	},
-  	lineargradient4: {
-    		top: 632
-  	},
-  	lineargradient5: {
-    		top: 344
-  	},
-  	lineargradient6: {
-    		top: 416
-  	},
-  	lineargradient7: {
-    		top: 704
-  	},
-  	lineargradient8: {
-    		top: 992
-  	},
-  	lineargradient9: {
-    		top: 776
-  	},
-  	lineargradient10: {
-    		top: 1064
-  	},
-  	lineargradient11: {
-    		top: 1136
+    		fontFamily: "NanumSquareNeo-Rg"
   	},
   	lineargradient12: {
     		top: 1208,
@@ -254,7 +232,7 @@ const styles = StyleSheet.create({
   	},
   	item: {
     		marginLeft: -77,
-    		top: 50,
+    		top: 60,
     		width: 153,
     		height: 28
   	},
@@ -273,9 +251,9 @@ const styles = StyleSheet.create({
     		backgroundColor: "#f8f8f8"
   	},
   	wrapper: {
-    		left: 114,
+    		left: 96,
     		backgroundColor: "rgba(28, 30, 31, 0.25)",
-    		width: 226
+    		width: 260
   	},
   	text30: {
     		marginLeft: -14,
@@ -283,13 +261,30 @@ const styles = StyleSheet.create({
   	},
   	container: {
     		borderColor: "#cacdd3",
-    		width: 82,
+    		width: 90,
     		borderWidth: 1,
     		borderStyle: "solid",
-    		left: 20
+    		left: 0,
   	},
   	text31: {
     		marginLeft: -27,
     		color: "#9ea4a9"
-  	}
+  	},header: {
+  height: 120,         // 글씨 + 로고 영역 높이
+  paddingHorizontal: 20,
+  justifyContent: "flex-end", // 글씨 밑으로 배치
+  zIndex: 1,
+},
+scrollWrapper: {
+  flex: 1,
+  marginTop: 120,      // header 높이만큼 아래에서 시작
+  overflow: "hidden",  // 스크롤이 header 위로 올라가지 않음
+},
+scrollContent: {
+  paddingBottom: 120,  // 하단 버튼 영역 확보
+},
+   scrollArea: {
+  flex: 1,
+  marginTop: 60,
+},
 });

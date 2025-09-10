@@ -73,7 +73,7 @@ export default function GenerateRoutine2() {
   ]}
   onPress={() => {
     if (selectedCard !== null) {
-      router.push("../generateroutine1"); // 원하는 페이지 경로로 이동
+      router.push("../generateroutine3"); // 원하는 페이지 경로로 이동
     }
   }}
 >

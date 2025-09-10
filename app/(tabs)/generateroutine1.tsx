@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginRight: 10,
         flex: 1,
-        fontSize: 14,
+        fontSize: 18,
         color: "#26282c",
         textAlignVertical: "top",
     },

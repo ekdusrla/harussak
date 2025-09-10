@@ -47,7 +47,7 @@ export default function GenerateRoutine2() {
     key={index}
     style={[
       styles.lineargradientShadowBox,
-	  card.text === "나의 루틴 만들기" && { backgroundColor: "#FFD700" },
+	  card.text === "나의 루틴 만들기" && { backgroundColor: "#F8E1E1" },
       selectedCard === index && { backgroundColor: "#EBF5E3" } // 배경색 변경
     ]}
     onPress={() => setSelectedCard(index)}
@@ -66,19 +66,19 @@ export default function GenerateRoutine2() {
 	  </View>
       <View style={[styles.buttonWrap, styles.itemPosition]}>
         <Pressable
-  style={[
-    styles.wrapper,
-    styles.wrapperLayout,
-    selectedCard !== null && { backgroundColor: "#91E04C" } // 카드 선택 시 연두색
-  ]}
-  onPress={() => {
-    if (selectedCard !== null) {
-      router.push("../generateroutine3"); // 원하는 페이지 경로로 이동
-    }
-  }}
->
-  <Text style={[styles.text30, styles.textPosition]}>확인</Text>
-</Pressable>
+			style={[
+				styles.wrapper,
+				styles.wrapperLayout,
+				selectedCard !== null && { backgroundColor: "#91E04C" } // 카드 선택 시 연두색
+			]}
+			onPress={() => {
+				if (selectedCard !== null) {
+				router.push("../generateroutine3"); // 원하는 페이지 경로로 이동
+				}
+			}}
+			>
+			<Text style={[styles.text30, styles.textPosition]}>확인</Text>
+		</Pressable>
         <Pressable style={[styles.container, styles.wrapperLayout]} onPress={()=>router.push("../generateroutine1")}>
           <Text style={[styles.text31, styles.textPosition] }>이전으로</Text>
         </Pressable>
@@ -234,15 +234,15 @@ const styles = StyleSheet.create({
     		marginLeft: -180,
     		bottom: 0,
     		height: 80,
-    		width: 360,
+    		width: 400,
     		left: "50%",
     		overflow: "hidden",
     		backgroundColor: "#f8f8f8"
   	},
   	wrapper: {
-    		left: 96,
+    		left: 114,
     		backgroundColor: "rgba(28, 30, 31, 0.25)",
-    		width: 260
+    		width: 250
   	},
   	text30: {
     		marginLeft: -14,
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
   	},
   	container: {
     		borderColor: "#cacdd3",
-    		width: 90,
+    		width: 104,
     		borderWidth: 1,
     		borderStyle: "solid",
     		left: 0,

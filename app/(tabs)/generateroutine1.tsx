@@ -143,13 +143,13 @@ const styles = StyleSheet.create({
   	buttonWrap: {
     		marginLeft: -180,
     		top: 700,
-    		height: 80,
+    		height: 120,
     		width: 360,
     		overflow: "hidden",
     		backgroundColor: "#f8f8f8"
   	},
   	wrapper: {
-    		top: 18,
+    		bottom: 0,
             marginLeft: -20,
     		borderRadius: 8,
     		backgroundColor: "#C1C1C2",

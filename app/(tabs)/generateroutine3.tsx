@@ -1,6 +1,7 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Image, Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Calendar } from "react-native-calendars";
 
 export default function GenerateRoutine3() {
 
@@ -10,6 +11,9 @@ export default function GenerateRoutine3() {
 	const router = useRouter();
 	const [selectedDays, setSelectedDays] = useState<string[]>([]);
 	const { routineText } = useLocalSearchParams<{ routineText?: string }>();
+
+	const [modalVisible, setModalVisible] = useState(false);
+    const [selectedDates, setSelectedDates] = useState<string[]>([]);
 
 	const toggleDay = (day: string) => {
   		setSelectedDays((prev) =>
@@ -24,6 +28,64 @@ export default function GenerateRoutine3() {
       setRoutine(""); // placeholder 보여주기 위해 빈 값
     }
   }, [routineText]);
+
+
+  	const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const todayString = today.toISOString().split("T")[0];
+
+  // 날짜 선택 핸들러
+  const handleDayPress = (day: any) => {
+    const dayDate = new Date(day.dateString);
+    dayDate.setHours(0, 0, 0, 0);
+
+    // 오늘 이전 날짜 무시
+    if (dayDate < today) return;
+
+    let newSelectedDates = [...selectedDates];
+
+    // 최대 2개까지만
+    if (newSelectedDates.length === 2) newSelectedDates = [];
+
+    newSelectedDates.push(day.dateString);
+    setSelectedDates(newSelectedDates);
+  };
+
+  // markedDates 생성
+  const getMarkedDates = () => {
+    const marks: { [date: string]: any } = {};
+
+    if (selectedDates.length === 0) {
+      marks[todayString] = { marked: true, dotColor: "#91E04C" };
+      return marks;
+    }
+
+    // 날짜 정렬
+    const sortedDates = [...selectedDates].sort();
+    const startDate = new Date(sortedDates[0]);
+    const endDate = selectedDates.length === 2 ? new Date(sortedDates[1]) : startDate;
+
+    let d = new Date(startDate);
+    while (d <= endDate) {
+      const dateStr = d.toISOString().split("T")[0];
+
+      if (d.getTime() === startDate.getTime()) {
+        marks[dateStr] = { startingDay: true, color: "#91E04C", textColor: "white" };
+      } else if (d.getTime() === endDate.getTime()) {
+        marks[dateStr] = { endingDay: true, color: "#91E04C", textColor: "white" };
+      } else {
+        marks[dateStr] = { color: "#91E04C", textColor: "white" };
+      }
+
+      d.setDate(d.getDate() + 1);
+    }
+
+    return marks;
+  };
+
+
+
+
 
     return (
         <View style={styles.safeareaview}>
@@ -77,14 +139,46 @@ export default function GenerateRoutine3() {
 					<Text style={[styles.text11, styles.textTypo]}>토</Text>
 					</Pressable>
                     <Pressable
-					style={[styles.iconCalendarParent, styles.iconLayout]}
-					>
+						style={[styles.iconCalendarParent, styles.iconLayout]}
+							onPress={() => setModalVisible(true)} // 여기서 팝업 열기
+							>
 					<Image
 						style={[styles.iconCalendar, styles.iconLayout]}
 						resizeMode="cover"
 						source={require("../../assets/images/calendar.png")}
 					/>
 					</Pressable>
+
+					<Modal
+        transparent={true}
+        visible={modalVisible}
+        animationType="fade"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalWrapper}>
+          <View style={styles.modalContent}>
+            <Calendar
+              style={styles.calendar}
+              markedDates={getMarkedDates()}
+              markingType="period"
+              onDayPress={handleDayPress}
+              theme={{
+                selectedDayBackgroundColor: "#E5F8D4",
+                selectedDayTextColor: "#51C878",
+                dotColor: "#91E04C",
+                arrowColor: "#91E04C",
+                todayTextColor: "#91E04C",
+                textDayFontSize: 14,
+                textMonthFontSize: 16,
+                textDayHeaderFontSize: 12,
+              }}
+            />
+          </View>
+          <Pressable style={[styles.button, { marginTop: -44 }]} onPress={() => setModalVisible(false)}>
+              <Text style={styles.buttonText}>닫기</Text>
+            </Pressable>
+        </View>
+      </Modal>
 
                     <Image style={[styles.frameIcon, styles.frameIconPosition]} width={153} height={28} source={require("../../assets/images/bar3.png")}/>
                     <View style={[styles.wrapper5, styles.wrapperFlexBox]}>
@@ -423,6 +517,32 @@ const styles = StyleSheet.create({
 	marginHorizontal: 4,
 	backgroundColor: "#f8f8f8", // 기본 회색 배경
 	},
+	button: { backgroundColor: "#91E04C", padding: 8, borderRadius: 6 },
+  buttonText: { color: "white", fontSize: 14, textAlign: "center" },
+
+  modalWrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  modalContent: {
+    backgroundColor: "white",
+    borderRadius: 12,
+    padding: 15,
+    alignItems: "center",
+    width: 300,
+    height: 430,
+    justifyContent: "flex-start",
+
+    // 그림자 (Android)
+    elevation: 5,
+  },
+
+  calendar: {
+    width: "100%",
+  },
+
 
 
 });

@@ -1,5 +1,5 @@
-import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function GenerateRoutine3() {
@@ -9,12 +9,19 @@ export default function GenerateRoutine3() {
 	const [period, setPeriod] = useState("");
 	const router = useRouter();
 	const [selectedDays, setSelectedDays] = useState<string[]>([]);
+	const { routineText } = useLocalSearchParams<{ routineText?: string }>();
 
 	const toggleDay = (day: string) => {
-  setSelectedDays((prev) =>
-    prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
-  );
-};
+  		setSelectedDays((prev) =>
+    		prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
+		);
+	};
+
+	useEffect(() => {
+		if (routineText) {
+		setRoutine(routineText); // 카드 글씨를 초기값으로 설정
+		}
+	}, [routineText]);
 
     return (
         <View style={styles.safeareaview}>
@@ -80,12 +87,13 @@ export default function GenerateRoutine3() {
                     <Image style={[styles.frameIcon, styles.frameIconPosition]} width={153} height={28} source={require("../../assets/images/bar3.png")}/>
                     <View style={[styles.wrapper5, styles.wrapperFlexBox]}>
                     <TextInput
-                        style={[styles.textInput, styles.textTypo1]}
-                        placeholder="반복하고 싶은 습관을 적어주세요"
+						style={[styles.textInput, styles.textTypo1]}
+						placeholder="반복하고 싶은 습관을 적어주세요"
 						placeholderTextColor={"#CACDD3"}
-                        value={routine}
-                        onChangeText={setRoutine}
-                    />
+						value={routine}        // 초기값 + 사용자 수정 가능
+						onChangeText={setRoutine} // 사용자가 수정 가능
+						/>
+
                 </View>
                     <View style={[styles.wrapper6, styles.wrapperFlexBox]}>
                     <TextInput
@@ -162,7 +170,7 @@ const styles = StyleSheet.create({
   	textTypo: {
     		lineHeight: 21,
     		letterSpacing: -0.41,
-    		fontSize: 18,
+    		fontSize: 16,
     		textAlign: "center",
     		fontFamily: "NanumSquareNeo-Rg"
   	},

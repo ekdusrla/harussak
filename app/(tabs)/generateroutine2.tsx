@@ -25,6 +25,8 @@ export default function GenerateRoutine2() {
 ];
 
 
+
+
         return (
     		    <View style={styles.safeareaview}>
       {/* 고정되는 상단 로고 + 제목 */}
@@ -69,16 +71,21 @@ export default function GenerateRoutine2() {
 			style={[
 				styles.wrapper,
 				styles.wrapperLayout,
-				selectedCard !== null && { backgroundColor: "#91E04C" } // 카드 선택 시 연두색
+				selectedCard !== null && { backgroundColor: "#91E04C" }
 			]}
 			onPress={() => {
 				if (selectedCard !== null) {
-				router.push("../generateroutine3"); // 원하는 페이지 경로로 이동
+				router.push({
+					pathname: "../generateroutine3",
+					params: { routineText: cards[selectedCard].text },
+				});
 				}
 			}}
 			>
 			<Text style={[styles.text30, styles.textPosition]}>확인</Text>
-		</Pressable>
+			</Pressable>
+
+
         <Pressable style={[styles.container, styles.wrapperLayout]} onPress={()=>router.push("../generateroutine1")}>
           <Text style={[styles.text31, styles.textPosition] }>이전으로</Text>
         </Pressable>
@@ -86,6 +93,8 @@ export default function GenerateRoutine2() {
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   	safeareaview: {

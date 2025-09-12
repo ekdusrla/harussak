@@ -8,6 +8,13 @@ export default function GenerateRoutine3() {
 	const [routine, setRoutine] = useState("");
 	const [period, setPeriod] = useState("");
 	const router = useRouter();
+	const [selectedDays, setSelectedDays] = useState<string[]>([]);
+
+	const toggleDay = (day: string) => {
+  setSelectedDays((prev) =>
+    prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
+  );
+};
 
     return (
         <View style={styles.safeareaview}>
@@ -18,30 +25,58 @@ export default function GenerateRoutine3() {
                     <Text style={[styles.text2, styles.textTypo1]}>루틴</Text>
                     <Text style={[styles.text3, styles.textTypo1]}>루틴 기간</Text>
                     <Text style={[styles.text4, styles.textTypo1]}>반복 주기</Text>
-                    <View style={[styles.wrapper, styles.frameWrapperFlexBox]}>
-                        <Text style={[styles.text5, styles.textTypo]}>일</Text>
-                    </View>
-                    <View style={[styles.container, styles.frameWrapperFlexBox]}>
-                        <Text style={[styles.text6, styles.textTypo]}>월</Text>
-                    </View>
-                    <View style={[styles.frame, styles.frameWrapperFlexBox]}>
-                        <Text style={[styles.text6, styles.textTypo]}>화</Text>
-                    </View>
-                    <View style={[styles.frameView, styles.frameWrapperFlexBox]}>
-                        <Text style={[styles.text6, styles.textTypo]}>수</Text>
-                    </View>
-                    <View style={[styles.safeareaviewWrapper, styles.frameWrapperFlexBox]}>
-                        <Text style={[styles.text6, styles.textTypo]}>목</Text>
-                    </View>
-                    <View style={[styles.wrapper2, styles.frameWrapperFlexBox]}>
-                        <Text style={[styles.text6, styles.textTypo]}>금</Text>
-                    </View>
-                    <View style={[styles.wrapper3, styles.frameWrapperFlexBox]}>
-                        <Text style={[styles.text11, styles.textTypo]}>토</Text>
-                    </View>
-                    <View style={[styles.iconCalendarParent, styles.iconLayout]}>
-                        <Image style={[styles.iconCalendar, styles.iconLayout]} resizeMode="cover" source={require('../../assets/images/calendar.png')} />
-                    </View>
+					<Pressable
+					style={[styles.dayButton, styles.wrapper, styles.frameWrapperFlexBox, selectedDays.includes("일") && styles.daySelected]}
+					onPress={() => toggleDay("일")}
+					>
+					<Text style={[styles.text5, styles.textTypo]}>일</Text>
+					</Pressable>
+					<Pressable
+					style={[styles.dayButton, styles.container, styles.frameWrapperFlexBox, selectedDays.includes("월") && styles.daySelected]}
+					onPress={() => toggleDay("월")}
+					>
+					<Text style={[styles.text6, styles.textTypo]}>월</Text>
+					</Pressable>
+					<Pressable
+					style={[styles.dayButton, styles.frame, styles.frameWrapperFlexBox, selectedDays.includes("화") && styles.daySelected]}
+					onPress={() => toggleDay("화")}
+					>
+					<Text style={[styles.text6, styles.textTypo]}>화</Text>
+					</Pressable>
+					<Pressable
+					style={[styles.dayButton, styles.frameView, styles.frameWrapperFlexBox, selectedDays.includes("수") && styles.daySelected]}
+					onPress={() => toggleDay("수")}
+					>
+					<Text style={[styles.text6, styles.textTypo]}>수</Text>
+					</Pressable>
+					<Pressable
+					style={[styles.dayButton, styles.safeareaviewWrapper, styles.frameWrapperFlexBox, selectedDays.includes("목") && styles.daySelected]}
+					onPress={() => toggleDay("목")}
+					>
+					<Text style={[styles.text6, styles.textTypo]}>목</Text>
+					</Pressable>
+					<Pressable
+					style={[styles.dayButton, styles.wrapper2, styles.frameWrapperFlexBox, selectedDays.includes("금") && styles.daySelected]}
+					onPress={() => toggleDay("금")}
+					>
+					<Text style={[styles.text6, styles.textTypo]}>금</Text>
+					</Pressable>
+					<Pressable
+					style={[styles.dayButton, styles.wrapper3, styles.frameWrapperFlexBox, selectedDays.includes("토") && styles.daySelected]}
+					onPress={() => toggleDay("토")}
+					>
+					<Text style={[styles.text11, styles.textTypo]}>토</Text>
+					</Pressable>
+                    <Pressable
+					style={[styles.iconCalendarParent, styles.iconLayout]}
+					>
+					<Image
+						style={[styles.iconCalendar, styles.iconLayout]}
+						resizeMode="cover"
+						source={require("../../assets/images/calendar.png")}
+					/>
+					</Pressable>
+
                     <Image style={[styles.frameIcon, styles.frameIconPosition]} width={153} height={28} source={require("../../assets/images/bar3.png")}/>
                     <View style={[styles.wrapper5, styles.wrapperFlexBox]}>
                     <TextInput
@@ -70,7 +105,8 @@ export default function GenerateRoutine3() {
                         </Pressable>
                     </View>
             </View>
-        </View>);
+        </View>
+		);
 
 }
 
@@ -126,7 +162,7 @@ const styles = StyleSheet.create({
   	textTypo: {
     		lineHeight: 21,
     		letterSpacing: -0.41,
-    		fontSize: 15,
+    		fontSize: 18,
     		textAlign: "center",
     		fontFamily: "NanumSquareNeo-Rg"
   	},
@@ -363,5 +399,20 @@ const styles = StyleSheet.create({
 		color: "#26282C",
 		fontFamily: "NanumSquareNeo-Rg"
 	},
+	daySelected: {
+	backgroundColor: "#F9EEED",
+	borderColor: "#FBCBC9",
+	borderWidth: 0.5, // 선택되면 빨간 원
+	},
+	dayButton: {
+	width: 40,
+	height: 40,
+	borderRadius: 20,
+	justifyContent: "center",
+	alignItems: "center",
+	marginHorizontal: 4,
+	backgroundColor: "#f8f8f8", // 기본 회색 배경
+	},
+
 
 });

@@ -18,10 +18,12 @@ export default function GenerateRoutine3() {
 	};
 
 	useEffect(() => {
-		if (routineText) {
-		setRoutine(routineText); // 카드 글씨를 초기값으로 설정
-		}
-	}, [routineText]);
+    if (routineText && routineText !== "나의 루틴 만들기") {
+      setRoutine(routineText); // 카드 글씨를 초기값으로 세팅
+    } else {
+      setRoutine(""); // placeholder 보여주기 위해 빈 값
+    }
+  }, [routineText]);
 
     return (
         <View style={styles.safeareaview}>
@@ -87,12 +89,12 @@ export default function GenerateRoutine3() {
                     <Image style={[styles.frameIcon, styles.frameIconPosition]} width={153} height={28} source={require("../../assets/images/bar3.png")}/>
                     <View style={[styles.wrapper5, styles.wrapperFlexBox]}>
                     <TextInput
-						style={[styles.textInput, styles.textTypo1]}
-						placeholder="반복하고 싶은 습관을 적어주세요"
-						placeholderTextColor={"#CACDD3"}
-						value={routine}        // 초기값 + 사용자 수정 가능
-						onChangeText={setRoutine} // 사용자가 수정 가능
-						/>
+						style={styles.textInput}
+						value={routine} // 카드 글씨 또는 빈 값
+						onChangeText={setRoutine} // 수정 가능
+						placeholder={routineText === "나의 루틴 만들기" ? "반복하고 싶은 습관을 적어주세요" : ""}
+						placeholderTextColor="#CACDD3"
+					/>
 
                 </View>
                     <View style={[styles.wrapper6, styles.wrapperFlexBox]}>

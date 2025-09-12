@@ -391,7 +391,7 @@ const styles = StyleSheet.create({
   	},
   	wrapper8: {
     		borderColor: "#cacdd3",
-    		width: 110,
+    		width: 104,
     		borderWidth: 1,
     		borderStyle: "solid",
     		left: 0,

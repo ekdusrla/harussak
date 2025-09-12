@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     		backgroundColor: "#f8f8f8"
   	},
   	wrapper: {
-    		bottom: 0,
+    		bottom: 34,
             marginLeft: -20,
     		borderRadius: 8,
     		backgroundColor: "#C1C1C2",

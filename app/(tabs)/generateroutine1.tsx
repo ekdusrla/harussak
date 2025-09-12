@@ -8,7 +8,6 @@ export default function GenerateRoutine1() {
 
     const [text, setText] = useState("");
     const maxLength = 1000;
-    const [isSubmitted, setIsSubmitted] = useState(false);
 
 	const router = useRouter();
 
@@ -46,7 +45,7 @@ export default function GenerateRoutine1() {
 							onPress={() => {
 								// 글자 수가 1~1000일 때만 이동
 								if (text.length > 0 && text.length <= 1000) {
-								router.push("./generateroutine2"); // 이동할 페이지 경로
+								router.push("../generateroutine2"); // 이동할 페이지 경로
 								}
 							}}
 							>

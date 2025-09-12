@@ -36,20 +36,37 @@ export default function GenerateRoutine3() {
 
   // 날짜 선택 핸들러
   const handleDayPress = (day: any) => {
-    const dayDate = new Date(day.dateString);
-    dayDate.setHours(0, 0, 0, 0);
+  const dayDate = new Date(day.dateString);
+  dayDate.setHours(0, 0, 0, 0);
 
-    // 오늘 이전 날짜 무시
-    if (dayDate < today) return;
+  // 오늘 이전 날짜 무시
+  if (dayDate < today) return;
 
-    let newSelectedDates = [...selectedDates];
+  let newSelectedDates = [...selectedDates];
 
-    // 최대 2개까지만
-    if (newSelectedDates.length === 2) newSelectedDates = [];
+  // 최대 2개까지만
+  if (newSelectedDates.length === 2) newSelectedDates = [];
 
-    newSelectedDates.push(day.dateString);
-    setSelectedDates(newSelectedDates);
-  };
+  newSelectedDates.push(day.dateString);
+  setSelectedDates(newSelectedDates);
+
+  // 선택한 날짜 2개면 period 업데이트
+  if (newSelectedDates.length === 2) {
+    const sorted = [...newSelectedDates].sort(); // 순서 정렬
+    const start = new Date(sorted[0]);
+    const end = new Date(sorted[1]);
+    const formatDate = (d: Date) =>
+      `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
+    setPeriod(`${formatDate(start)}~${formatDate(end)}`);
+  } else if (newSelectedDates.length === 1) {
+    // 한 날짜만 선택 시
+    const d = new Date(newSelectedDates[0]);
+    const formatDate = (d: Date) =>
+      `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
+    setPeriod(`${formatDate(d)}~`);
+  }
+};
+
 
   // markedDates 생성
   const getMarkedDates = () => {
@@ -84,77 +101,73 @@ export default function GenerateRoutine3() {
   };
 
 
-
-
-
     return (
         <View style={styles.safeareaview}>
             <View style={[styles.view, styles.viewBg]}>
-                    <View style={[styles.rectangleLineargradient, styles.child4Border]}/>
-                    <View style={[styles.child4, styles.child4Layout]}/>
-                    <Text style={styles.text}>기간을 설정해주세요</Text>
-                    <Text style={[styles.text2, styles.textTypo1]}>루틴</Text>
-                    <Text style={[styles.text3, styles.textTypo1]}>루틴 기간</Text>
-                    <Text style={[styles.text4, styles.textTypo1]}>반복 주기</Text>
-					<Pressable
-					style={[styles.dayButton, styles.wrapper, styles.frameWrapperFlexBox, selectedDays.includes("일") && styles.daySelected]}
-					onPress={() => toggleDay("일")}
-					>
-					<Text style={[styles.text5, styles.textTypo]}>일</Text>
-					</Pressable>
-					<Pressable
-					style={[styles.dayButton, styles.container, styles.frameWrapperFlexBox, selectedDays.includes("월") && styles.daySelected]}
-					onPress={() => toggleDay("월")}
-					>
-					<Text style={[styles.text6, styles.textTypo]}>월</Text>
-					</Pressable>
-					<Pressable
-					style={[styles.dayButton, styles.frame, styles.frameWrapperFlexBox, selectedDays.includes("화") && styles.daySelected]}
-					onPress={() => toggleDay("화")}
-					>
-					<Text style={[styles.text6, styles.textTypo]}>화</Text>
-					</Pressable>
-					<Pressable
-					style={[styles.dayButton, styles.frameView, styles.frameWrapperFlexBox, selectedDays.includes("수") && styles.daySelected]}
-					onPress={() => toggleDay("수")}
-					>
-					<Text style={[styles.text6, styles.textTypo]}>수</Text>
-					</Pressable>
-					<Pressable
-					style={[styles.dayButton, styles.safeareaviewWrapper, styles.frameWrapperFlexBox, selectedDays.includes("목") && styles.daySelected]}
-					onPress={() => toggleDay("목")}
-					>
-					<Text style={[styles.text6, styles.textTypo]}>목</Text>
-					</Pressable>
-					<Pressable
-					style={[styles.dayButton, styles.wrapper2, styles.frameWrapperFlexBox, selectedDays.includes("금") && styles.daySelected]}
-					onPress={() => toggleDay("금")}
-					>
-					<Text style={[styles.text6, styles.textTypo]}>금</Text>
-					</Pressable>
-					<Pressable
-					style={[styles.dayButton, styles.wrapper3, styles.frameWrapperFlexBox, selectedDays.includes("토") && styles.daySelected]}
-					onPress={() => toggleDay("토")}
-					>
-					<Text style={[styles.text11, styles.textTypo]}>토</Text>
-					</Pressable>
-                    <Pressable
-						style={[styles.iconCalendarParent, styles.iconLayout]}
-							onPress={() => setModalVisible(true)} // 여기서 팝업 열기
-							>
-					<Image
-						style={[styles.iconCalendar, styles.iconLayout]}
-						resizeMode="cover"
-						source={require("../../assets/images/calendar.png")}
-					/>
-					</Pressable>
-
-					<Modal
-        transparent={true}
-        visible={modalVisible}
-        animationType="fade"
-        onRequestClose={() => setModalVisible(false)}
-      >
+				<View style={[styles.rectangleLineargradient, styles.child4Border]}/>
+				<View style={[styles.child4, styles.child4Layout]}/>
+				<Text style={styles.text}>기간을 설정해주세요</Text>
+				<Text style={[styles.text2, styles.textTypo1]}>루틴</Text>
+				<Text style={[styles.text3, styles.textTypo1]}>루틴 기간</Text>
+				<Text style={[styles.text4, styles.textTypo1]}>반복 주기</Text>
+				<Pressable
+				style={[styles.dayButton, styles.wrapper, styles.frameWrapperFlexBox, selectedDays.includes("일") && styles.daySelected]}
+				onPress={() => toggleDay("일")}
+				>
+				<Text style={[styles.text5, styles.textTypo]}>일</Text>
+				</Pressable>
+				<Pressable
+				style={[styles.dayButton, styles.container, styles.frameWrapperFlexBox, selectedDays.includes("월") && styles.daySelected]}
+				onPress={() => toggleDay("월")}
+				>
+				<Text style={[styles.text6, styles.textTypo]}>월</Text>
+				</Pressable>
+				<Pressable
+				style={[styles.dayButton, styles.frame, styles.frameWrapperFlexBox, selectedDays.includes("화") && styles.daySelected]}
+				onPress={() => toggleDay("화")}
+				>
+				<Text style={[styles.text6, styles.textTypo]}>화</Text>
+				</Pressable>
+				<Pressable
+				style={[styles.dayButton, styles.frameView, styles.frameWrapperFlexBox, selectedDays.includes("수") && styles.daySelected]}
+				onPress={() => toggleDay("수")}
+				>
+				<Text style={[styles.text6, styles.textTypo]}>수</Text>
+				</Pressable>
+				<Pressable
+				style={[styles.dayButton, styles.safeareaviewWrapper, styles.frameWrapperFlexBox, selectedDays.includes("목") && styles.daySelected]}
+				onPress={() => toggleDay("목")}
+				>
+				<Text style={[styles.text6, styles.textTypo]}>목</Text>
+				</Pressable>
+				<Pressable
+				style={[styles.dayButton, styles.wrapper2, styles.frameWrapperFlexBox, selectedDays.includes("금") && styles.daySelected]}
+				onPress={() => toggleDay("금")}
+				>
+				<Text style={[styles.text6, styles.textTypo]}>금</Text>
+				</Pressable>
+				<Pressable
+				style={[styles.dayButton, styles.wrapper3, styles.frameWrapperFlexBox, selectedDays.includes("토") && styles.daySelected]}
+				onPress={() => toggleDay("토")}
+				>
+				<Text style={[styles.text11, styles.textTypo]}>토</Text>
+				</Pressable>
+				<Pressable
+					style={[styles.iconCalendarParent, styles.iconLayout]}
+						onPress={() => setModalVisible(true)} // 여기서 팝업 열기
+						>
+				<Image
+					style={[styles.iconCalendar, styles.iconLayout]}
+					resizeMode="cover"
+					source={require("../../assets/images/calendar.png")}
+				/>
+				</Pressable>
+				<Modal
+					transparent={true}
+					visible={modalVisible}
+					animationType="fade"
+					onRequestClose={() => setModalVisible(false)}
+				>
         <View style={styles.modalWrapper}>
           <View style={styles.modalContent}>
             <Calendar
@@ -179,38 +192,36 @@ export default function GenerateRoutine3() {
             </Pressable>
         </View>
       </Modal>
-
-                    <Image style={[styles.frameIcon, styles.frameIconPosition]} width={153} height={28} source={require("../../assets/images/bar3.png")}/>
-                    <View style={[styles.wrapper5, styles.wrapperFlexBox]}>
-                    <TextInput
-						style={styles.textInput}
-						value={routine} // 카드 글씨 또는 빈 값
-						onChangeText={setRoutine} // 수정 가능
-						placeholder={routineText === "나의 루틴 만들기" ? "반복하고 싶은 습관을 적어주세요" : ""}
-						placeholderTextColor="#CACDD3"
+			<Image style={[styles.frameIcon, styles.frameIconPosition]} width={153} height={28} source={require("../../assets/images/bar3.png")}/>
+			<View style={[styles.wrapper5, styles.wrapperFlexBox]}>
+			<TextInput
+				style={styles.textInput}
+				value={routine} // 카드 글씨 또는 빈 값
+				onChangeText={setRoutine} // 수정 가능
+				placeholder={routineText === "나의 루틴 만들기" ? "반복하고 싶은 습관을 적어주세요" : ""}
+				placeholderTextColor="#CACDD3"
+			/>
+			</View>
+				<View style={[styles.wrapper6, styles.wrapperFlexBox]}>
+				<TextInput
+					style={[styles.textInput, styles.textTypo1]}
+					placeholder="당신의 루틴 언제까지 할까요?"
+					placeholderTextColor={"#CACDD3"}
+					value={period}
+					editable={false} // 읽기 전용으로 변경
 					/>
-
-                </View>
-                    <View style={[styles.wrapper6, styles.wrapperFlexBox]}>
-                    <TextInput
-                        style={[styles.textInput, styles.textTypo1]}
-                        placeholder="당신의 루틴 언제까지 할까요?"
-						placeholderTextColor={"#CACDD3"}
-                        value={period}
-                        onChangeText={setPeriod}
-                    />
-                </View>
-                    <View style={[styles.buttonWrap, styles.frameIconPosition]}>
-                        <Pressable style={[styles.wrapper7, styles.wrapperLayout]}>
-                                <Text style={[styles.text15, styles.textPosition]}>확인</Text>
-                        </Pressable>
-                        <Pressable style={[styles.wrapper8, styles.wrapperLayout]} onPress={()=>router.push("../generateroutine2")}>
-                                <Text style={[styles.text16, styles.textPosition]}>이전으로</Text>
-                        </Pressable>
-                    </View>
+			</View>
+				<View style={[styles.buttonWrap, styles.frameIconPosition]}>
+					<Pressable style={[styles.wrapper7, styles.wrapperLayout]}>
+							<Text style={[styles.text15, styles.textPosition]}>확인</Text>
+					</Pressable>
+					<Pressable style={[styles.wrapper8, styles.wrapperLayout]} onPress={()=>router.push("../generateroutine2")}>
+							<Text style={[styles.text16, styles.textPosition]}>이전으로</Text>
+					</Pressable>
+				</View>
             </View>
         </View>
-		);
+	);
 
 }
 
@@ -536,7 +547,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
 
     // 그림자 (Android)
-    elevation: 5,
+    elevation: 10,
   },
 
   calendar: {

@@ -138,8 +138,8 @@ export default function Routine() {
                     <Image
                         source={require("../../assets/images/icon-add.png")}
                         style={{
-                        width: 50,
-                        height: 50,
+                        width: 60,
+                        height: 60,
                         resizeMode: "contain",
                         }}
                     />

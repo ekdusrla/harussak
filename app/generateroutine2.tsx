@@ -9,20 +9,20 @@ export default function GenerateRoutine2() {
     const router = useRouter();
     const [selectedCard, setSelectedCard] = useState<number | null>(null);
     const cards = [
-  { text: "📖 도서 30분 읽기" },
-  { text: "☀️ 오전 10시에 일어나기" },
-  { text: "🧘‍♂️ 명상 30분 하기" },
-  { text: "🌙 오후 10시에 취침하기" },
-  { text: "💊 비타민 먹기" },
-  { text: "🚶️ 산책 10분하기" },
-  { text: "💊 영양제 먹기" },
-  { text: "📖 도서 30분 읽기" },
-  { text: "☀️ 오전 11시에 일어나기" },
-  { text: "🧘‍♂️ 요가하기" },
-  { text: "🌙 오전 1시에 전 취침하기" },
-  { text: "💊 유산균 먹기" },
-  { text: "나의 루틴 만들기"}
-];
+        { text: "📖 도서 30분 읽기" },
+        { text: "☀️ 오전 10시에 일어나기" },
+        { text: "🧘‍♂️ 명상 30분 하기" },
+        { text: "🌙 오후 10시에 취침하기" },
+        { text: "💊 비타민 먹기" },
+        { text: "🚶️ 산책 10분하기" },
+        { text: "💊 영양제 먹기" },
+        { text: "📖 도서 30분 읽기" },
+        { text: "☀️ 오전 11시에 일어나기" },
+        { text: "🧘‍♂️ 요가하기" },
+        { text: "🌙 오전 1시에 전 취침하기" },
+        { text: "💊 유산균 먹기" },
+        { text: "나의 루틴 만들기"}
+        ];
 
 
 
@@ -93,7 +93,7 @@ export default function GenerateRoutine2() {
             </Pressable>
 
 
-        <Pressable style={[styles.container, styles.wrapperLayout]} onPress={()=>router.push("./(tabs)/generateroutine1")}>
+        <Pressable style={[styles.container, styles.wrapperLayout]} onPress={()=>router.push("./generateroutine1")}>
           <Text style={[styles.text31, styles.textPosition] }>이전으로</Text>
         </Pressable>
       </View>

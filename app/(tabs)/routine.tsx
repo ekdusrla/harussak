@@ -1,23 +1,19 @@
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Routine() {
 
-                // 오늘 날짜 정보
+        const router = useRouter();
         const today = new Date().getDate();
         const todayWeekday = new Date().getDay(); // 0:일, 1:월 ... 6:토
 
-            // 오늘 날짜 정보
         const todayDate = new Date(); // 현재 날짜
         const todayMonth = todayDate.getMonth() + 1; // 월 (0부터 시작하므로 +1)
 
-        // 오늘 날짜 문자열
         const todayText = `${todayMonth}월 ${today}일`;
-
-        // 이번 주 요일
         const weekDays = ["일", "월", "화", "수", "목", "금", "토"];
 
-        // 이번 주 날짜 계산
         const startOfWeek = new Date();
         startOfWeek.setDate(today - todayWeekday); // 이번 주 일요일 기준
 
@@ -127,6 +123,27 @@ export default function Routine() {
                             </View>
         				<Text style={[styles.myRoutine, styles.text19Typo]}>My Routine</Text>
       			</View>
+                    <Pressable
+                    onPress={() => router.push("../generateroutine1")}
+                    style={{
+                        position: "absolute",
+                        bottom: 20,
+                        right: 20,
+                        width: 60,   // 터치 영역 확보
+                        height: 60,
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                    >
+                    <Image
+                        source={require("../../assets/images/icon-add.png")}
+                        style={{
+                        width: 50,
+                        height: 50,
+                        resizeMode: "contain",
+                        }}
+                    />
+                    </Pressable>
     		</View>
     );
 }
@@ -140,28 +157,11 @@ const styles = StyleSheet.create({
     		alignItems: "center",
     		flexDirection: "row"
   	},
-  	textTypo1: {
-    		height: 24,
-    		left: 67,
-    		fontFamily: "Pretendard-Medium",
-    		fontSize: 18,
-    		lineHeight: 22,
-    		letterSpacing: -0.43,
-    		textAlign: "left",
-    		color: "#26282c",
-    		position: "absolute"
-  	},
   	text19Typo: {
     		fontFamily: "Pretendard-Medium",
     		lineHeight: 24,
     		letterSpacing: -0.43,
     		textAlign: "left",
-    		position: "absolute"
-  	},
-  	rectangleViewLayout: {
-    		width: 2,
-    		backgroundColor: "#fff",
-    		height: 14,
     		position: "absolute"
   	},
   	iconPosition: {
@@ -176,16 +176,6 @@ const styles = StyleSheet.create({
     		overflow: "hidden",
     		backgroundColor: "#f8f8f8",
     		flex: 1
-  	},
-  	child: {
-    		marginLeft: -201,
-    		top: 264,
-    		left: "50%",
-    		borderRadius: 12,
-    		backgroundColor: "transparent",
-    		width: 402,
-    		height: 8,
-    		position: "absolute"
   	},
   	todayText: {
     		top: 88,
@@ -262,70 +252,11 @@ const styles = StyleSheet.create({
     		textAlign: "right",
     		lineHeight: 22
   	},
-  	text18: {
-    		width: 200,
-    		top: 328
-  	},
-  	text19: {
-    		top: 124,
-    		fontWeight: "500",
-    		fontSize: 18,
-    		fontFamily: "PretendardNanumSquare-Rg",
-    		color: "#74777d",
-    		left: 20
-  	},
-  	text20: {
-    		width: 200,
-    		top: 479
-  	},
-  	text21: {
-    		width: 200,
-    		top: 379
-  	},
-  	text22: {
-    		width: 200,
-    		top: 529
-  	},
-  	text23: {
-    		top: 428
-  	},
-  	text24: {
-    		top: 579
-  	},
-  	inner: {
-    		top: 634,
-    		left: 296,
-    		width: 48,
-    		height: 48,
-    		position: "absolute"
-  	},
-  	rectangleView: {
-    		top: 651,
-    		left: 319
-  	},
   	myRoutine: {
     		top: 284,
     		left: 24,
     		fontSize: 16,
     		color: "#9ea4a9"
-  	},
-  	iconGridCalendar: {
-    		top: 326
-  	},
-  	safeareaviewIconGridCalendar: {
-    		top: 377
-  	},
-  	iconGridCalendar2: {
-    		top: 426
-  	},
-  	iconGridCalendar3: {
-    		top: 477
-  	},
-  	iconGridCalendar4: {
-    		top: 527
-  	},
-  	iconGridCalendar5: {
-    		top: 577
   	},
     weekdayText: {
     fontSize: 18,
@@ -368,7 +299,6 @@ text2: {
     fontWeight: "500",
     fontFamily: "NanumSquareNeo-Rg",
 },
-
 
 
 });

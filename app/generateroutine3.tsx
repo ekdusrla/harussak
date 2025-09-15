@@ -217,7 +217,7 @@ export default function GenerateRoutine3() {
 
                         <Pressable
                         style={[styles.wrapper8, styles.wrapperLayout]}
-                        onPress={() => router.push("./generateroutine2")}
+                        onPress={() => router.push("./(tabs)/home")}
                         >
                         <Text style={[styles.text16, styles.textPosition]}>이전으로</Text>
                         </Pressable>

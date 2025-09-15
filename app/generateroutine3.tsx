@@ -14,6 +14,8 @@ export default function GenerateRoutine3() {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedDates, setSelectedDates] = useState<string[]>([]);
 
+    const isConfirmEnabled = routine.trim() !== "" && period.trim() !== "" && selectedDays.length > 0;
+
     const toggleDay = (day: string) => {
         setSelectedDays((prev) =>
             prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
@@ -73,6 +75,8 @@ export default function GenerateRoutine3() {
     const sortedDates = [...selectedDates].sort();
     const startDate = new Date(sortedDates[0]);
     const endDate = selectedDates.length === 2 ? new Date(sortedDates[1]) : startDate;
+
+
 
     let d = new Date(startDate);
     while (d <= endDate) {
@@ -198,13 +202,27 @@ export default function GenerateRoutine3() {
                     />
             </View>
                 <View style={[styles.buttonWrap, styles.frameIconPosition]}>
-                    <Pressable style={[styles.wrapper7, styles.wrapperLayout]}>
-                            <Text style={[styles.text15, styles.textPosition]}>확인</Text>
-                    </Pressable>
-                    <Pressable style={[styles.wrapper8, styles.wrapperLayout]} onPress={()=>router.push("./generateroutine2")}>
-                            <Text style={[styles.text16, styles.textPosition]}>이전으로</Text>
-                    </Pressable>
-                </View>
+                        <Pressable
+                                style={[
+                                styles.wrapper7,
+                                styles.wrapperLayout,
+                                { backgroundColor: isConfirmEnabled ? "#91E04C" : "#CACDD3" },
+                                ]}
+                                disabled={!isConfirmEnabled}
+                                onPress={() => router.push("./generateroutine2")}
+                                >
+                                <Text style={[styles.text15, styles.textPosition]}>확인</Text>
+                                </Pressable>
+
+
+                        <Pressable
+                        style={[styles.wrapper8, styles.wrapperLayout]}
+                        onPress={() => router.push("./generateroutine2")}
+                        >
+                        <Text style={[styles.text16, styles.textPosition]}>이전으로</Text>
+                        </Pressable>
+                        </View>
+
             </View>
         </View>
     );

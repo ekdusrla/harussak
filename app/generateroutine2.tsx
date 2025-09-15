@@ -44,26 +44,33 @@ export default function GenerateRoutine2() {
       {/* 루틴 카드들만 스크롤 */}
       <View style={styles.scrollWrapper}>
       <ScrollView style={styles.scrollArea} contentContainerStyle={styles.scrollContent}>
-        {cards.map((card, index) => (
-  <Pressable
-    key={index}
-    style={[
-      styles.lineargradientShadowBox,
-      card.text === "나의 루틴 만들기" && { backgroundColor: "#F8E1E1" },
-      selectedCard === index && { backgroundColor: "#EBF5E3" } // 배경색 변경
-    ]}
-    onPress={() => setSelectedCard(index)}
-  >
-    <Text style={styles.text2}>{card.text}</Text>
-    {selectedCard === index && (
-      <Image
-        source={require('../assets/images/cardborder.png')}
-        style={styles.cardBorderImage}
-        resizeMode="stretch"
-      />
-    )}
-  </Pressable>
-))}
+{cards.map((card, index) => {
+  const isSelected = selectedCard === index;
+  const isCustomRoutine = card.text === "나의 루틴 만들기";
+
+  return (
+    <Pressable
+      key={index}
+      style={[
+        styles.lineargradientShadowBox,
+        isCustomRoutine && { backgroundColor: "#FEF6CE" }, // 기본 배경
+        isSelected && !isCustomRoutine && { backgroundColor: "#EBF5E3" }, // 일반 카드 선택
+        isSelected && isCustomRoutine && { backgroundColor: "#F8EBA9" }, // 나의 루틴 선택 시 (원하는 색)
+      ]}
+      onPress={() => setSelectedCard(index)}
+    >
+      <Text style={styles.text2}>{card.text}</Text>
+      {isSelected && (
+        <Image
+          source={require("../assets/images/cardborder.png")}
+          style={styles.cardBorderImage}
+          resizeMode="stretch"
+        />
+      )}
+    </Pressable>
+  );
+})}
+
       </ScrollView>
       </View>
       <View style={[styles.buttonWrap, styles.itemPosition]}>

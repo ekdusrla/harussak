@@ -6,7 +6,6 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: false, // 라벨 숨기고 아이콘만
       }}
     >
       <Tabs.Screen
@@ -16,10 +15,10 @@ export default function TabLayout() {
             <Image
               source={
                 focused
-                  ? require("../../assets/images/icon-homeN.png")
-                  : require("../../assets/images/icon-homeN.png")
+                  ? require("../../assets/images/icon-hide.png")
+                  : require("../../assets/images/icon-show.png")
               }
-              style={{ width: 34, height: 34, marginBottom: -16 }}
+              style={{ width: 34, height: 34}}
               resizeMode="contain"
             />
           ),
@@ -32,10 +31,10 @@ export default function TabLayout() {
             <Image
               source={
                 focused
-                  ? require("../../assets/images/icon-homeN.png")
-                  : require("../../assets/images/icon-homeN.png")
+                  ? require("../../assets/images/icon-hide.png")
+                  : require("../../assets/images/icon-show.png")
               }
-              style={{ width: 40, height: 40 }}
+              style={{ width: 24, height: 24 }}
               resizeMode="contain"
             />
           ),
@@ -48,8 +47,8 @@ export default function TabLayout() {
             <Image
               source={
                 focused
-                  ? require("../../assets/images/icon-homeN.png")
-                  : require("../../assets/images/icon-homeN.png")
+                  ? require("../../assets/images/icon-hide.png")
+                  : require("../../assets/images/icon-show.png")
               }
               style={{ width: 40, height: 40 }}
               resizeMode="contain"

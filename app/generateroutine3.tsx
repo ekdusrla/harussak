@@ -209,7 +209,7 @@ export default function GenerateRoutine3() {
                                 { backgroundColor: isConfirmEnabled ? "#91E04C" : "#CACDD3" },
                                 ]}
                                 disabled={!isConfirmEnabled}
-                                onPress={() => router.push("./generateroutine2")}
+                                onPress={() => router.push("./(tabs)/home")}
                                 >
                                 <Text style={[styles.text15, styles.textPosition]}>확인</Text>
                                 </Pressable>
@@ -217,7 +217,7 @@ export default function GenerateRoutine3() {
 
                         <Pressable
                         style={[styles.wrapper8, styles.wrapperLayout]}
-                        onPress={() => router.push("./(tabs)/home")}
+                        onPress={() => router.push("./generateroutine2")}
                         >
                         <Text style={[styles.text16, styles.textPosition]}>이전으로</Text>
                         </Pressable>

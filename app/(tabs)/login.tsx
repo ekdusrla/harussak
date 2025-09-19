@@ -33,7 +33,7 @@ export default function Login() {
                             <Text style={styles.text2}>회원가입</Text>
                     </Pressable>
                     <View style={[styles.view2, styles.view2FlexBox]}>
-                            <Text style={[styles.text3, styles.textTypo]}>소셜 로그인</Text>
+                            <Text style={[styles.text3, styles.textTypo3]}>소셜 로그인</Text>
                     </View>
                 <View style={styles.lineargradient}>
                 <View style={[styles.pressable, styles.pressableShadowBox]}>
@@ -102,6 +102,15 @@ const styles = StyleSheet.create({
             overflow: "hidden"
     },
     textTypo: {
+            color: "#9ea4a9",
+            textAlign: "center",
+            fontFamily: "Pretendard-Regular",
+            fontWeight: "300",
+            lineHeight: 22,
+            letterSpacing: -0.43,
+            fontSize: 14
+    },
+        textTypo3: {
             color: "#9ea4a9",
             textAlign: "center",
             fontFamily: "Pretendard-Regular",
@@ -179,7 +188,7 @@ const styles = StyleSheet.create({
     },
     text1: {
             marginTop: 325,
-            marginLeft: -70,
+            marginLeft: -90,
             textAlign: "center",
             left: "50%",
             top: "50%",
@@ -192,7 +201,7 @@ const styles = StyleSheet.create({
             fontWeight: "300",
             lineHeight: 14,
             letterSpacing: -0.43,
-            fontSize: 12,
+            fontSize: 14,
             borderBottomWidth: 1,
     },
     wrapper: {

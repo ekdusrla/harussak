@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     },
     buttonWrap: {
             marginLeft: -180,
-            top: 700,
+            bottom: 0,
             height: 120,
             width: 360,
             overflow: "hidden",
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
             borderRadius: 8,
             backgroundColor: "#C1C1C2",
             width: 360,
-            height: 44
+            height: 44,
     },
     text2: {
             marginTop: -11,

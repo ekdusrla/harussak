@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
     },
     buttonWrap: {
             marginLeft: -180,
-            bottom: 0,
+            bottom: 10,
             height: 80,
             width: 400,
             left: "50%",

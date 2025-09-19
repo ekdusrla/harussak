@@ -248,8 +248,8 @@ const styles = StyleSheet.create({
     },
     buttonWrap: {
             marginLeft: -180,
-            bottom: 10,
-            height: 80,
+            bottom: 0,
+            height: 90,
             width: 400,
             left: "50%",
             overflow: "hidden",

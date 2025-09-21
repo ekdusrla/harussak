@@ -171,11 +171,6 @@ const toggleCheck = (index: number) => {
             						<Text style={styles.text15}>1234 개</Text>
           					</View>
         				</View>
-        				<View style={styles.leading}>
-          					<View style={[styles.safeareaviewLeading, styles.viewFlexBox]}>
-              							<Image style={styles.item} width={40} height={40} resizeMode="contain" source={require("../../assets/images/icon-menu.png")}/>
-          					</View>
-        				</View>
                         <View style={{ marginTop: 100, marginHorizontal: 20 }}>
                             {routines.map((routine, index) => (
                                 <Pressable
@@ -355,17 +350,6 @@ const styles = StyleSheet.create({
     		textAlign: "left",
     		color: "#26282c",
     		fontFamily: "NanumSquareNeo-Bd"
-  	},
-  	leading: {
-    		top: 12,
-    		left: 301,
-    		flexDirection: "row",
-    		position: "absolute"
-  	},
-  	safeareaviewLeading: {
-    		paddingLeft: 40,
-    		paddingTop: 20,
-    		paddingBottom: 11
   	},
   	text17: {
     		fontSize: 17,

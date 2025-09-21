@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Modal, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Routine() {
 
@@ -15,7 +15,7 @@ export default function Routine() {
         const weekDays = ["일", "월", "화", "수", "목", "금", "토"];
 
         const startOfWeek = new Date();
-        startOfWeek.setDate(today - todayWeekday); // 이번 주 일요일 기준
+        startOfWeek.setDate(today - todayWeekday); 
 
         const weekDates = Array.from({ length: 7 }, (_, i) => {
         const d = new Date(startOfWeek);
@@ -25,12 +25,12 @@ export default function Routine() {
 
         const routines = [
             "도서 30분 읽기",
-            "오후 10시에 잠들기",
+            "오후 10시에 잠들기 (성장 1단계)",
             "산책 1시간 하기",
-            "오전 9시에 일어나기",
+            "오전 9시에 일어나기 (성장 2단계)",
             "유산균 섭취",
-            "쾌변하기",
-            "오늘도 우렁차게 살아남기"
+            "쾌변하기 (성장 3단계)",
+            "오늘도 우렁차게 살아남기 (성장 4단계)"
         ];
         const checkImages = [
             require("../../assets/images/icon-bluecheck.png"),
@@ -40,16 +40,53 @@ export default function Routine() {
         ];
 
     const [checkedImages, setCheckedImages] = useState<(any | null)[]>(Array(routines.length).fill(null));
+    const [showPopup, setShowPopup] = useState(false);
+
+    const [popupVisible, setPopupVisible] = useState(false);
+    const [popupImage, setPopupImage] = useState(null);
+    const [popupTitle, setPopupTitle] = useState("");
+    const [popupMessage, setPopupMessage] = useState("");
 
     const toggleCheck = (index: number) => {
-        const newCheckedImages = [...checkedImages];
-        if (newCheckedImages[index] === null) {
+    const newCheckedImages = [...checkedImages];
+    if (!newCheckedImages[index]) {
         newCheckedImages[index] = checkImages[Math.floor(Math.random() * checkImages.length)];
-        } else {
-        newCheckedImages[index] = null;
+
+        // 루틴별 팝업 이미지/문구 설정
+        if (routines[index] === "오후 10시에 잠들기 (성장 1단계)") {
+        setPopupImage(require("../../assets/images/growpopup1.png"));
+        setPopupTitle("뿌리내린 새싹");
+        setPopupMessage("처음으로 싹을 틔운 순간이에요!\n포기하지 않은 의지가 빛나고 있어요");
+        setPopupVisible(true);
         }
-        setCheckedImages(newCheckedImages);
+        if (routines[index] === "오전 9시에 일어나기 (성장 2단계)") {
+        setPopupImage(require("../../assets/images/growpopup2.png"));
+        setPopupTitle("흔들리지 않는 줄기");
+        setPopupMessage("단단히 뿌리내리고 서 있는 순간이에요!\n흔들림 없는 노력이 든든한 힘이 되었어요");
+        setPopupVisible(true);
+        }
+        if (routines[index] === "쾌변하기 (성장 3단계)") {
+        setPopupImage(require("../../assets/images/growpopup3.png"));
+        setPopupTitle("피어나는 꽃봉오리");
+        setPopupMessage("꽃이 맺히며 기대를 품고 있어요!\n정성과 열정이 아름답게 피어나려 해요");
+        setPopupVisible(true);
+        }
+        if (routines[index] === "오늘도 우렁차게 살아남기 (성장 4단계)") {
+        setPopupImage(require("../../assets/images/growpopup4.png"));
+        setPopupTitle("진실한 성취의 튤립");
+        setPopupMessage("드디어 활짝 피어난 결실이에요!\n당신의 행동이 찬란한 성취로 이어졌어요");
+        setPopupVisible(true);
+        }
+
+    } else {
+        newCheckedImages[index] = null;
+    }
+    setCheckedImages(newCheckedImages);
     };
+
+
+
+
 
     return (
     		<View style={styles.safeareaview}>
@@ -144,6 +181,25 @@ export default function Routine() {
                         }}
                     />
                     </Pressable>
+                    {/* ✅ 팝업 모달 */}
+                    <Modal
+                        transparent={true}
+                        visible={popupVisible}
+                        animationType="fade"
+                        onRequestClose={() => setPopupVisible(false)}
+                        >
+                        <View style={styles.popupOverlay}>
+                            <View style={styles.popupContainer}>
+                            <Image source={require("../../assets/images/tada.png")} style={styles.popupDecorationImage} />
+                            {popupImage && (<Image source={popupImage} style={styles.popupMainImage} />)}
+                            <Text style={styles.popupTitle}>{popupTitle}</Text>
+                            <Text style={styles.popupMessage}>{popupMessage}</Text>
+                            <Pressable style={styles.popupConfirmButton} onPress={() => setPopupVisible(false)}>
+                                <Text style={styles.popupConfirmButtonText}>확인</Text>
+                            </Pressable>
+                            </View>
+                        </View>
+                        </Modal>
     		</View>
     );
 }
@@ -299,6 +355,57 @@ text2: {
     fontWeight: "500",
     fontFamily: "NanumSquareNeo-Rg",
 },
-
-
+popupOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  popupContainer: {
+    borderRadius: 18,
+    alignItems: "center",
+    position: "relative",
+  },
+  popupDecorationImage: {
+    position: "absolute",
+    width: 600,
+    height: 600,
+    resizeMode: "contain",
+    top: -120,
+  },
+  popupMainImage: {
+    width: 260,
+    height: 360,
+    resizeMode: "contain",
+  },
+  popupTitle: {
+    fontSize: 16,
+    color: "#26282C",
+    fontFamily: "NanumSquareNeo-Bd",
+    marginTop: 32,
+    position: "absolute",
+  },
+  popupMessage: {
+    fontSize: 10,
+    color: "#9EA4A9",
+    fontFamily: "NanumSquareNeo-Bd",
+    marginTop: 58,
+    position: "absolute",
+    textAlign: "center",
+    letterSpacing: 0.8,
+  },
+  popupConfirmButton: {
+    backgroundColor: "#91E04C",
+    paddingVertical: 8,
+    paddingHorizontal: 90,
+    borderRadius: 14,
+    alignItems: "center",
+    position: "absolute",
+    bottom: 16,
+  },
+  popupConfirmButtonText: {
+    fontSize: 14,
+    color: "#fff",
+    fontFamily: "NanumSquareNeo-Bd",
+  },
 });

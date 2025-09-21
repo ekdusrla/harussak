@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
-import { useState } from "react";
-import { Image, Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import { useRef, useState } from "react";
+import { Animated, Image, Modal, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Routine() {
 
@@ -40,19 +40,39 @@ export default function Routine() {
         ];
 
     const [checkedImages, setCheckedImages] = useState<(any | null)[]>(Array(routines.length).fill(null));
-    const [showPopup, setShowPopup] = useState(false);
 
     const [popupVisible, setPopupVisible] = useState(false);
     const [popupImage, setPopupImage] = useState(null);
     const [popupTitle, setPopupTitle] = useState("");
     const [popupMessage, setPopupMessage] = useState("");
 
-    const toggleCheck = (index: number) => {
-    const newCheckedImages = [...checkedImages];
-    if (!newCheckedImages[index]) {
-        newCheckedImages[index] = checkImages[Math.floor(Math.random() * checkImages.length)];
+    const [prePopupVisible, setPrePopupVisible] = useState(false);
+    const [nextPopupIndex, setNextPopupIndex] = useState<number | null>(null);
+    const [prePopupStep, setPrePopupStep] = useState<0 | 1>(0);
 
-        // 루틴별 팝업 이미지/문구 설정
+    const textOpacity = useRef(new Animated.Value(1)).current;
+
+    const handlePrePopupPress = () => {
+  if (prePopupStep === 0) {
+    // 글씨 사라지기
+    Animated.timing(textOpacity, {
+      toValue: 0,
+      duration: 300, // 사라지는 시간
+      useNativeDriver: true,
+    }).start(() => {
+      setPrePopupStep(1); // 글씨 변경
+      // 글씨 나타나기
+      Animated.timing(textOpacity, {
+        toValue: 1,
+        duration: 300, // 나타나는 시간
+        useNativeDriver: true,
+      }).start();
+    });
+  } else {
+    // 성장팝업 띄우는 로직
+    setPrePopupVisible(false);
+    if (nextPopupIndex !== null) {
+      const index = nextPopupIndex;
         if (routines[index] === "오후 10시에 잠들기 (성장 1단계)") {
         setPopupImage(require("../../assets/images/growpopup1.png"));
         setPopupTitle("뿌리내린 새싹");
@@ -77,15 +97,39 @@ export default function Routine() {
         setPopupMessage("드디어 활짝 피어난 결실이에요!\n당신의 행동이 찬란한 성취로 이어졌어요");
         setPopupVisible(true);
         }
-
-    } else {
-        newCheckedImages[index] = null;
     }
-    setCheckedImages(newCheckedImages);
-    };
+  }
+};
 
 
 
+const toggleCheck = (index: number) => {
+  const newCheckedImages = [...checkedImages];
+
+  if (!newCheckedImages[index]) {
+    // 체크하려는 루틴이 성장 단계인 경우만 사전팝업
+    const isGrowthRoutine = [
+      "오후 10시에 잠들기 (성장 1단계)",
+      "오전 9시에 일어나기 (성장 2단계)",
+      "쾌변하기 (성장 3단계)",
+      "오늘도 우렁차게 살아남기 (성장 4단계)"
+    ].includes(routines[index]);
+
+    newCheckedImages[index] = checkImages[Math.floor(Math.random() * checkImages.length)];
+
+    if (isGrowthRoutine) {
+      setPrePopupStep(0); // 처음 사전 팝업 시작
+      setPrePopupVisible(true);
+      setNextPopupIndex(index); // 성장팝업에 사용할 루틴 index 저장
+    }
+
+  } else {
+    // 이미 체크된 경우, 취소 가능
+    newCheckedImages[index] = null;
+  }
+
+  setCheckedImages(newCheckedImages);
+};
 
 
     return (
@@ -182,24 +226,46 @@ export default function Routine() {
                     />
                     </Pressable>
                     {/* ✅ 팝업 모달 */}
-                    <Modal
-                        transparent={true}
-                        visible={popupVisible}
-                        animationType="fade"
-                        onRequestClose={() => setPopupVisible(false)}
-                        >
-                        <View style={styles.popupOverlay}>
-                            <View style={styles.popupContainer}>
-                            <Image source={require("../../assets/images/tada.png")} style={styles.popupDecorationImage} />
-                            {popupImage && (<Image source={popupImage} style={styles.popupMainImage} />)}
-                            <Text style={styles.popupTitle}>{popupTitle}</Text>
-                            <Text style={styles.popupMessage}>{popupMessage}</Text>
-                            <Pressable style={styles.popupConfirmButton} onPress={() => setPopupVisible(false)}>
-                                <Text style={styles.popupConfirmButtonText}>확인</Text>
-                            </Pressable>
-                            </View>
-                        </View>
-                        </Modal>
+                    {/* 1. 사전 팝업 */}
+<Modal
+  transparent={true}
+  visible={prePopupVisible}
+  animationType="fade"
+>
+  <View style={styles.popupOverlay}>
+    <Pressable style={styles.popupContainer} onPress={handlePrePopupPress}>
+      <Image
+        source={require("../../assets/images/prepopup.png")}
+        style={styles.prePopupImage}
+      />
+    <Animated.Text style={[styles.prePopupTitle, { opacity: textOpacity }]}>
+    {prePopupStep === 0 ? "두근두근" : "성장의 조짐이 보여요"}
+    </Animated.Text>
+      <Text style={styles.prePopupMessage}>화면을 클릭해주세요</Text>
+    </Pressable>
+  </View>
+</Modal>
+
+
+{/* 2. 기존 성장 팝업 */}
+<Modal
+  transparent={true}
+  visible={popupVisible}
+  animationType="fade"
+  onRequestClose={() => setPopupVisible(false)}
+>
+  <View style={styles.popupOverlay}>
+    <View style={styles.popupContainer}>
+      <Image source={require("../../assets/images/tada.png")} style={styles.popupDecorationImage} />
+      {popupImage && (<Image source={popupImage} style={styles.popupMainImage} />)}
+      <Text style={styles.popupTitle}>{popupTitle}</Text>
+      <Text style={styles.popupMessage}>{popupMessage}</Text>
+      <Pressable style={styles.popupConfirmButton} onPress={() => setPopupVisible(false)}>
+        <Text style={styles.popupConfirmButtonText}>확인</Text>
+      </Pressable>
+    </View>
+  </View>
+</Modal>
     		</View>
     );
 }
@@ -408,4 +474,27 @@ popupOverlay: {
     color: "#fff",
     fontFamily: "NanumSquareNeo-Bd",
   },
+  prePopupImage: {
+  width: 260,
+  height: 360,
+  resizeMode: "contain",
+},
+prePopupTitle: {
+  position: "absolute",
+  top: 170,
+  fontSize: 18,
+  fontFamily: "NanumSquareNeo-Bd",
+  fontWeight: "600",
+  color: "#26282C",
+  textAlign: "center",
+},
+prePopupMessage: {
+  position: "absolute",
+  bottom: -32,
+  fontSize: 14,
+  color: "#EAECED",
+  textAlign: "center",
+  fontFamily: "NanumSquareNeo-Rg",
+}
+
 });

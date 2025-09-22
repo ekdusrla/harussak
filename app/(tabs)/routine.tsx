@@ -164,13 +164,16 @@ const toggleCheck = (index: number) => {
                     ))}
 
                     </View>
-
-        				<View style={[styles.view2, styles.viewFlexBox]}>
-          					<Image style={styles.item} width={20} height={14} resizeMode="contain" source={require("../../assets/images/icon-seed.png")}/>
-          					<View style={[styles.view3, styles.viewFlexBox]}>
-            						<Text style={styles.text15}>1234 개</Text>
-          					</View>
-        				</View>
+                        <View style={[styles.view2, styles.viewFlexBox]}>
+                          <Image
+                            style={styles.item} width={20} height={14}
+                            resizeMode="contain"
+                            source={require("../../assets/images/icon-seed.png")}
+                          />
+                          <View style={[styles.view3, styles.viewFlexBox]}>
+                            <Text style={styles.text15}>1234 개</Text>
+                          </View>
+                        </View>
                         <View style={{ marginTop: 100, marginHorizontal: 20 }}>
                             {routines.map((routine, index) => (
                                 <Pressable
@@ -343,13 +346,10 @@ const styles = StyleSheet.create({
             marginTop: -2
   	},
   	text15: {
-    		fontSize: 12,
-    		fontWeight: "600",
-    		letterSpacing: -0.43,
-    		lineHeight: 22,
-    		textAlign: "left",
-    		color: "#26282c",
-    		fontFamily: "NanumSquareNeo-Bd"
+    fontSize: 12,
+    fontWeight: "600",
+    color: "#26282c",
+    fontFamily: "NanumSquareNeo-Bd",
   	},
   	text17: {
     		fontSize: 17,

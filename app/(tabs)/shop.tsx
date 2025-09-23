@@ -1,8 +1,17 @@
-import { Image, ImageBackground, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { Image, ImageBackground, Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+
+// 아이템 타입 정의
+type ShopItem = {
+  img: any;
+  name: string;
+};
 
 export default function Shop() {
-  // 장식 아이템 배열
-  const decoItems = [
+  const [selectedItem, setSelectedItem] = useState<ShopItem | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const decoItems: ShopItem[] = [
     { img: require("../../assets/images/deco-castle.png"), name: "동화 속 성" },
     { img: require("../../assets/images/deco-pebbles.png"), name: "조약돌 길" },
     { img: require("../../assets/images/deco-tree.png"), name: "둥근 나무" },
@@ -21,6 +30,12 @@ export default function Shop() {
     { img: require("../../assets/images/background-purple.png"), name: "보랏빛 하늘" },
     { img: require("../../assets/images/background-sea.png"), name: "바닷속 세상" },
   ];
+
+  // 아이템 클릭 시 팝업 열기
+  const handleItemPress = (item: ShopItem) => {
+    setSelectedItem(item);
+    setModalVisible(true);
+  };
 
   return (
     <ScrollView style={styles.safeareaview} contentContainerStyle={{ paddingBottom: 50 }}>
@@ -49,16 +64,43 @@ export default function Shop() {
             <Text style={styles.bannerSub}>* 아이템 구매시 씨앗이 차감되지 않습니다</Text>
           </ImageBackground>
         </View>
-        {/* ===== 장식 섹션 ===== */}
+
+        {/* 장식 섹션 */}
         <Text style={[styles.sectionTitle]}>장식</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={true}>
-        <View style={styles.twoRowWrapper}>
-            {/* 위줄 */}
+          <View style={styles.twoRowWrapper}>
             <View style={styles.row}>
-            {decoItems
+              {decoItems
                 .filter((_, idx) => idx % 2 === 0)
                 .map((item, idx) => (
-                <View key={`deco-top-${idx}`} style={styles.itemCard}>
+                  <Pressable key={`deco-top-${idx}`} style={styles.itemCard} onPress={() => handleItemPress(item)}>
+                    <Image
+                      source={item.img}
+                      style={item.name === "동화 속 성" ? styles.itemImage : styles.itemImageLarge}
+                      resizeMode="cover"
+                    />
+                    <Text style={styles.itemText}>{item.name}</Text>
+                    {/* 씨앗 표시 */}
+                    <View style={[styles.view55, styles.viewFlexBox]}>
+                      <Image
+                        style={styles.itemIcon}
+                        resizeMode="contain"
+                        source={require("../../assets/images/icon-seed.png")}
+                      />
+                      <View style={[styles.view6, styles.viewFlexBox]}>
+                        <Text style={styles.text15}>122 개</Text>
+                      </View>
+                    </View>
+                  </Pressable>
+                ))}
+            </View>
+
+                        {/* 아래줄 */}
+            <View style={styles.row}>
+            {decoItems
+                .filter((_, idx) => idx % 2 === 1)
+                .map((item, idx) => (
+                <Pressable key={`deco-bottom-${idx}`} style={styles.itemCard}>
                     <Image
                     source={item.img}
                     style={item.name === "동화 속 성" ? styles.itemImage : styles.itemImageLarge}
@@ -76,96 +118,105 @@ export default function Shop() {
                         <Text style={styles.text15}>122 개</Text>
                     </View>
                     </View>
-                </View>
+                </Pressable>
                 ))}
             </View>
-
-            {/* 아래줄 */}
-            <View style={styles.row}>
-            {decoItems
-                .filter((_, idx) => idx % 2 === 1)
-                .map((item, idx) => (
-                <View key={`deco-bottom-${idx}`} style={styles.itemCard}>
-                    <Image
-                    source={item.img}
-                    style={item.name === "동화 속 성" ? styles.itemImage : styles.itemImageLarge}
-                    resizeMode="cover"
-                    />
-                    <Text style={styles.itemText}>{item.name}</Text>
-                    {/* 씨앗 표시 */}
-                    <View style={[styles.view55, styles.viewFlexBox]}>
-                    <Image
-                        style={styles.itemIcon}
-                        resizeMode="contain"
-                        source={require("../../assets/images/icon-seed.png")}
-                    />
-                    <View style={[styles.view6, styles.viewFlexBox]}>
-                        <Text style={styles.text15}>122 개</Text>
-                    </View>
-                    </View>
-                </View>
-                ))}
-            </View>
-        </View>
+          </View>
         </ScrollView>
 
-        {/* ===== 하늘 섹션 ===== */}
-        <Text style={[styles.sectionTitle]}>하늘</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={true}>
-        <View style={styles.twoRowWrapper}>
-            {/* 위줄 */}
-            <View style={styles.row}>
-            {skyItems
-                .filter((_, idx) => idx % 2 === 0)
-                .map((item, idx) => (
-                <View key={`sky-top-${idx}`} style={styles.itemCard}>
-                    {/* 아이템 이미지 + 이름 */}
-                    <Image source={item.img} style={styles.skyItemImage} resizeMode="cover" />
-                    <Text style={styles.itemText}>{item.name}</Text>
-                    {/* 씨앗 갯수 표시 */}
-                    <View style={[styles.view55, styles.viewFlexBox]}>
-                    <Image
-                        style={styles.itemIcon}
-                        resizeMode="contain"
-                        source={require("../../assets/images/icon-seed.png")}
-                    />
-                    <View style={[styles.view6, styles.viewFlexBox]}>
-                        <Text style={styles.text15}>122 개</Text>
-                    </View>
-                    </View>
-                </View>
-                ))}
-            </View>
+        
 
-            {/* 아래줄 */}
-            <View style={styles.row}>
-            {skyItems
-                .filter((_, idx) => idx % 2 === 1)
-                .map((item, idx) => (
-                <View key={`sky-bottom-${idx}`} style={styles.itemCard}>
-                {/* 아이템 이미지 + 이름 */}
-                    <Image source={item.img} style={styles.skyItemImage} resizeMode="cover" />
-                    <Text style={styles.itemText}>{item.name}</Text>
-                    {/* 씨앗 갯수 표시 */}
-                    <View style={[styles.view55, styles.viewFlexBox]}>
-                    <Image
-                        style={styles.itemIcon}
-                        resizeMode="contain"
-                        source={require("../../assets/images/icon-seed.png")}
-                    />
-                    <View style={[styles.view6, styles.viewFlexBox]}>
-                        <Text style={styles.text15}>122 개</Text>
-                    </View>
-                    </View>
-                </View>
-                ))}
+{/* ===== 하늘 섹션 ===== */}
+<Text style={[styles.sectionTitle]}>하늘</Text>
+<ScrollView horizontal showsHorizontalScrollIndicator={true}>
+  <View style={styles.twoRowWrapper}>
+    {/* 위줄 */}
+    <View style={styles.row}>
+      {skyItems
+        .filter((_, idx) => idx % 2 === 0)
+        .map((item, idx) => (
+          <Pressable key={`sky-top-${idx}`} style={styles.itemCard} onPress={() => handleItemPress(item)}>
+            <Image source={item.img} style={styles.skyItemImage} resizeMode="cover" />
+            <Text style={styles.itemText}>{item.name}</Text>
+            {/* 씨앗 갯수 표시 */}
+            <View style={[styles.view55, styles.viewFlexBox]}>
+              <Image
+                style={styles.itemIcon}
+                resizeMode="contain"
+                source={require("../../assets/images/icon-seed.png")}
+              />
+              <View style={[styles.view6, styles.viewFlexBox]}>
+                <Text style={styles.text15}>122 개</Text>
+              </View>
             </View>
-        </View>
-        </ScrollView>
+          </Pressable>
+        ))}
+    </View>
+
+    {/* 아래줄 */}
+    <View style={styles.row}>
+      {skyItems
+        .filter((_, idx) => idx % 2 === 1)
+        .map((item, idx) => (
+          <Pressable key={`sky-bottom-${idx}`} style={styles.itemCard} onPress={() => handleItemPress(item)}>
+            <Image source={item.img} style={styles.skyItemImage} resizeMode="cover" />
+            <Text style={styles.itemText}>{item.name}</Text>
+            {/* 씨앗 갯수 표시 */}
+            <View style={[styles.view55, styles.viewFlexBox]}>
+              <Image
+                style={styles.itemIcon}
+                resizeMode="contain"
+                source={require("../../assets/images/icon-seed.png")}
+              />
+              <View style={[styles.view6, styles.viewFlexBox]}>
+                <Text style={styles.text15}>122 개</Text>
+              </View>
+            </View>
+          </Pressable>
+        ))}
+    </View>
+  </View>
+</ScrollView>
+
+
+        {/* Modal 팝업 */}
+        <Modal visible={modalVisible} transparent animationType="fade">
+  <View style={styles.modalContainer}>
+    <View style={styles.modalContent}>
+      {/* 제목 */}
+      <View style={styles.titleWrapper}>
+        <Text style={styles.itemName}>"{selectedItem?.name}"</Text>
+        <Text style={styles.titleText}>을 구매할까요?</Text>
+      </View>
+
+      {/* 소비 씨앗 */}
+      <View style={styles.seedWrapper}>
+        <Text style={styles.seedLabel}>소비 씨앗 :</Text>
+        <Image style={styles.icon} width={15} height={11} resizeMode="contain"
+                source={require("../../assets/images/icon-seed.png")} />  
+        <Text style={styles.seedOld}>112</Text>
+        <Text style={styles.seedCost}>0</Text>
+        <Text style={styles.seedUnit}>개</Text>
+      </View>
+
+      {/* 버튼 */}
+      <View style={styles.buttonWrapper}>
+        <Pressable style={styles.cancelButton} onPress={() => setModalVisible(false)}>
+          <Text style={styles.cancelText}>취소</Text>
+        </Pressable>
+        <Pressable style={styles.purchaseButton} onPress={() => setModalVisible(false)}>
+          <Text style={styles.purchaseText}>구매하기</Text>
+        </Pressable>
+      </View>
+    </View>
+  </View>
+</Modal>
+
       </View>
     </ScrollView>
   );
 }
+
 
 const styles = StyleSheet.create({
   safeareaview: {
@@ -198,14 +249,14 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   bannerText1: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "600",
     fontFamily: "NanumSquareNeo-Bd",
     color: "#FBD730",
     marginLeft: 28,
   },
   bannerText: {
-    fontSize: 36,
+    fontSize: 48,
     fontWeight: "800",
     fontFamily: "NanumSquareNeo-Hv",
     color: "#F6F8FA",
@@ -331,6 +382,115 @@ itemImageLarge: {
   height: 80,
   marginBottom: 5,
 },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContent: {
+    width: "80%",
+    height: 160,
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    padding: 16,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  titleWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  itemName: {
+    fontSize: 20,
+    fontWeight: "600",
+    fontFamily: "NanumSquareNeo-Bd",
+    color: "#1c1e1f",
+    marginRight: 4,
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: "600",
+    fontFamily: "NanumSquareNeo-Bd",
+    color: "#1c1e1f",
+  },
+  seedWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  seedLabel: {
+    fontSize: 16,
+    fontFamily: "Pretendard",
+    color: "#26282c",
+    marginRight: 4,
+  },
+  seedOld: {
+    fontSize: 20,
+    fontFamily: "NanumSquareNeo-Rg",
+    textDecorationLine: "line-through",
+    color: "#9ea4a9",
+    marginRight: 4,
+    fontStyle: "italic",
+  },
+  seedCost: {
+    fontSize: 20,
+    fontFamily: "NanumSquareNeo-Rg",
+    fontWeight: "600",
+    color: "#26282c",
+    marginRight: 4,
+    fontStyle: "italic",
+  },
+  seedUnit: {
+    fontSize: 20,
+    fontFamily: "NanumSquareNeo-Rg",
+    color: "#26282c",
+    fontStyle: "italic",
+  },
+  icon: {
+    marginLeft: 4,
+  },
+  buttonWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+
+  },
+  cancelButton: {
+    flex: 1,
+    backgroundColor: "#eef3f6",
+    height: 48,
+    borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 8,
+  },
+  purchaseButton: {
+    flex: 1,
+    backgroundColor: "#91e04c",
+    height: 48,
+    borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 8,
+  },
+  cancelText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#9ea4a9",
+    fontFamily: "NanumSquareNeo-Eb",
+  },
+  purchaseText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#fff",
+    fontFamily: "NanumSquareNeo-Eb",
+  },
 
 
 });

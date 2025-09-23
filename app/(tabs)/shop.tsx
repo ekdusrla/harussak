@@ -37,6 +37,8 @@ export default function Shop() {
     setModalVisible(true);
   };
 
+  const [purchasedItems, setPurchasedItems] = useState<string[]>([]);
+
   return (
     <ScrollView style={styles.safeareaview} contentContainerStyle={{ paddingBottom: 50 }}>
       <View style={styles.viewBg}>
@@ -73,25 +75,42 @@ export default function Shop() {
               {decoItems
                 .filter((_, idx) => idx % 2 === 0)
                 .map((item, idx) => (
-                  <Pressable key={`deco-top-${idx}`} style={styles.itemCard} onPress={() => handleItemPress(item)}>
-                    <Image
-                      source={item.img}
-                      style={item.name === "동화 속 성" ? styles.itemImage : styles.itemImageLarge}
-                      resizeMode="cover"
-                    />
-                    <Text style={styles.itemText}>{item.name}</Text>
-                    {/* 씨앗 표시 */}
-                    <View style={[styles.view55, styles.viewFlexBox]}>
-                      <Image
-                        style={styles.itemIcon}
-                        resizeMode="contain"
-                        source={require("../../assets/images/icon-seed.png")}
-                      />
-                      <View style={[styles.view6, styles.viewFlexBox]}>
-                        <Text style={styles.text15}>122 개</Text>
-                      </View>
-                    </View>
-                  </Pressable>
+<Pressable
+  key={`deco-top-${idx}`}
+  style={styles.itemCard}
+  onPress={() => handleItemPress(item)}
+>
+  <Image
+    source={item.img}
+    style={item.name === "동화 속 성" ? styles.itemImage : styles.itemImageLarge}
+    resizeMode="cover"
+  />
+  <Text style={styles.itemText}>{item.name}</Text>
+
+  {/* 씨앗 표시 대신 구매 완료 표시 */}
+  {purchasedItems.includes(item.name) ? (
+    <View style={styles.purchaseWrapper}>
+      <Image
+        source={require("../../assets/images/seedstamp.png")} // ✅ 구매완료 아이콘 (새로 넣으실 이미지)
+        style={styles.purchaseIcon}
+        resizeMode="contain"
+      />
+      <Text style={styles.purchaseDoneText}>구매 완료</Text>
+    </View>
+  ) : (
+    <View style={[styles.view55, styles.viewFlexBox]}>
+      <Image
+        style={styles.itemIcon}
+        resizeMode="contain"
+        source={require("../../assets/images/icon-seed.png")}
+      />
+      <View style={[styles.view6, styles.viewFlexBox]}>
+        <Text style={styles.text15}>122 개</Text>
+      </View>
+    </View>
+  )}
+</Pressable>
+
                 ))}
             </View>
 
@@ -100,25 +119,41 @@ export default function Shop() {
             {decoItems
                 .filter((_, idx) => idx % 2 === 1)
                 .map((item, idx) => (
-                <Pressable key={`deco-bottom-${idx}`} style={styles.itemCard}>
-                    <Image
-                    source={item.img}
-                    style={item.name === "동화 속 성" ? styles.itemImage : styles.itemImageLarge}
-                    resizeMode="cover"
-                    />
-                    <Text style={styles.itemText}>{item.name}</Text>
-                    {/* 씨앗 표시 */}
-                    <View style={[styles.view55, styles.viewFlexBox]}>
-                    <Image
-                        style={styles.itemIcon}
-                        resizeMode="contain"
-                        source={require("../../assets/images/icon-seed.png")}
-                    />
-                    <View style={[styles.view6, styles.viewFlexBox]}>
-                        <Text style={styles.text15}>122 개</Text>
-                    </View>
-                    </View>
-                </Pressable>
+                <Pressable
+  key={`deco-bottom-${idx}`}
+  style={styles.itemCard}
+  onPress={() => handleItemPress(item)}
+>
+  <Image
+    source={item.img}
+    style={item.name === "동화 속 성" ? styles.itemImage : styles.itemImageLarge}
+    resizeMode="cover"
+  />
+  <Text style={styles.itemText}>{item.name}</Text>
+
+  {/* 씨앗 표시 대신 구매 완료 표시 */}
+  {purchasedItems.includes(item.name) ? (
+    <View style={styles.purchaseWrapper}>
+      <Image
+        source={require("../../assets/images/seedstamp.png")} // ✅ 구매완료 아이콘 (새로 넣으실 이미지)
+        style={styles.purchaseIcon}
+        resizeMode="contain"
+      />
+      <Text style={styles.purchaseDoneText}>구매 완료</Text>
+    </View>
+  ) : (
+    <View style={[styles.view55, styles.viewFlexBox]}>
+      <Image
+        style={styles.itemIcon}
+        resizeMode="contain"
+        source={require("../../assets/images/icon-seed.png")}
+      />
+      <View style={[styles.view6, styles.viewFlexBox]}>
+        <Text style={styles.text15}>122 개</Text>
+      </View>
+    </View>
+  )}
+</Pressable>
                 ))}
             </View>
           </View>
@@ -135,20 +170,40 @@ export default function Shop() {
       {skyItems
         .filter((_, idx) => idx % 2 === 0)
         .map((item, idx) => (
-          <Pressable key={`sky-top-${idx}`} style={styles.itemCard} onPress={() => handleItemPress(item)}>
-            <Image source={item.img} style={styles.skyItemImage} resizeMode="cover" />
+          <Pressable
+            key={`sky-top-${idx}`}
+            style={styles.itemCard}
+            onPress={() => handleItemPress(item)}
+          >
+            <Image
+              source={item.img}
+              style={styles.skyItemImage}
+              resizeMode="cover"
+            />
             <Text style={styles.itemText}>{item.name}</Text>
-            {/* 씨앗 갯수 표시 */}
-            <View style={[styles.view55, styles.viewFlexBox]}>
-              <Image
-                style={styles.itemIcon}
-                resizeMode="contain"
-                source={require("../../assets/images/icon-seed.png")}
-              />
-              <View style={[styles.view6, styles.viewFlexBox]}>
-                <Text style={styles.text15}>122 개</Text>
+
+            {/* ✅ 구매 여부 체크 */}
+            {purchasedItems.includes(item.name) ? (
+              <View style={styles.purchaseWrapper}>
+                <Image
+                  source={require("../../assets/images/seedstamp.png")} // 구매완료 아이콘
+                  style={styles.purchaseIcon}
+                  resizeMode="contain"
+                />
+                <Text style={styles.purchaseDoneText}>구매 완료</Text>
               </View>
-            </View>
+            ) : (
+              <View style={[styles.view55, styles.viewFlexBox]}>
+                <Image
+                  style={styles.itemIcon}
+                  resizeMode="contain"
+                  source={require("../../assets/images/icon-seed.png")}
+                />
+                <View style={[styles.view6, styles.viewFlexBox]}>
+                  <Text style={styles.text15}>122 개</Text>
+                </View>
+              </View>
+            )}
           </Pressable>
         ))}
     </View>
@@ -158,25 +213,46 @@ export default function Shop() {
       {skyItems
         .filter((_, idx) => idx % 2 === 1)
         .map((item, idx) => (
-          <Pressable key={`sky-bottom-${idx}`} style={styles.itemCard} onPress={() => handleItemPress(item)}>
-            <Image source={item.img} style={styles.skyItemImage} resizeMode="cover" />
+          <Pressable
+            key={`sky-bottom-${idx}`}
+            style={styles.itemCard}
+            onPress={() => handleItemPress(item)}
+          >
+            <Image
+              source={item.img}
+              style={styles.skyItemImage}
+              resizeMode="cover"
+            />
             <Text style={styles.itemText}>{item.name}</Text>
-            {/* 씨앗 갯수 표시 */}
-            <View style={[styles.view55, styles.viewFlexBox]}>
-              <Image
-                style={styles.itemIcon}
-                resizeMode="contain"
-                source={require("../../assets/images/icon-seed.png")}
-              />
-              <View style={[styles.view6, styles.viewFlexBox]}>
-                <Text style={styles.text15}>122 개</Text>
+
+            {/* ✅ 구매 여부 체크 */}
+            {purchasedItems.includes(item.name) ? (
+              <View style={styles.purchaseWrapper}>
+                <Image
+                  source={require("../../assets/images/seedstamp.png")}
+                  style={styles.purchaseIcon}
+                  resizeMode="contain"
+                />
+                <Text style={styles.purchaseDoneText}>구매 완료</Text>
               </View>
-            </View>
+            ) : (
+              <View style={[styles.view55, styles.viewFlexBox]}>
+                <Image
+                  style={styles.itemIcon}
+                  resizeMode="contain"
+                  source={require("../../assets/images/icon-seed.png")}
+                />
+                <View style={[styles.view6, styles.viewFlexBox]}>
+                  <Text style={styles.text15}>122 개</Text>
+                </View>
+              </View>
+            )}
           </Pressable>
         ))}
     </View>
   </View>
 </ScrollView>
+
 
 
         {/* Modal 팝업 */}
@@ -204,9 +280,18 @@ export default function Shop() {
         <Pressable style={styles.cancelButton} onPress={() => setModalVisible(false)}>
           <Text style={styles.cancelText}>취소</Text>
         </Pressable>
-        <Pressable style={styles.purchaseButton} onPress={() => setModalVisible(false)}>
+        <Pressable
+          style={styles.purchaseButton}
+          onPress={() => {
+            if (selectedItem) {
+              setPurchasedItems((prev) => [...prev, selectedItem.name]);
+            }
+            setModalVisible(false);
+          }}
+        >
           <Text style={styles.purchaseText}>구매하기</Text>
         </Pressable>
+
       </View>
     </View>
   </View>
@@ -435,8 +520,8 @@ itemImageLarge: {
     fontFamily: "NanumSquareNeo-Rg",
     textDecorationLine: "line-through",
     color: "#9ea4a9",
-    marginRight: 4,
     fontStyle: "italic",
+    marginLeft : 4
   },
   seedCost: {
     fontSize: 20,
@@ -445,12 +530,14 @@ itemImageLarge: {
     color: "#26282c",
     marginRight: 4,
     fontStyle: "italic",
+    marginLeft : 8
   },
   seedUnit: {
     fontSize: 20,
     fontFamily: "NanumSquareNeo-Rg",
     color: "#26282c",
     fontStyle: "italic",
+    marginLeft: -4
   },
   icon: {
     marginLeft: 4,
@@ -491,6 +578,25 @@ itemImageLarge: {
     color: "#fff",
     fontFamily: "NanumSquareNeo-Eb",
   },
+  purchaseWrapper: {
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "center",
+  marginTop: 5,
+},
+
+purchaseIcon: {
+  width: 16,
+  height: 16,
+  marginRight: 4,
+},
+
+purchaseDoneText: {
+  fontSize: 14,
+  fontFamily: "NanumSquareNeo-Bd",
+  color: "#1C1E1F", // 초록색 같은 강조 컬러
+},
+
 
 
 });

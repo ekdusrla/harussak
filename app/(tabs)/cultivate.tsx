@@ -1,46 +1,82 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 export default function Cultivate() {
+
+    const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+
   // 카드에 들어갈 데이터
   const cards = [
-    { id: 1, emoji: "📖", title: "도서 30분", dday: "D-2", icon: require("../../assets/images/growth0.png") },
-    { id: 2, emoji: "💊", title: "유산균 섭취", dday: "D-2", icon: require("../../assets/images/growth1.png") },
-    { id: 3, emoji: "🚶", title: "산책 1시간", dday: "D-2", icon: require("../../assets/images/growth2.png") },
-    { id: 4, emoji: "👤", title: "영양제 섭취", dday: "D-2", icon: require("../../assets/images/growth3.png") },
-    { id: 5, emoji: "🌞", title: "오전 9시 기상", dday: "D-2", icon: require("../../assets/images/growth4.png") },
-    { id: 6, emoji: "🌛", title: "오후 10시 취침", dday: "D-2", icon: require("../../assets/images/growth5.png") },
-  ];
+    { id: 1, emoji: "📖", title: "도서 30분 읽기", dday: "D-123", icon: require("../../assets/images/growth0.png") },
+    { id: 2, emoji: "💊", title: "영양제 섭취", dday: "D-6", icon: require("../../assets/images/growth1.png") },
+    { id: 3, emoji: "🚶", title: "산책 1시간 하기", dday: "D-52", icon: require("../../assets/images/growth2.png") },
+    { id: 4, emoji: "👤", title: "오늘도 우렁차게 살아남기", dday: "D-47", icon: require("../../assets/images/growth3.png") },
+    { id: 5, emoji: "🌞", title: "오전 9시에 일어나기", dday: "D-16", icon: require("../../assets/images/growth4.png") },
+    { id: 6, emoji: "🌛", title: "오후 10시에 잠들기", dday: "D-65", icon: require("../../assets/images/growth5.png") },
+    { id: 7, emoji: "🌞", title: "쾌변하기", dday: "D-100", icon: require("../../assets/images/growth6.png") },
+];
 
   return (
     <View style={styles.safeareaview}>
-        <View style={[styles.view2, styles.viewFlexBox]}>
+      {/* 카드 리스트 */}
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+                <View style={[styles.view2, styles.viewFlexBox]}>
         <Image style={styles.item} width={20} height={14} resizeMode="contain" source={require("../../assets/images/icon-seed.png")} />
         <View style={[styles.view3, styles.viewFlexBox]}>
             <Text style={styles.text15}>1234 개</Text>
         </View>
         </View>
-      <Image style={[styles.iconGridCalendar, styles.d2Parent2Layout]}
-        width={24} height={24} source={require("../../assets/images/icon-question.png")} />
+        <View style={{ position: "relative" }}>
+  {/* ❓ 질문 아이콘 버튼 */}
+  <Pressable
+    onPress={() => setIsTooltipVisible((prev) => !prev)}
+    style={[styles.iconGridCalendar, styles.d2Parent2Layout]}
+  >
+    <Image
+    style={styles.item}
+      width={24}
+      height={24}
+      source={require("../../assets/images/icon-question.png")}
+      resizeMode="contain"
+    />
+  </Pressable>
+
+  {/* 💬 말풍선 */}
+{isTooltipVisible && (
+  <ImageBackground
+    source={require("../../assets/images/questionbubble.png")}
+    style={styles.tooltipImage}
+    resizeMode="contain"
+  >
+  </ImageBackground>
+)}
+
+</View>
+
+
         {/* 상단 바 */}
       <View style={styles.topBar}>
       </View>
-
+        
       {/* 제목 */}
       <Text style={styles.title}>나의 정원</Text>
       <Text style={styles.subtitle}>식물과 함께 성장하는 우리의 하루</Text>
-
-      {/* 카드 리스트 */}
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <Image style={styles.item1} width={360} height={96} resizeMode="cover" source={require("../../assets/images/ground.png")} />
         <View style={styles.cardContainer}>
           {cards.map((card) => (
             <View key={card.id} style={styles.card}>
-              <Text style={styles.dday}>{card.dday}</Text>
-              <View style={styles.emojiCircle}>
-                <Text style={styles.emoji}>{card.emoji}</Text>
-              </View>
-              <Image source={card.icon} style={styles.cardImage} resizeMode="contain" />
-              <Text style={styles.cardTitle}>{card.title}</Text>
+        <View style={styles.cardHeader}>
+            <View style={styles.emojiCircle}>
+            <Text style={styles.emoji}>{card.emoji}</Text>
             </View>
+            <Text style={styles.dday}>{card.dday}</Text>
+        </View>
+        <Image source={card.icon} style={styles.cardImage} resizeMode="contain" />
+        <Text style={styles.cardTitle}>
+        {card.title.length > 7 ? card.title.slice(0, 6) + "…" : card.title}
+        </Text>
+        </View>
+
           ))}
         </View>
       </ScrollView>
@@ -60,49 +96,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 80,
   },
-  seedContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "rgba(255, 255, 255, 0.6)",
-    borderRadius: 30,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderWidth: 0.8,
-    borderColor: "#fff",
-    shadowColor: "rgba(158, 164, 169, 0.25)",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 1,
-    shadowRadius: 12,
-    elevation: 12,
-  },
-  seedIcon: {
-    width: 20,
-    height: 14,
-    marginRight: 4,
-  },
-  seedText: {
-    fontSize: 12,
-    fontWeight: "600",
-    color: "#26282c",
-    fontFamily: "NanumSquareNeo-Bd",
-  },
-  questionIcon: {
-    width: 24,
-    height: 24,
-  },
   title: {
-    fontSize: 22,
-    fontWeight: "800",
+    fontSize: 26,
+    fontWeight: "600",
     color: "#26282c",
     textAlign: "center",
     marginTop: 24,
-    fontFamily: "NanumSquareNeo-Bd",
+    fontFamily: "NanumSquareNeo-Eb",
   },
   subtitle: {
     textAlign: "center",
     color: "#74777d",
-    fontSize: 12,
-    marginBottom: 24,
+    fontSize: 14,
+    marginBottom: 28,
+    marginTop: 10,
+    fontFamily: "Pretendard-Regular",
   },
   scrollContainer: {
     paddingBottom: 100,
@@ -115,7 +123,7 @@ const styles = StyleSheet.create({
   card: {
     width: "48%",
     backgroundColor: "#fff",
-    borderRadius: 20,
+    borderRadius: 32,
     borderWidth: 1,
     borderColor: "#eaeced",
     paddingVertical: 16,
@@ -128,11 +136,11 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   dday: {
-    color: "#9ea4a9",
-    fontSize: 12,
-    fontWeight: "700",
+    color: "#9EA4A9",
+    fontSize: 16,
+    fontWeight: "600",
     marginBottom: 4,
-    fontFamily: "NanumSquareNeo-Rg",
+    fontFamily: "NanumSquareNeo-Bd",
   },
   emojiCircle: {
     width: 32,
@@ -147,18 +155,25 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   cardImage: {
-    width: 50,
-    height: 50,
-    marginBottom: 8,
+    width: 100,
+    height: 100,
+    marginBottom: 4,
   },
   cardTitle: {
-    fontSize: 12,
+    fontSize: 16,
     color: "#1c1e1f",
     textAlign: "center",
     fontFamily: "NanumSquareNeo-Rg",
-  },item: {
+  },
+  item: {
     		width: 20,
     		height: 14
+  	},
+    
+  item1: {
+    		width: 400,
+    		height: 60,
+            marginLeft: 8
   	},
   	view3: {
     		justifyContent: "center",
@@ -195,13 +210,33 @@ const styles = StyleSheet.create({
     		borderRadius: 30,
     		alignItems: "center",
     		overflow: "hidden",
-    		left: 20,
+    		left: 4,
     		position: "absolute"
   	},
   	viewFlexBox: {
     		alignItems: "center",
     		flexDirection: "row"
   	},
-    iconGridCalendar: { left: 360, width: 24, top: 40, height: 24 },
-    d2Parent2Layout: { height: 24, position: "absolute" },
+    iconGridCalendar: { left: 340, width: 28, top: 40, height: 28 },
+    d2Parent2Layout: { height: 28, position: "absolute" },
+    tooltipImage: {
+    position: "absolute", // 절대 위치
+    top: 68,              // 아이콘 바로 아래
+    left: 208,            // 아이콘 기준 위치 (필요 시 조정)
+    width: 160,           // 말풍선 이미지 크기
+    height: 60,           // 말풍선 이미지 높이
+    justifyContent: "center", // 텍스트 수직 중앙
+    alignItems: "center",     // 텍스트 수평 중앙
+    zIndex: 100,
+    },
+    cardHeader: {
+    flexDirection: "row",   // 아이콘과 D-2 가로 배치
+    alignItems: "center",   // 수직 중앙 정렬
+    marginBottom: 8,        // 카드 내부 여백
+    gap: 6,                 // 아이콘과 D-2 사이 간격
+    },
+
+
+
+
 });

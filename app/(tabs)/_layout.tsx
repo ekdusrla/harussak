@@ -36,6 +36,34 @@ export default function TabLayout() {
       ),
     }}
   />
+              <Tabs.Screen
+  name="cultivate"
+  options={{
+    tabBarIcon: ({ focused }) => (
+      <Image
+        source={
+          focused
+            ? require("../../assets/images/cultivateY.png")
+            : require("../../assets/images/cultivateN.png")
+        }
+        style={{ width: 30, height: 30, marginTop: 10 }}
+        resizeMode="contain"
+      />
+    ),
+    tabBarLabel: ({ focused }) => (
+        <Text
+          style={{
+            fontSize: 10,                 // 글씨 크기
+            fontFamily: "NanumSquareNeo-Bd",    // 원하는 글씨체 (Expo Fonts 사용 가능)
+            color: focused ? "#26282C" : "#9EA4A9",
+            marginTop: 12
+          }}
+        >
+          재배
+        </Text>
+      ),
+    }}
+  />
       <Tabs.Screen
   name="home"
   options={{

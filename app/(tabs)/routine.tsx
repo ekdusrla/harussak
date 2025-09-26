@@ -136,7 +136,8 @@ const toggleCheck = (index: number) => {
     		<View style={styles.safeareaview}>
       			<View style={styles.view}>
                     <Text style={styles.todayText}>{todayText}</Text>
-                    <View style={{ flexDirection: "row", gap: 34, marginHorizontal: 30, marginTop: 178 }}>
+                    <Text style={[styles.textt, styles.textTypo]}>오늘 하루도 힘내!</Text>
+                    <View style={{ flexDirection: "row", gap: 34, marginHorizontal: 30, marginTop: 200 }}>
 
                     {weekDays.map((weekday, index) => (
                     <View key={index} style={{ alignItems: "center" }}>
@@ -162,8 +163,12 @@ const toggleCheck = (index: number) => {
                         )}
                     </View>
                     ))}
-
                     </View>
+                            <Image
+                            style={styles.itemm} width={480} height={8}
+                            resizeMode="cover"
+                            source={require("../../assets/images/routinebar.png")}
+                          />
                         <View style={[styles.view2, styles.viewFlexBox]}>
                           <Image
                             style={styles.item} width={20} height={14}
@@ -174,12 +179,12 @@ const toggleCheck = (index: number) => {
                             <Text style={styles.text15}>1234 개</Text>
                           </View>
                         </View>
-                        <View style={{ marginTop: 100, marginHorizontal: 20 }}>
+                        <View style={{ marginTop: 58, marginHorizontal: 24 }}>
                             {routines.map((routine, index) => (
                                 <Pressable
                                 key={index}
                                 onPress={() => toggleCheck(index)}
-                                style={{ flexDirection: "row", alignItems: "center", marginBottom: 16 }}
+                                style={{ flexDirection: "row", alignItems: "center", marginBottom: 22 }}
                                 >
                                 <Image
                                     source={checkedImages[index] ?? require("../../assets/images/icon-nonecheck.png")}
@@ -189,7 +194,7 @@ const toggleCheck = (index: number) => {
                                 <Text
                                 style={{
                                     fontSize: 16,
-                                    color: checkedImages[index] ? "#9EA4A9" : "#26282c", // 선택 시 초록색, 아니면 기본색
+                                    color: checkedImages[index] ? "#9EA4A9" : "#26282c",
                                     fontWeight: "500",
                                     fontFamily: "NanumSquareNeo-Rg",
                                     textDecorationLine: checkedImages[index] ? "line-through" : "none" // 선택되면 줄 긋기
@@ -298,7 +303,7 @@ const styles = StyleSheet.create({
     		flex: 1
   	},
   	todayText: {
-    		top: 88,
+    		top: 100,
     		fontSize: 26,
     		letterSpacing: -0.26,
     		lineHeight: 28,
@@ -338,6 +343,12 @@ const styles = StyleSheet.create({
     		width: 20,
     		height: 14
   	},
+    
+  	itemm: {
+    		width: 480,
+    		height: 8,
+        marginTop: 20
+  	},
   	view3: {
     		justifyContent: "center",
     		paddingLeft: 4,
@@ -359,7 +370,7 @@ const styles = StyleSheet.create({
     		lineHeight: 22
   	},
   	myRoutine: {
-    		top: 284,
+    		top: 308,
     		left: 24,
     		fontSize: 16,
     		color: "#9ea4a9"
@@ -479,6 +490,19 @@ prePopupMessage: {
   color: "#EAECED",
   textAlign: "center",
   fontFamily: "NanumSquareNeo-Rg",
-}
+},
+  	textt: {
+    		top: 132,
+    		left: 24,
+    		fontSize: 20,
+    		color: "#74777D"
+  	},
+  	textTypo: {
+    		fontFamily: "Pretendard-Medium",
+    		lineHeight: 24,
+    		letterSpacing: -0.43,
+    		textAlign: "left",
+    		position: "absolute"
+  	},
 
 });

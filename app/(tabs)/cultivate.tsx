@@ -1,9 +1,12 @@
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 export default function Cultivate() {
 
     const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+
+    const router = useRouter();
 
   // 카드에 들어갈 데이터
   const cards = [
@@ -62,6 +65,13 @@ export default function Cultivate() {
       <Text style={styles.title}>나의 정원</Text>
       <Text style={styles.subtitle}>식물과 함께 성장하는 우리의 하루</Text>
       <Image style={styles.item1} width={360} height={96} resizeMode="cover" source={require("../../assets/images/ground.png")} />
+       <Pressable
+          onPress={() => router.push("/cultivatedetails")} // 이동할 페이지 경로
+          style={({ pressed }) => [
+            styles.cardContainer,
+            pressed && { opacity: 0.7 }, // 눌렀을 때 시각적 피드백
+          ]}
+        >
         <View style={styles.cardContainer}>
           {cards.map((card) => (
             <View key={card.id} style={styles.card}>
@@ -79,6 +89,7 @@ export default function Cultivate() {
 
           ))}
         </View>
+        </Pressable>
       </ScrollView>
     </View>
   );

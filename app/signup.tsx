@@ -40,7 +40,7 @@ export default function Signup() {
         }
 
         if (!hasError) {
-        router.push("./(tabs)/login");
+        router.push("./login");
         }
         };
 
@@ -112,8 +112,8 @@ export default function Signup() {
 
                         <View style={[styles.wrap, styles.wrapPosition]}>
                                 <Text style={[styles.text7, styles.textTypo1]}>회원가입</Text>
-                                <Pressable style={[styles.iconBack, styles.wrapPosition]} onPress={()=> router.push("./(tabs)/login")}>
-                                <Image style={styles.icon} resizeMode="cover" source={require("../assets/images/icon-back.png")} />
+                                <Pressable style={[styles.iconBack, styles.wrapPosition]} onPress={()=> router.push("./login")}>
+                                <Image style={styles.icon} resizeMode="contain" source={require("../assets/images/icon-back.png")} />
                                 </Pressable>
                         </View>
                 </View>
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
             fontWeight: "600",
             fontFamily: "NanumSquareNeo-Bd"
     },
-    wrapPosition: {
+        wrapPosition: {
             height: 60,
             left: 0,
             position: "absolute"
@@ -332,8 +332,8 @@ const styles = StyleSheet.create({
             overflow: "hidden"
     },
     text7: {
-            marginTop: 2,
-            marginLeft: -110,
+            marginTop: 4,
+            marginLeft: -120,
             fontSize: 22,
             letterSpacing: -0.26,
             lineHeight: 28,
@@ -345,13 +345,14 @@ const styles = StyleSheet.create({
     },
     iconBack: {
             top: 0,
-            width: 55
+            width: "50%",
+            height: "50%"
     },
     icon: {
-        top: 20,
-        left: 20,
-        width: 48,
-        height: 48,
+        top: 36,
+        left: 28,
+        width: 20,
+        height: 20,
         position: "absolute",
         overflow: "hidden"
     },

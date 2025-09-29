@@ -13,23 +13,15 @@ export default function Login() {
 
     const router = useRouter();
 
-    const handleLogin = () => {
-    setShowWarning(true);
-    if (email && password) {
-      router.replace("./generateroutine1");
-    }
-  };
-
-
     return (
         <View style={styles.view}>
             <View style={styles.view1}>
                 <View style={[styles.child, styles.textPosition1]} />
-                <Image style={[styles.icon, styles.iconPosition]} resizeMode="contain" source={require("../../assets/images/kakao.png")} />
-                <Image style={[styles.icon1, styles.iconPosition]} resizeMode="contain" source={require("../../assets/images/google.png")} />
+                <Image style={[styles.icon, styles.iconPosition]} resizeMode="contain" source={require("../assets/images/kakao.png")} />
+                <Image style={[styles.icon1, styles.iconPosition]} resizeMode="contain" source={require("../assets/images/google.png")} />
                 <View style={styles.item} />
                 <Text style={[styles.text1, styles.textTypo]}>회원이 아니신가요?</Text>
-                    <Pressable style={[styles.wrapper, styles.view2FlexBox]} onPress={()=>router.push("../signup")}>
+                    <Pressable style={[styles.wrapper, styles.view2FlexBox]} onPress={()=>router.push("./signup")}>
                             <Text style={styles.text2}>회원가입</Text>
                     </Pressable>
                     <View style={[styles.view2, styles.view2FlexBox]}>
@@ -37,7 +29,7 @@ export default function Login() {
                     </View>
                 <View style={styles.lineargradient}>
                 <View style={[styles.pressable, styles.pressableShadowBox]}>
-                <Image style={styles.iconPw} resizeMode="cover" source={require("../../assets/images/icon-pw.png")} />
+                <Image style={styles.iconPw} resizeMode="cover" source={require("../assets/images/icon-pw.png")} />
                 <TextInput
                 style={[styles.textInput, styles.textPosition, { color: "#1C1E1F" }]}
                 placeholder="비밀번호" placeholderTextColor="#9EA4A9" secureTextEntry={!showPassword}
@@ -46,15 +38,15 @@ export default function Login() {
                 <Image style={{ width: 44, height: 40 }} resizeMode="cover"
                         source={
                         showPassword
-                        ? require("../../assets/images/icon-show.png")
-                        : require("../../assets/images/icon-hide.png")
+                        ? require("../assets/images/icon-show.png")
+                        : require("../assets/images/icon-hide.png")
                         }/>
                 </Pressable>
                 </View>
                 </View>
                     <View style={styles.lineargradient}>
                         <View style={[styles.pressable1, styles.pressableShadowBox]}>
-                        <Image style={styles.iconPw} resizeMode="cover" source={require("../../assets/images/icon-id.png")} />
+                        <Image style={styles.iconPw} resizeMode="cover" source={require("../assets/images/icon-id.png")} />
                         <TextInput style={[styles.textInput, styles.textPosition, { color: "#1C1E1F" }]}
                         placeholder="이메일" placeholderTextColor="#9EA4A9"
                         value={email} onChangeText={setEmail}/>
@@ -71,7 +63,7 @@ export default function Login() {
                     )}
                     <Pressable style={({ pressed }) => [styles.pressable2, pressed && { backgroundColor: "#7acb3e" } ]} 
                     onPress={()=>{setShowWarning(true);
-                        if (email && password) {router.replace("./generateroutine1"); }}}>
+                        if (email && password) {router.replace("/home"); }}}>
                             <Text style={styles.text7}>로그인</Text>
                     </Pressable>
             </View>

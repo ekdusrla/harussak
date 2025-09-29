@@ -228,6 +228,13 @@ const toggleCheck = (index: number) => {
                         }}
                     />
                     </Pressable>
+                    <Pressable onPress={() => router.push("/login")} hitSlop={10}>
+                      <Image
+                        style={styles.item22}
+                        source={require("../../assets/images/icon-menu.png")}
+                        resizeMode="contain"
+                      />
+                    </Pressable>
                     {/* ✅ 팝업 모달 */}
                     {/* 1. 사전 팝업 */}
 <Modal
@@ -343,11 +350,18 @@ const styles = StyleSheet.create({
     		width: 20,
     		height: 14
   	},
-    
   	itemm: {
     		width: 480,
     		height: 8,
         marginTop: 20
+  	},
+    item22: {
+      position: "absolute",
+    		width: 40,
+    		height: 40,
+        left: 340,
+        bottom: 736
+        
   	},
   	view3: {
     		justifyContent: "center",

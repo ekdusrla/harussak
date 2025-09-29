@@ -92,23 +92,6 @@ export default function TabLayout() {
       ),
     }}
   />
-
-      <Tabs.Screen
-        name="login"
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={
-                focused
-                  ? require("../../assets/images/icon-hide.png")
-                  : require("../../assets/images/icon-show.png")
-              }
-              style={{ width: 24, height: 24 }}
-              resizeMode="contain"
-            />
-          ),
-        }}
-      />
       <Tabs.Screen
   name="achieve"
   options={{

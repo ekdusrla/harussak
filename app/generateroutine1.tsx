@@ -53,6 +53,9 @@ export default function GenerateRoutine1() {
                             </Pressable>
                         </View>
                         <Image style={[styles.item, styles.itemPosition]} width={153} height={28} resizeMode="contain" source={require("../assets/images/bar1.png")} />
+                        <Pressable style={[styles.iconBack, styles.wrapPosition]} onPress={()=> router.push("/routine")}>
+                        <Image style={styles.icon} resizeMode="contain" source={require("../assets/images/icon-back.png")} />
+                        </Pressable>
                 </View>
             </View>
     );
@@ -190,5 +193,22 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: "red",
         fontFamily: "Pretendard-Regular",
+    },
+        iconBack: {
+            top: 0,
+            width: 55
+    },
+        icon: {
+        top: 36,
+        left: 20,
+        width: 20,
+        height: 20,
+        position: "absolute",
+        overflow: "hidden"
+    },
+        wrapPosition: {
+            height: 60,
+            left: 0,
+            position: "absolute"
     },
 });

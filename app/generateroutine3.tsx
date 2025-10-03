@@ -209,20 +209,26 @@ export default function GenerateRoutine3() {
                                 { backgroundColor: isConfirmEnabled ? "#91E04C" : "#CACDD3" },
                                 ]}
                                 disabled={!isConfirmEnabled}
-                                onPress={() => router.push("./(tabs)/home")}
+                                onPress={() =>
+                                        router.push({
+                                        pathname: "/generateroutine4",
+                                        params: {
+                                        routine: routine,
+                                        period: period,
+                                        selectedDays: JSON.stringify(selectedDays), // 배열은 문자열로 변환해서 전달
+                                        },
+                                        })
+                                        }
                                 >
                                 <Text style={[styles.text15, styles.textPosition]}>확인</Text>
                                 </Pressable>
-
-
                         <Pressable
                         style={[styles.wrapper8, styles.wrapperLayout]}
-                        onPress={() => router.push("./generateroutine2")}
+                        onPress={() => router.push("/generateroutine2")}
                         >
                         <Text style={[styles.text16, styles.textPosition]}>이전으로</Text>
                         </Pressable>
-                        </View>
-
+                </View>
             </View>
         </View>
     );
@@ -238,12 +244,6 @@ const styles = StyleSheet.create({
             overflow: "hidden",
             backgroundColor: "#f8f8f8"
     },
-    childLayout: {
-            height: 36,
-            width: 36,
-            top: 502,
-            position: "absolute"
-    },
     child4Border: {
             borderWidth: 0.8,
             borderColor: "#eaeced",
@@ -257,10 +257,6 @@ const styles = StyleSheet.create({
     child4Layout: {
             height: 52,
             top: 207
-    },
-    textClr: {
-            color: "#fff",
-            marginLeft: -14
     },
     textTypo1: {
             fontSize: 16,
@@ -288,13 +284,6 @@ const styles = StyleSheet.create({
     iconLayout: {
             height: 50,
             width: 55,
-            position: "absolute"
-    },
-    textTypo2: {
-            lineHeight: 22,
-            letterSpacing: -0.43,
-            textAlign: "center",
-            fontFamily: "NanumSquareNeo-Rg",
             position: "absolute"
     },
     frameIconPosition: {
@@ -360,20 +349,6 @@ const styles = StyleSheet.create({
             left: 20,
             position: "absolute"
     },
-    safeareaviewText: {
-            marginTop: 300,
-            textAlign: "center",
-            lineHeight: 22,
-            letterSpacing: -0.43,
-            fontFamily: "NanumSquareNeo-Rg",
-            position: "absolute",
-            fontSize: 14,
-            top: "50%",
-            color: "#fff",
-            marginLeft: -14,
-            fontWeight: "700",
-            left: "50%"
-    },
     text2: {
             top: 173,
             textAlign: "left",
@@ -433,18 +408,12 @@ const styles = StyleSheet.create({
             top: 207,
             width: 320
     },
-    text13: {
-            textAlign: "left"
-    },
     wrapper6: {
             left: 86,
             width: 254,
             paddingLeft: 16,
             height: 80,
             top: 329
-    },
-    text14: {
-            textAlign: "center"
     },
     buttonWrap: {
             marginLeft: -180,
@@ -490,9 +459,9 @@ const styles = StyleSheet.create({
     borderWidth: 0.5, // 선택되면 빨간 원
     },
     dayButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 32,
+    height: 32,
+    borderRadius: 24,
     justifyContent: "center",
     alignItems: "center",
     marginHorizontal: 4,

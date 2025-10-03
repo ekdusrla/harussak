@@ -8,21 +8,22 @@ export default function GenerateRoutine2() {
 
     const router = useRouter();
     const [selectedCard, setSelectedCard] = useState<number | null>(null);
-    const cards = [
-        { text: "📖 도서 30분 읽기" },
-        { text: "☀️ 오전 10시에 일어나기" },
-        { text: "🧘‍♂️ 명상 30분 하기" },
-        { text: "🌙 오후 10시에 취침하기" },
-        { text: "💊 비타민 먹기" },
-        { text: "🚶️ 산책 10분하기" },
-        { text: "💊 영양제 먹기" },
-        { text: "📖 도서 30분 읽기" },
-        { text: "☀️ 오전 11시에 일어나기" },
-        { text: "🧘‍♂️ 요가하기" },
-        { text: "🌙 오전 1시에 전 취침하기" },
-        { text: "💊 유산균 먹기" },
-        { text: "나의 루틴 만들기"}
-        ];
+  const cards = [
+    { emoji: "📖", title: "도서 30분 읽기" },
+    { emoji: "☀️", title: "오전 10시에 일어나기" },
+    { emoji: "🧘‍♂️", title: "명상 30분 하기" },
+    { emoji: "🌙", title: "오후 10시에 취침하기" },
+    { emoji: "💊", title: "비타민 먹기" },
+    { emoji: "🚶️", title: "산책 10분하기" },
+    { emoji: "💊", title: "영양제 먹기" },
+    { emoji: "📖", title: "도서 30분 읽기" },
+    { emoji: "☀️", title: "오전 11시에 일어나기" },
+    { emoji: "🧘‍♂️", title: "요가하기" },
+    { emoji: "🌙", title: "오전 1시에 전 취침하기" },
+    { emoji: "💊", title: "유산균 먹기" },
+    { emoji: "", title: "나의 루틴 만들기" }
+  ];
+
 
 
 
@@ -46,7 +47,7 @@ export default function GenerateRoutine2() {
       <ScrollView style={styles.scrollArea} contentContainerStyle={styles.scrollContent}>
 {cards.map((card, index) => {
   const isSelected = selectedCard === index;
-  const isCustomRoutine = card.text === "나의 루틴 만들기";
+  const isCustomRoutine = card.title === "나의 루틴 만들기";
 
   return (
     <Pressable
@@ -59,7 +60,10 @@ export default function GenerateRoutine2() {
       ]}
       onPress={() => setSelectedCard(index)}
     >
-      <Text style={styles.text2}>{card.text}</Text>
+      <View style={styles.cardContent}>
+  {card.emoji !== "" && <Text style={styles.emoji}>{card.emoji}</Text>}
+  <Text style={styles.title}>{card.title}</Text>
+</View>
       {isSelected && (
         <Image
           source={require("../assets/images/cardborder.png")}
@@ -84,15 +88,13 @@ export default function GenerateRoutine2() {
                 if (selectedCard !== null) {
                 router.push({
                     pathname: "./generateroutine3",
-                    params: { routineText: cards[selectedCard].text },
+                    params: { routineText: cards[selectedCard].title },
                 });
                 }
             }}
             >
             <Text style={[styles.text30, styles.textPosition]}>확인</Text>
             </Pressable>
-
-
         <Pressable style={[styles.container, styles.wrapperLayout]} onPress={()=>router.push("./generateroutine1")}>
           <Text style={[styles.text31, styles.textPosition] }>이전으로</Text>
         </Pressable>
@@ -107,12 +109,6 @@ const styles = StyleSheet.create({
     safeareaview: {
             backgroundColor: "#f8f8f8",
             flex: 1
-    },
-    childPosition: {
-            backgroundColor: "transparent",
-            left: 0,
-            position: "absolute",
-            width: 360
     },
     lineargradientShadowBox: {
             gap: 10,
@@ -134,11 +130,6 @@ const styles = StyleSheet.create({
             backgroundColor: "#fafafa",
             marginHorizontal: 20,
             marginVertical: 8,
-    },
-    containerBorder: {
-            borderWidth: 1,
-            borderStyle: "solid",
-            left: 20
     },
     itemPosition: {
             left: "50%",
@@ -163,17 +154,6 @@ const styles = StyleSheet.create({
             fontWeight: "600",
             position: "absolute"
     },
-    view: {
-            width: "100%",
-            height: 760,
-            overflow: "hidden",
-            backgroundColor: "#f8f8f8",
-            flex: 1
-    },
-    child: {
-            top: 157,
-            height: 137
-    },
     text: {
             top: 100,
             lineHeight: 28,
@@ -186,17 +166,6 @@ const styles = StyleSheet.create({
             left: 20,
             position: "absolute"
     },
-    lineargradient: {
-            top: 200
-    },
-    safeareaviewText: {
-            lineHeight: 25,
-            color: "#000",
-            textAlign: "center",
-            fontFamily: "NanumSquareNeo-Rg",
-            letterSpacing: -0.26,
-            fontSize: 20
-    },
     text2: {
             lineHeight: 22,
             letterSpacing: -0.43,
@@ -205,46 +174,11 @@ const styles = StyleSheet.create({
             color: "#26282c",
             fontFamily: "NanumSquareNeo-Rg"
     },
-    lineargradient12: {
-            top: 1208,
-            borderColor: "#91e04c",
-            paddingVertical: 0,
-            paddingHorizontal: 32,
-            alignItems: "center",
-            flexDirection: "row",
-            height: 56,
-            borderRadius: 32,
-            shadowOpacity: 1,
-            elevation: 4,
-            shadowRadius: 4,
-            shadowOffset: {
-                width: 0,
-                height: 0
-            },
-            shadowColor: "rgba(70, 75, 83, 0.12)",
-            boxShadow: "0px 0px 4px rgba(70, 75, 83, 0.12)",
-            right: 20,
-            borderStyle: "solid",
-            backgroundColor: "transparent",
-            position: "absolute",
-            overflow: "hidden"
-    },
-    lineargradient13: {
-            top: 848
-    },
-    lineargradient14: {
-            top: 920
-    },
     item: {
             marginLeft: -77,
             top: 60,
             width: 153,
             height: 28
-    },
-    lineargradient15: {
-            bottom: 80,
-            height: 77,
-            opacity: 0.8
     },
     buttonWrap: {
             marginLeft: -180,
@@ -274,12 +208,7 @@ const styles = StyleSheet.create({
     text31: {
             marginLeft: -27,
             color: "#9ea4a9"
-    },header: {
-  height: 120,         // 글씨 + 로고 영역 높이
-  paddingHorizontal: 20,
-  justifyContent: "flex-end", // 글씨 밑으로 배치
-  zIndex: 1,
-},
+    },
 scrollWrapper: {
   flex: 1,
   marginTop: 120,      // header 높이만큼 아래에서 시작
@@ -292,16 +221,6 @@ scrollContent: {
   flex: 1,
   marginTop: 60,
 },
-bottomFadeImage: {
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  right: 0,
-  height: 300, // PNG 높이
-},
-cardSelected: {
-  backgroundColor: "#EBF5E3",
-},
 cardBorderImage: {
   position: 'absolute',
   top: 0,
@@ -310,7 +229,19 @@ cardBorderImage: {
   bottom: 0,
   borderRadius: 32,
   width: 372, // 카드 테두리 반경과 맞춰주세요
-}
-
+},
+cardContent: {
+  flexDirection: "row",
+  alignItems: "center",
+},
+emoji: {
+  fontSize: 20,
+  marginRight: 6,
+},
+title: {
+  fontSize: 16,
+  fontFamily: "NanumSquareNeo-Rg",
+  color: "#333",
+},
 
 });

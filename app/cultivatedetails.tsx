@@ -1,6 +1,6 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import { Animated, Image, ImageBackground, Pressable, StyleSheet, Text, View } from "react-native";
+import { Animated, Image, ImageBackground, Modal, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function CultivateDatails() {
 
@@ -12,6 +12,8 @@ export default function CultivateDatails() {
 	const { iconIndex, title } = useLocalSearchParams<{ iconIndex?: string; title?: string }>();
 	const index = Number(iconIndex) || 0;
 	const routineName = title || "루틴 이름 없음";
+
+	const [modalVisible, setModalVisible] = useState(false);
 
 	const detailMap: Record<number, any> = {
 	0: require("../assets/images/detail0.png"),
@@ -59,9 +61,6 @@ export default function CultivateDatails() {
 	growthMessage = `꽃이 맺히며 기대를 품고 있어요!\n정성과 열정이 아름답게 피어나려 해요`;
 	growthLevel = "Lv.4 피어나는 꽃봉오리";
 	}
-
-
-
       	return (
 			    <ImageBackground
 					source={require("../assets/images/cultivatebackground.png")} // ✅ 배경 이미지 경로
@@ -110,13 +109,57 @@ export default function CultivateDatails() {
 						<Text style={[styles.lv2, styles.lv2Typo]}>{growthLevel}</Text>
         				<Text style={[styles.text9, styles.textTypo]}>다음 성장까지</Text>
         				<Text style={[styles.text10, styles.textTypo]}>50%</Text>
-        				<Text style={styles.text11}>루틴 그만하기</Text>
-        				<Image style={styles.item} width={16} height={16} resizeMode="contain" source={require("../assets/images/icon-erase.png")}/>
+						<Pressable
+						style={styles.stopRoutineButton}
+						onPress={() => setModalVisible(true)}
+						>
+						<Image
+							style={styles.stopRoutineIcon}
+							source={require("../assets/images/icon-erase.png")}
+							resizeMode="contain"
+						/>
+						<Text style={styles.stopRoutineText}>루틴 그만하기</Text>
+						</Pressable>
 						<Pressable style={[styles.iconBack, styles.wrapPosition]} onPress={()=> router.push("/cultivate")}>
 						<Image style={styles.icon} resizeMode="contain" source={require("../assets/images/icon-back.png")} />
 						</Pressable>
       			</View>
+				<Modal
+					visible={modalVisible}
+					transparent
+					animationType="fade"
+					onRequestClose={() => setModalVisible(false)}
+					>
+					<View style={styles.modalOverlay}>
+						<View style={styles.modalContainer}>
+						<Text style={styles.modalTitle}>루틴을 정말 그만하시겠어요?</Text>
+						<Text style={styles.modalMessage}>
+							지금까지의 성장 기록이 모두 사라집니다.
+						</Text>
+						<View style={styles.modalButtonRow}>
+							<Pressable
+							style={[styles.modalButton, styles.cancelButton]}
+							onPress={() => setModalVisible(false)}
+							>
+							<Text style={styles.modalButtonText}>취소</Text>
+							</Pressable>
+							<Pressable
+							style={[styles.modalButton, styles.confirmButton]}
+							onPress={() => {
+								setModalVisible(false);
+								router.push("/cultivate"); // ✅ "그만하기" 후 이동 (필요 없으면 제거 가능)
+							}}
+							>
+							<Text style={[styles.modalButtonText, { color: "#fff" }]}>
+								그만하기
+							</Text>
+							</Pressable>
+						</View>
+						</View>
+					</View>
+					</Modal>
 			</ImageBackground>
+			
     );
 }
 
@@ -244,9 +287,6 @@ const styles = StyleSheet.create({
     		left: "45%",
     		position: "absolute"
   	},
-  	text8: {
-    		marginLeft: -91
-  	},
   	lv2: {
     		marginLeft: -132
   	},
@@ -263,25 +303,6 @@ const styles = StyleSheet.create({
     		fontSize: 14,
     		top: 378,
 			fontFamily: "NanumSquareNeo-Eb",
-  	},
-  	text11: {
-    		top: 820,
-    		left: 280,
-    		letterSpacing: 1.2,
-    		color: "#ff6337",
-    		width: 100,
-    		fontSize: 16,
-    		textAlign: "center",
-    		fontFamily: "NanumSquareNeo",
-    		lineHeight: 22,
-    		position: "absolute"
-  	},
-  	item: {
-    		top: 822,
-    		left: 264,
-    		width: 16,
-    		height: 16,
-    		position: "absolute"
   	},
 	 iconBack: {
             top: 0,
@@ -307,5 +328,83 @@ const styles = StyleSheet.create({
 		marginLeft: 148,
 		marginTop: 132 // height / 2
 		},
+		modalOverlay: {
+  flex: 1,
+  backgroundColor: "rgba(0, 0, 0, 0.4)",
+  justifyContent: "center",
+  alignItems: "center",
+},
+modalContainer: {
+  width: 280,
+  backgroundColor: "#fff",
+  borderRadius: 16,
+  padding: 24,
+  alignItems: "center",
+},
+modalTitle: {
+  fontSize: 18,
+  fontWeight: "600",
+  marginBottom: 12,
+  color: "#26282c",
+  textAlign: "center",
+  fontFamily: "NanumSquareNeo-Eb",
+},
+modalMessage: {
+  fontSize: 14,
+  color: "#74777d",
+  textAlign: "center",
+  lineHeight: 20,
+  marginBottom: 20,
+  fontFamily: "NanumSquareNeo-Rg",
+},
+modalButtonRow: {
+  flexDirection: "row",
+  justifyContent: "space-between",
+  width: "100%",
+},
+modalButton: {
+  flex: 1,
+  paddingVertical: 12,
+  borderRadius: 12,
+  alignItems: "center",
+  marginHorizontal: 6,
+},
+cancelButton: {
+  backgroundColor: "#EEF3F6",
+},
+confirmButton: {
+  backgroundColor: "#FF6337",
+},
+modalButtonText: {
+  fontSize: 14,
+  fontWeight: "600",
+  color: "#9EA4A9",
+  fontFamily: "NanumSquareNeo-Eb",
+},
+stopRoutineButton: {
+  position: "absolute",
+  top: 820,
+  left: 260,
+  flexDirection: "row",
+  alignItems: "center",
+  paddingVertical: 8,
+  paddingHorizontal: 8,
+  borderRadius: 8,
+},
+
+stopRoutineIcon: {
+  width: 16,
+  height: 16,
+  marginRight: 6,
+},
+
+stopRoutineText: {
+  color: "#ff6337",
+  fontSize: 16,
+  fontFamily: "NanumSquareNeo-Rg",
+  fontWeight: "600",
+},
+
+
 
 });

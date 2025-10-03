@@ -42,6 +42,25 @@ export default function CultivateDatails() {
 	}, [showCenterImage]);
 
 
+	// index에 따라 문구 설정
+	let growthMessage = "";
+	let growthLevel = "";
+
+	if (index === 0) {
+	growthMessage = `당신의 마음을 간직한 씨앗이에요!\n꾸준히 노력하면 씨앗이 열려요`;
+	growthLevel = "Lv.1 꿈꾸는 씨앗";
+	} else if (index === 1 || index === 4) {
+	growthMessage = `처음으로 싹을 틔운 순간이에요!\n포기하지 않은 의지가 빛나고 있어요`;
+	growthLevel = "Lv.2 뿌리내린 새싹";
+	} else if (index === 2 || index === 5) {
+	growthMessage = `단단히 뿌리내리고 서 있는 순간이에요!\n흔들림 없는 노력이 든든한 힘이 되었어요`;
+	growthLevel = "Lv.3 흔들리지 않는 줄기";
+	} else if (index === 3 || index === 6) {
+	growthMessage = `꽃이 맺히며 기대를 품고 있어요!\n정성과 열정이 아름답게 피어나려 해요`;
+	growthLevel = "Lv.4 피어나는 꽃봉오리";
+	}
+
+
 
       	return (
 			    <ImageBackground
@@ -87,9 +106,8 @@ export default function CultivateDatails() {
         				<Text style={[styles.text4, styles.textPosition1]}>매주 월 수</Text>
         				<Text style={[styles.text5, styles.textPosition]}>씨앗 :</Text>
         				<Text style={[styles.text6, styles.textPosition]}>백합과</Text>
-        				<Text style={[styles.text7, styles.textClr]}>{`처음으로 싹을 틔운 순간이에요!\n포기하지 않은 의지가 빛나고 있어요`}</Text>
-        				<Text style={[styles.text8, styles.lv2Typo]}>뿌리내린 새싹</Text>
-        				<Text style={[styles.lv2, styles.lv2Typo]}>Lv.2</Text>
+						<Text style={[styles.text7, styles.textClr]}>{growthMessage}</Text>
+						<Text style={[styles.lv2, styles.lv2Typo]}>{growthLevel}</Text>
         				<Text style={[styles.text9, styles.textTypo]}>다음 성장까지</Text>
         				<Text style={[styles.text10, styles.textTypo]}>50%</Text>
         				<Text style={styles.text11}>루틴 그만하기</Text>

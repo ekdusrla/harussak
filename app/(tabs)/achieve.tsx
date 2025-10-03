@@ -17,8 +17,8 @@ export default function Achieve() {
                     style={{
                     width: 160,
                     height: 160,
-                    resizeMode: "contain",
                     }}
+                    resizeMode="contain"
                 />
         </View>
     );

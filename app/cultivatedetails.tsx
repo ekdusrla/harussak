@@ -1,4 +1,4 @@
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { Animated, Image, ImageBackground, Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -8,6 +8,20 @@ export default function CultivateDatails() {
 
 	const [showCenterImage, setShowCenterImage] = useState(false);
 	const fadeAnim = useRef(new Animated.Value(0)).current;
+
+	const { iconIndex, title } = useLocalSearchParams<{ iconIndex?: string; title?: string }>();
+	const index = Number(iconIndex) || 0;
+	const routineName = title || "루틴 이름 없음";
+
+	const detailMap: Record<number, any> = {
+	0: require("../assets/images/detail0.png"),
+	1: require("../assets/images/detail1.png"),
+	2: require("../assets/images/detail2.png"),
+	3: require("../assets/images/detail3.png"),
+	4: require("../assets/images/detail4.png"),
+	5: require("../assets/images/detail5.png"),
+	6: require("../assets/images/detail6.png"),
+	};
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -47,14 +61,14 @@ export default function CultivateDatails() {
 				}}
 				resizeMode="contain"
 				/>
-								<Image
-				source={require("../assets/images/growth0.png")}
+				<Image
+				source={detailMap[index]}  // ✅ iconIndex에 따라 detail 이미지 선택
 				style={{
 					position: "absolute",
-					top: 220, // ✅ 이미지 width 120의 절반
-					width: 120,
-					height: 120,
-					left: 160
+					top: 208,
+					width: 132,
+					height: 132,
+					left: "35%"
 				}}
 				resizeMode="contain"
 				/>
@@ -66,7 +80,7 @@ export default function CultivateDatails() {
 				/>
 				)}
         				<View style={styles.child} />
-        				<Text style={styles.text}>도서 30분 읽기</Text>
+        				<Text style={styles.text}>{routineName}</Text>
         				<Text style={[styles.safeareaviewText, styles.textPosition2]}>기간 :</Text>
         				<Text style={[styles.text2, styles.textPosition2]}>2024.12.03-2025.12.03</Text>
         				<Text style={[styles.text3, styles.textPosition1]}>주기 :</Text>
@@ -152,16 +166,6 @@ const styles = StyleSheet.create({
     		left: "45%",
     		position: "absolute",
 			fontWeight: "600"
-  	},
-  	labelTypo: {
-    		fontFamily: "SF Pro",
-    		color: "#74777d",
-    		lineHeight: 22
-  	},
-  	view: {
-    		width: "100%",
-    		height: 758,
-    		overflow: "hidden"
   	},
   	child: {
     		marginLeft: -180,
@@ -260,32 +264,6 @@ const styles = StyleSheet.create({
     		width: 16,
     		height: 16,
     		position: "absolute"
-  	},
-  	unionIcon: {
-    		width: 9,
-    		height: 8
-  	},
-  	leading: {
-    		top: 14,
-    		left: 16,
-    		width: 44,
-    		flexDirection: "row",
-    		alignItems: "center",
-    		paddingHorizontal: 8,
-    		paddingVertical: 11,
-    		gap: 3,
-    		position: "absolute"
-  	},
-  	chevron: {
-    		fontSize: 15,
-    		fontWeight: "600",
-    		textAlign: "center"
-  	},
-  	label: {
-    		fontSize: 17,
-    		textAlign: "left",
-    		letterSpacing: -0.43,
-    		fontFamily: "SF Pro"
   	},
 	 iconBack: {
             top: 0,

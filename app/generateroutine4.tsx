@@ -126,8 +126,8 @@ const styles = StyleSheet.create({
   	},
   	innerLayout: {
     		height: 0,
-    		width: 312,
-    		left: 24,
+    		width: 320,
+    		left: 40,
     		borderTopWidth: 1.2,
     		borderColor: "#eaeced",
     		borderStyle: "solid",
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     		fontWeight: "600"
   	},
   	text5: {
-    		top: 470,
+    		top: 463,
     		fontFamily: "NanumSquareNeo-Bd",
     		lineHeight: 22,
     		letterSpacing: -0.43,
@@ -206,23 +206,21 @@ const styles = StyleSheet.create({
     		position: "absolute"
   	},
   	text6: {
-    		marginLeft: -15,
     		top: 507,
     		fontFamily: "NanumSquareNeo-Rg",
     		lineHeight: 22,
     		letterSpacing: -0.43,
     		fontSize: 14,
-    		left: "50%",
+			right:60,
     		position: "absolute"
   	},
   	text7: {
-    		marginLeft: 54,
     		top: 463,
     		fontFamily: "NanumSquareNeo-Rg",
     		lineHeight: 22,
     		letterSpacing: -0.43,
     		fontSize: 14,
-    		left: "50%",
+    		right:60,
     		position: "absolute"
   	},
   	text8: {
@@ -232,7 +230,7 @@ const styles = StyleSheet.create({
     		fontWeight: "600"
   	},
   	text9: {
-    		marginLeft: 86,
+    		right:60,
     		textAlign: "right",
     		color: "#1c1e1f"
   	},
@@ -243,7 +241,7 @@ const styles = StyleSheet.create({
     		fontWeight: "600"
   	},
   	text11: {
-    		marginLeft: 105,
+    		right:60,
     		textAlign: "right",
     		color: "#1c1e1f"
   	},
@@ -258,8 +256,8 @@ const styles = StyleSheet.create({
   	},
   	child2: {
     		top: 620,
-    		width: 340,
-            left: "8%",
+    		width: 320,
+    		left: 40,
     		height: 2,
     		borderTopWidth: 1.2,
     		borderColor: "#eaeced",

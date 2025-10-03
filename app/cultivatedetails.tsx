@@ -109,6 +109,14 @@ export default function CultivateDatails() {
 						<Text style={[styles.lv2, styles.lv2Typo]}>{growthLevel}</Text>
         				<Text style={[styles.text9, styles.textTypo]}>다음 성장까지</Text>
         				<Text style={[styles.text10, styles.textTypo]}>50%</Text>
+						<ImageBackground style={[styles.item]}
+							source={require("../assets/images/bar0.png")}
+							resizeMode="contain"
+						/>
+						<Image style={[styles.itemm]}
+							source={require("../assets/images/bar-rainbow.png")}
+							resizeMode="contain"
+						/>
 						<Pressable
 						style={styles.stopRoutineButton}
 						onPress={() => setModalVisible(true)}
@@ -404,6 +412,21 @@ stopRoutineText: {
   fontFamily: "NanumSquareNeo-Rg",
   fontWeight: "600",
 },
+    item: {
+            marginLeft: -160,
+            top: 462,
+            width: 320,
+            height: 28,
+			left: "50%",
+            position: "absolute"
+    },
+	itemm: {
+            marginLeft: -160,
+            top: 460,
+            width: 160,
+			left: "50%",
+            position: "absolute"
+    },
 
 
 

@@ -1,9 +1,15 @@
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Achieve() {
 
-  const [activeTab, setActiveTab] = useState<"achieve" | "plant">("achieve");
+  const router = useRouter();
+  const [selectedCard, setSelectedCard] = useState<number | null>(null);
+
+  const { tab } = useLocalSearchParams();
+  const [activeTab, setActiveTab] = useState<"achieve" | "plant">(
+    tab === "plant" ? "plant" : "achieve");
 
   const achievements = [
         {
@@ -20,6 +26,16 @@ export default function Achieve() {
       id: 1,
       title: "일주일 루틴 완수",
       count: "8개",
+      barWidth: 100,
+      showBar: true,         
+      bgImage: require("../../assets/images/seedachieve.png"), 
+      countPosition: "bottom", 
+      contentBgColor: "#f8f8f8", // 글씨 감싼 영역 색
+    },
+    {
+      id: 3,
+      title: "식물 10종류 재배하기",
+      count: "10개",
       barWidth: 100,
       showBar: true,         
       bgImage: require("../../assets/images/seedachieve.png"), 
@@ -48,35 +64,40 @@ export default function Achieve() {
 
   	return (
     		<View style={[styles.safeareaview, styles.viewFlexBox]}>
+
               <View style={[styles.view2, styles.viewFlexBox2]}>
-                  <Image
-                      style={styles.item2}
-                      width={20}
-                      height={14}
-                      resizeMode="contain"
-                      source={require("../../assets/images/icon-seed.png")}/>
-                        <View style={[styles.view3, styles.viewFlexBox2]}>
-                          <Text style={styles.text15}>1234 개</Text>
-                        </View>
-                      </View>
-                      <TouchableOpacity onPress={() => setActiveTab("achieve")} style={{ zIndex: 10 }}>
-                        <Text style={[styles.safeareaviewText, activeTab === "achieve" && styles.activeTab]}>
-                          업적 도감
-                        </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={() => setActiveTab("plant")} style={{ zIndex: 10 }}>
-                      <Text style={[styles.text, (activeTab as string) === "plant" ? styles.activeTab : null]}>
-                        식물 도감
-                      </Text>
-                      </TouchableOpacity>
-                      
-                      {activeTab === "achieve" ? (
-                      <View style={[styles.viewFlexBox]}>
-                      <ImageBackground
-                          style={styles.border}
-                          resizeMode="contain"
-                          source={require("../../assets/images/achieveborder.png")}/>
-                      <Text style={[styles.reward, styles.rewardTypo]}>Reward</Text>
+                <Image
+                  style={styles.item2}
+                  width={20}
+                  height={14}
+                  resizeMode="contain"
+                  source={require("../../assets/images/icon-seed.png")}/>
+                  <View style={[styles.view3, styles.viewFlexBox2]}>
+                    <Text style={styles.text15}>1234 개</Text>
+                  </View>
+              </View>
+
+              {/* 탭 버튼 Row */}
+              <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 0 }}>
+                <TouchableOpacity onPress={() => setActiveTab("achieve")} style={{ position: "absolute", left: 64, top: 140, zIndex: 10 }}>
+                  <Text style={[{ fontSize: 24, fontWeight: "600", color: "#9ea4a9", fontFamily:"NanumSquareNeo-Bd" }, activeTab === "achieve" && { color: "#464b53" }]}>
+                    업적 도감
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setActiveTab("plant")} style={{ position: "absolute", right:64, top: 140, zIndex: 10 }}>
+                  <Text style={[{ fontSize: 24, fontWeight: "600", color: "#9ea4a9", fontFamily:"NanumSquareNeo-Bd" }, activeTab === "plant" && { color: "#464b53" }]}>
+                    식물 도감
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+              {activeTab === "achieve" ? (
+              <View style={[styles.viewFlexBox]}>
+              <ImageBackground
+                  style={styles.border}
+                  resizeMode="contain"
+                  source={require("../../assets/images/achieveborder.png")}/>
+              <Text style={[styles.reward, styles.rewardTypo]}>Reward</Text>
               <Text style={[styles.content, styles.rewardTypo]}>Content</Text>
                 <View style={styles.cardList}>
                 {achievements.map((item) => (
@@ -123,13 +144,22 @@ export default function Achieve() {
                     style={styles.border}
                     resizeMode="contain"
                     source={require("../../assets/images/plantborder.png")}/>
-                  <ScrollView>
+                  <ScrollView style = {styles.scroll}>
                     <View style={styles.container}>
                       {cards.map((card) => (
-                        <TouchableOpacity key={card.id} style={styles.card}>
-                          <Image source={card.img} style={styles.cardImage} resizeMode="contain" />
-                        </TouchableOpacity>
-                      ))}
+                      <TouchableOpacity
+                        key={card.id}
+                        style={styles.card}
+                        onPress={() => {
+                          // 숨김 카드가 아닐 때만 이동
+                          if (card.img !== require("../../assets/images/achieve-hide.png")) {
+                            router.push("/plantdetails"); // plantdetails 페이지로 이동
+                          }
+                        }}
+                      >
+                        <Image source={card.img} style={styles.cardImage} resizeMode="contain" />
+                      </TouchableOpacity>
+                    ))}
                     </View>
                   </ScrollView>
               </View>
@@ -144,7 +174,7 @@ const styles = StyleSheet.create({
     		backgroundColor: "#f8f8f8"
   	},
   	viewFlexBox: {
-    		flex: 1,
+    		flex: 1,  
   	},
   	rewardTypo: {
     		top: 208,
@@ -322,28 +352,28 @@ view2: {
     color: "#26282c",
     fontFamily: "NanumSquareNeo-Bd",
   	},
-  activeTab: {
-    color: "#464b53",
-  },
-  container: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    padding: 10,
-  },
-  card: {
-    width: "30%",       // 3열
-    aspectRatio: 1,     // 정사각형
-    marginBottom: 8,   // 행 간격
-    justifyContent: "center",
-    alignItems: "center",
-  },
+container: {
+  flexDirection: "row",
+  flexWrap: "wrap",
+  justifyContent: "center", // 좌측 정렬로 카드 사이 간격 최소화
+  gap: 2, // 카드 사이 열 간격 (React Native 0.70+에서 지원, 안되면 marginRight/marginBottom 사용)
+},
+
+card: {
+  width: "32%",      // 3열 유지하면서 카드 조금 키움
+  height: 150,       // 높이를 직접 지정, aspectRatio 제거
+  marginBottom: 16,   // 행 간격
+  justifyContent: "center",
+  alignItems: "center",
+},
+
+
   cardImage: {
     width: "100%",   // 카드 크기 꽉 채우기
     height: "100%",  // 카드 크기 꽉 채우기
     resizeMode: "contain", // 이미지 비율 유지
   },
-
-
-
+  scroll:{
+    marginTop: -500
+  }
 });

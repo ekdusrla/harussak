@@ -5,7 +5,6 @@ import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity,
 export default function Achieve() {
 
   const router = useRouter();
-  const [selectedCard, setSelectedCard] = useState<number | null>(null);
 
   const { tab } = useLocalSearchParams();
   const [activeTab, setActiveTab] = useState<"achieve" | "plant">(
@@ -43,23 +42,24 @@ export default function Achieve() {
       contentBgColor: "#f8f8f8", // 글씨 감싼 영역 색
     }
   ];
-  const cards = [
-  { id: 1, img: require("../../assets/images/achieve-hide.png") },
-  { id: 2, img: require("../../assets/images/achieve-hide.png") },
-  { id: 3, img: require("../../assets/images/card-hydrangea.png") },
-  { id: 4, img: require("../../assets/images/achieve-hide.png") },
-  { id: 5, img: require("../../assets/images/card-lily.png") },
-  { id: 6, img: require("../../assets/images/achieve-hide.png") },
-  { id: 7, img: require("../../assets/images/card-tulip.png") },
-  { id: 8, img: require("../../assets/images/achieve-hide.png") },
-  { id: 9, img: require("../../assets/images/achieve-hide.png") },
-  { id: 10, img: require("../../assets/images/card-freesia.png") },
-  { id: 11, img: require("../../assets/images/achieve-hide.png") },
-  { id: 12, img: require("../../assets/images/achieve-hide.png") },
-  { id: 13, img: require("../../assets/images/achieve-hide.png") },
-  { id: 14, img: require("../../assets/images/card-sunflower.png") },
-  { id: 15, img: require("../../assets/images/achieve-hide.png") },
+const cards = [
+  { id: 1, img: require("../../assets/images/achieve-hide.png"), flowerType: "" },
+  { id: 2, img: require("../../assets/images/achieve-hide.png"), flowerType: "" },
+  { id: 3, img: require("../../assets/images/card-hydrangea.png"), flowerType: "hydrangea" },
+  { id: 4, img: require("../../assets/images/achieve-hide.png"), flowerType: "" },
+  { id: 5, img: require("../../assets/images/card-lily.png"), flowerType: "lily" },
+  { id: 6, img: require("../../assets/images/achieve-hide.png"), flowerType: "" },
+  { id: 7, img: require("../../assets/images/card-tulip.png"), flowerType: "tulip" },
+  { id: 8, img: require("../../assets/images/achieve-hide.png"), flowerType: "" },
+  { id: 9, img: require("../../assets/images/achieve-hide.png"), flowerType: "" },
+  { id: 10, img: require("../../assets/images/card-freesia.png"), flowerType: "freesia" },
+  { id: 11, img: require("../../assets/images/achieve-hide.png"), flowerType: "" },
+  { id: 12, img: require("../../assets/images/achieve-hide.png"), flowerType: "" },
+  { id: 13, img: require("../../assets/images/achieve-hide.png"), flowerType: "" },
+  { id: 14, img: require("../../assets/images/card-sunflower.png"), flowerType: "sunflower" },
+  { id: 15, img: require("../../assets/images/achieve-hide.png"), flowerType: "" },
 ];
+
 
 
   	return (
@@ -146,20 +146,23 @@ export default function Achieve() {
                     source={require("../../assets/images/plantborder.png")}/>
                   <ScrollView style = {styles.scroll}>
                     <View style={styles.container}>
-                      {cards.map((card) => (
-                      <TouchableOpacity
-                        key={card.id}
-                        style={styles.card}
-                        onPress={() => {
-                          // 숨김 카드가 아닐 때만 이동
-                          if (card.img !== require("../../assets/images/achieve-hide.png")) {
-                            router.push("/plantdetails"); // plantdetails 페이지로 이동
-                          }
-                        }}
-                      >
-                        <Image source={card.img} style={styles.cardImage} resizeMode="contain" />
-                      </TouchableOpacity>
-                    ))}
+                  {cards.map((card) => (
+                    <TouchableOpacity
+                      key={card.id}
+                      style={styles.card}
+                      onPress={() => {
+                      if (card.flowerType) {
+                      router.push({
+                        pathname: "/plantdetails",
+                        params: { flowerType: card.flowerType.toLowerCase() },
+                      });
+                    }
+                    }}
+                    >
+                      <Image source={card.img} style={styles.cardImage} resizeMode="contain" />
+                    </TouchableOpacity>
+                  ))}
+
                     </View>
                   </ScrollView>
               </View>

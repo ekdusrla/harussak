@@ -1,95 +1,142 @@
-import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Achieve() {
 
-const achievements = [
-      {
-    id: 2,
-    title: "식물 3개 심기",
-    count: "10개",
-    barWidth: 160,
-    showBar: false,
-    bgImage: require("../../assets/images/seedachieve-done.png"),
-    countPosition: "bottom",
-    contentBgColor: "#EAECED",
-  },
-  {
-    id: 1,
-    title: "일주일 루틴 완수",
-    count: "8개",
-    barWidth: 100,
-    showBar: true,         
-    bgImage: require("../../assets/images/seedachieve.png"), 
-    countPosition: "bottom", 
-    contentBgColor: "#f8f8f8", // 글씨 감싼 영역 색
-  }
+  const [activeTab, setActiveTab] = useState<"achieve" | "plant">("achieve");
+
+  const achievements = [
+        {
+      id: 2,
+      title: "식물 3개 심기",
+      count: "10개",
+      barWidth: 160,
+      showBar: false,
+      bgImage: require("../../assets/images/seedachieve-done.png"),
+      countPosition: "bottom",
+      contentBgColor: "#EAECED",
+    },
+    {
+      id: 1,
+      title: "일주일 루틴 완수",
+      count: "8개",
+      barWidth: 100,
+      showBar: true,         
+      bgImage: require("../../assets/images/seedachieve.png"), 
+      countPosition: "bottom", 
+      contentBgColor: "#f8f8f8", // 글씨 감싼 영역 색
+    }
+  ];
+  const cards = [
+  { id: 1, img: require("../../assets/images/achieve-hide.png") },
+  { id: 2, img: require("../../assets/images/achieve-hide.png") },
+  { id: 3, img: require("../../assets/images/card-hydrangea.png") },
+  { id: 4, img: require("../../assets/images/achieve-hide.png") },
+  { id: 5, img: require("../../assets/images/card-lily.png") },
+  { id: 6, img: require("../../assets/images/achieve-hide.png") },
+  { id: 7, img: require("../../assets/images/card-tulip.png") },
+  { id: 8, img: require("../../assets/images/achieve-hide.png") },
+  { id: 9, img: require("../../assets/images/achieve-hide.png") },
+  { id: 10, img: require("../../assets/images/card-freesia.png") },
+  { id: 11, img: require("../../assets/images/achieve-hide.png") },
+  { id: 12, img: require("../../assets/images/achieve-hide.png") },
+  { id: 13, img: require("../../assets/images/achieve-hide.png") },
+  { id: 14, img: require("../../assets/images/card-sunflower.png") },
+  { id: 15, img: require("../../assets/images/achieve-hide.png") },
 ];
+
 
   	return (
     		<View style={[styles.safeareaview, styles.viewFlexBox]}>
-                <View style={[styles.view2, styles.viewFlexBox2]}>
-                          <Image
-                            style={styles.item2}
-                            width={20}
-                            height={14}
-                            resizeMode="contain"
-                            source={require("../../assets/images/icon-seed.png")}
-                          />
-                          <View style={[styles.view3, styles.viewFlexBox2]}>
-                            <Text style={styles.text15}>1234 개</Text>
-                          </View>
+              <View style={[styles.view2, styles.viewFlexBox2]}>
+                  <Image
+                      style={styles.item2}
+                      width={20}
+                      height={14}
+                      resizeMode="contain"
+                      source={require("../../assets/images/icon-seed.png")}/>
+                        <View style={[styles.view3, styles.viewFlexBox2]}>
+                          <Text style={styles.text15}>1234 개</Text>
                         </View>
-      			<View style={[styles.view, styles.viewFlexBox]}>
-                        <ImageBackground
-                            style={styles.border}
-                            resizeMode="contain"
-                            source={require("../../assets/images/achieveborder.png")}
-                        />
-        				<Text style={styles.text}>식물 도감</Text>
-        				<Text style={styles.safeareaviewText}>업적 도감</Text>
-                        <Text style={[styles.reward, styles.rewardTypo]}>Reward</Text>
-        				<Text style={[styles.content, styles.rewardTypo]}>Content</Text>
-                        <View style={styles.cardList}>
-                        {achievements.map((item) => (
-                            <View key={item.id} style={styles.achieveCard}>
-                                <View style={styles.iconWrapper}>
-                                <ImageBackground style={styles.cardBg} source={item.bgImage} />
-                                <Image style={styles.cardIcon} resizeMode="contain" source={require("../../assets/images/icon-seed.png")} />
-                                <Text
-                                    style={[
-                                    styles.cardCount,
-                                    item.countPosition === "center" ? { bottom: undefined, top: 20 } : {}
-                                    ]}
-                                >
-                                    {item.count}
-                                </Text>
-                                </View>
-                                <View style={[styles.cardContent, { backgroundColor: item.contentBgColor }]}>
-                                {item.showBar ? (
-                                    <>
-                                    <Text style={styles.text2}>{item.title}</Text>
-                                    <ImageBackground style={styles.item} resizeMode="contain" source={require("../../assets/images/achievebar.png")} />
-                                    <Image style={[styles.itemm, { width: item.barWidth }]} resizeMode="contain" source={require("../../assets/images/bar-green.png")} />
-                                    </>
-                                ) : (
-                                    <View style={styles.noBarRow}>
-                                    <Text style={[styles.text2, { position: "absolute", top: "50%", marginTop: -10 }]}>
-                                        {item.title}
-                                    </Text>
-                                    <Image
-                                        source={require("../../assets/images/done.png")}
-                                        style={[styles.noBarIcon, { position: "absolute", right: -8, top: "50%", marginTop: -12 }]}
-                                        resizeMode="contain"
-                                    />
-                                    </View>
-                                )}
-                                </View>
+                      </View>
+                      <TouchableOpacity onPress={() => setActiveTab("achieve")} style={{ zIndex: 10 }}>
+                        <Text style={[styles.safeareaviewText, activeTab === "achieve" && styles.activeTab]}>
+                          업적 도감
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={() => setActiveTab("plant")} style={{ zIndex: 10 }}>
+                      <Text style={[styles.text, (activeTab as string) === "plant" ? styles.activeTab : null]}>
+                        식물 도감
+                      </Text>
+                      </TouchableOpacity>
+                      
+                      {activeTab === "achieve" ? (
+                      <View style={[styles.viewFlexBox]}>
+                      <ImageBackground
+                          style={styles.border}
+                          resizeMode="contain"
+                          source={require("../../assets/images/achieveborder.png")}/>
+                      <Text style={[styles.reward, styles.rewardTypo]}>Reward</Text>
+              <Text style={[styles.content, styles.rewardTypo]}>Content</Text>
+                <View style={styles.cardList}>
+                {achievements.map((item) => (
+                    <View key={item.id} style={styles.achieveCard}>
+                        <View style={styles.iconWrapper}>
+                        <ImageBackground style={styles.cardBg} source={item.bgImage} />
+                        <Image style={styles.cardIcon} resizeMode="contain" source={require("../../assets/images/icon-seed.png")} />
+                        <Text
+                            style={[
+                            styles.cardCount,
+                            item.countPosition === "center" ? { bottom: undefined, top: 20 } : {}
+                            ]}
+                        >
+                            {item.count}
+                        </Text>
+                        </View>
+                        <View style={[styles.cardContent, { backgroundColor: item.contentBgColor }]}>
+                        {item.showBar ? (
+                            <>
+                            <Text style={styles.text2}>{item.title}</Text>
+                            <ImageBackground style={styles.item} resizeMode="contain" source={require("../../assets/images/achievebar.png")} />
+                            <Image style={[styles.itemm, { width: item.barWidth }]} resizeMode="contain" source={require("../../assets/images/bar-green.png")} />
+                            </>
+                        ) : (
+                            <View style={styles.noBarRow}>
+                            <Text style={[styles.text2, { position: "absolute", top: "50%", marginTop: -10 }]}>
+                                {item.title}
+                            </Text>
+                            <Image
+                                source={require("../../assets/images/done.png")}
+                                style={[styles.noBarIcon, { position: "absolute", right: -8, top: "50%", marginTop: -12 }]}
+                                resizeMode="contain"
+                            />
                             </View>
-                            ))}
-                            </View>
-                            </View>
+                        )}
+                        </View>
+                    </View>
+                    ))}
+              </View>
+        </View>
+          ) : (
+                <View style={[styles.viewFlexBox]}>
+                <ImageBackground
+                    style={styles.border}
+                    resizeMode="contain"
+                    source={require("../../assets/images/plantborder.png")}/>
+                  <ScrollView>
+                    <View style={styles.container}>
+                      {cards.map((card) => (
+                        <TouchableOpacity key={card.id} style={styles.card}>
+                          <Image source={card.img} style={styles.cardImage} resizeMode="contain" />
+                        </TouchableOpacity>
+                      ))}
+                    </View>
+                  </ScrollView>
+              </View>
+          )
+          }
     		</View>
-            );
+  );
 }
 
 const styles = StyleSheet.create({
@@ -98,7 +145,6 @@ const styles = StyleSheet.create({
   	},
   	viewFlexBox: {
     		flex: 1,
-    		backgroundColor: "#f8f8f8"
   	},
   	rewardTypo: {
     		top: 208,
@@ -109,12 +155,6 @@ const styles = StyleSheet.create({
     		lineHeight: 22,
     		letterSpacing: -0.43,
     		position: "absolute"
-  	},
-  	view: {
-    		width: "100%",
-    		height: 758,
-    		overflow: "hidden",
-    		backgroundColor: "#f8f8f8"
   	},
   	text: {
     		right: 80,
@@ -227,24 +267,12 @@ cardCount: {
   fontFamily: "NanumSquareNeo-Bd",
   fontWeight: "600",
 },
-centerRow: {
-  flex: 1,
-  flexDirection: "row",
-  alignItems: "center",     // 카드 안쪽 세로 중앙
-  top: 8                 // 글씨와 이미지 간격
-},
-
-titleIcon: {
-  width: 80,
-  height: 24,
-},
 noBarRow: {
   position: "relative",  // title과 icon의 absolute 기준
   width: "100%",
   height: 64,            // 카드 높이에 맞춰 조정
   justifyContent: "center",
 },
-
 noBarIcon: {
   width: 80,
   height: 24,
@@ -273,7 +301,6 @@ view2: {
     alignItems: "center",
     flexDirection: "row", // flexbox로 내부 정렬
 },
-
   	viewFlexBox2: {
     		alignItems: "center",
     		flexDirection: "row"
@@ -295,6 +322,27 @@ view2: {
     color: "#26282c",
     fontFamily: "NanumSquareNeo-Bd",
   	},
+  activeTab: {
+    color: "#464b53",
+  },
+  container: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    padding: 10,
+  },
+  card: {
+    width: "30%",       // 3열
+    aspectRatio: 1,     // 정사각형
+    marginBottom: 8,   // 행 간격
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cardImage: {
+    width: "100%",   // 카드 크기 꽉 채우기
+    height: "100%",  // 카드 크기 꽉 채우기
+    resizeMode: "contain", // 이미지 비율 유지
+  },
 
 
 

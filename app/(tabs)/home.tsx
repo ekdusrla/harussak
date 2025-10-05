@@ -5,7 +5,7 @@ export default function Home() {
         <View style={{flex : 1, justifyContent : "center", alignItems : "center"}}>
             <Text> Home </Text>
             <Image
-                        source={require("../../assets/images/flower-hygendra.png")}
+                        source={require("../../assets/images/flower-hydrangea.png")}
                         style={{
                         width: 160,
                         height: 160,

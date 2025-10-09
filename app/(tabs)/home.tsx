@@ -2,69 +2,85 @@ import { useRouter } from "expo-router";
 import { Image, ImageBackground, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Home() {
+  const router = useRouter();
 
-    const router = useRouter();
-
-    return (
-        <View style={{ flex: 1 }}>
-            <ImageBackground source={require("../../assets/images/background-morning.png")}
-                style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}>
-                <ImageBackground
-                source={require("../../assets/images/sky.gif")}
-                style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-            >
-                <View style={[styles.view2, styles.viewFlexBox2]}>
-                <Image
-                    style={styles.item2}
-                    width={20}
-                    height={14}
-                    resizeMode="contain"
-                    source={require("../../assets/images/icon-seed.png")}/>
-                    <View style={[styles.view3, styles.viewFlexBox2]}>
-                    <Text style={styles.text15}>1234 개</Text>
-                    </View>
-                </View>
-                <Pressable onPress={() => router.push("/deco")} hitSlop={10}>
-                    <Image
-                    style={[styles.item]}
-                    source={require("../../assets/images/icon-deco.png")}
-                    resizeMode="contain"
-                    />
-                </Pressable>
-                <Image
-                    source={require("../../assets/images/terrarium.png")}
-                    style={{
-                        width: 440,
-                        height: 440,
-                        top : 20
-                    }}
-                />
-                <View>
-                <ImageBackground
-                source={require("../../assets/images/homeborder.png")}
-                style={{
-                    width : 248,
-                    height : 60,
-                    bottom : -100
-                }}
-                resizeMode="contain"
-            >
-                <Text style={styles.text1}>오늘의 남은 루틴 : 7개</Text>
-                    </ImageBackground>
-                </View>
-            </ImageBackground>
-            </ImageBackground>
+  return (
+    <View style={{ flex: 1 }}>
+      {/* 가장 아래 배경 */}
+      <ImageBackground
+        source={require("../../assets/images/background-morning.png")}
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      >
+        {/* sky.gif를 분리해서 겹침 */}
+        <View
+        style={{
+            position: "absolute",
+            top: 40,
+            width: "100%",
+            height: "100%",
+        }}
+        pointerEvents="none" // 👈 이건 View에만 가능
+        >
+        <Image
+            source={require("../../assets/images/sky.gif")}
+            style={{
+            width: "100%",
+            height: "100%",
+            resizeMode: "cover",
+            }}
+        />
         </View>
-    );
+        {/* 이제 나머지 UI 요소들은 그대로 */}
+        <View style={[styles.view2, styles.viewFlexBox2]}>
+          <Image
+            style={styles.item2}
+            width={20}
+            height={14}
+            resizeMode="contain"
+            source={require("../../assets/images/icon-seed.png")}
+          />
+          <View style={[styles.view3, styles.viewFlexBox2]}>
+            <Text style={styles.text15}>1234 개</Text>
+          </View>
+        </View>
+        <Pressable
+        onPress={() => router.push("/deco")} hitSlop={10}
+        style={[
+            styles.item,
+            { zIndex: 10 },
+        ]}
+        >
+        <Image
+            source={require("../../assets/images/icon-deco.png")}
+            resizeMode="contain"
+            style={{ width: 32, height: 32 }}
+        />
+        </Pressable>
+        <Image
+          source={require("../../assets/images/terrarium.png")}
+          style={{
+            width: 440,
+            height: 440,
+            top: 20,
+          }}
+        />
+
+        <ImageBackground
+          source={require("../../assets/images/homeborder.png")}
+          style={{
+            width: 248,
+            height: 60,
+            bottom: -100,
+          }}
+          resizeMode="contain"
+        >
+          <Text style={styles.text1}>오늘의 남은 루틴 : 7개</Text>
+        </ImageBackground>
+      </ImageBackground>
+    </View>
+  );
 }
+
 
 const styles = StyleSheet.create({
 
@@ -125,10 +141,10 @@ const styles = StyleSheet.create({
         },
         item: {
             position: "absolute",
-    		width: 32,
-    		height: 32,
-            left : 144,
-            bottom : 80,
+    		width: 36,
+    		height: 36,
+            left : 340,
+            top : 40
         
   	},
 })

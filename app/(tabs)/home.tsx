@@ -141,8 +141,8 @@ const styles = StyleSheet.create({
         },
         item: {
             position: "absolute",
-    		width: 36,
-    		height: 36,
+    		width: 32,
+    		height: 32,
             left : 340,
             top : 40
         

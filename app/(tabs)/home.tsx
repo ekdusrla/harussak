@@ -1,8 +1,41 @@
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { Image, ImageBackground, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Home() {
   const router = useRouter();
+
+  const [visible, setVisible] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+    // 👇 위치도 배열로 관리 (top/left를 원하는 좌표로 바꾸면 됨)
+  const positions = [
+    { top: -420, left: -120 },
+    { top: -440, left: 80 },
+  ];
+
+  // 두 개의 이미지 배열로 관리
+  const images = [
+    require("../../assets/images/homebubble-cheerup.png"),
+    require("../../assets/images/homebubble-good.png"),
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setVisible(true);
+
+      // 인덱스 토글
+      setCurrentIndex((prev) => (prev === 0 ? 1 : 0));
+
+      const timeout = setTimeout(() => {
+        setVisible(false);
+      }, 3000);
+
+      return () => clearTimeout(timeout);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <View style={{ flex: 1 }}>
@@ -64,7 +97,22 @@ export default function Home() {
             top: 20,
           }}
         />
-
+        <View>
+          {visible && (
+            <Image
+              source={images[currentIndex]}
+              style={{
+                position: "absolute", // ✅ 화면 위에 띄움 (레이아웃 영향 X)
+                top: positions[currentIndex].top,
+                left: positions[currentIndex].left,             // 원하는 위치 조정
+                width: 80,
+                height: 80,
+                resizeMode: "contain",
+                zIndex: 50,           // 다른 요소 위로 올리기
+              }}
+            />
+          )}
+    </View>
         <ImageBackground
           source={require("../../assets/images/homeborder.png")}
           style={{
@@ -86,7 +134,7 @@ const styles = StyleSheet.create({
 
     view2: {
         top: 40,
-        left: 34, // 화면 왼쪽에서 약간 띄우기
+        left: 20, // 화면 왼쪽에서 약간 띄우기
         position: "absolute",
         zIndex: 10, // 최상단으로
         boxShadow: "2px 2px 12px rgba(158, 164, 169, 0.25)",
@@ -143,8 +191,7 @@ const styles = StyleSheet.create({
             position: "absolute",
     		width: 32,
     		height: 32,
-            left : 340,
-            top : 40
-        
-  	},
-})
+        left : 352,
+        top : 40
+  	}
+  })

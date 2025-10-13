@@ -126,13 +126,14 @@ useEffect(() => {
         <ImageBackground
           source={require("../../assets/images/homeborder.png")}
           style={{
-            width: 248,
-            height: 60,
-            bottom: -100,
+            width: 140,
+            height: 52,
+            bottom: -140,
+            left: -120
           }}
           resizeMode="contain"
         >
-          <Text style={styles.text1}>오늘의 남은 루틴 : 7개</Text>
+          <Text style={styles.text1}>남은 루틴 : 7개</Text>
         </ImageBackground>
       </ImageBackground>
     </View>
@@ -187,12 +188,12 @@ const styles = StyleSheet.create({
         fontFamily: "NanumSquareNeo-Bd",
         },
         text1 : {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: "600",
         color: "#26282c",
         fontFamily: "NanumSquareNeo-Bd",
-        left : 36,
-        bottom : -20
+        left : 34,
+        bottom : -18
         },
         view : {
             top: 10

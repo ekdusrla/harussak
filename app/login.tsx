@@ -16,7 +16,10 @@ export default function Login() {
     return (
         <View style={styles.view}>
             <View style={styles.view1}>
-                <View style={[styles.child, styles.textPosition1]} />
+                <View style={[styles.child, styles.textPosition1]}>
+                        <Image style={styles.iconlogo} resizeMode="contain" source={require("../assets/images/logo.png")}/>
+                        <Text style={styles.text0}>{"하루싹과 함께 일상을 기록할까요?\n먼저 로그인을 진행해주세요"}</Text>
+                </View>
                 <Image style={[styles.icon, styles.iconPosition]} resizeMode="contain" source={require("../assets/images/kakao.png")} />
                 <Image style={[styles.icon1, styles.iconPosition]} resizeMode="contain" source={require("../assets/images/google.png")} />
                 <View style={styles.item} />
@@ -154,7 +157,7 @@ const styles = StyleSheet.create({
     child: {
             marginTop: -299,
             marginLeft: -130,
-            backgroundColor: "#d9d9d9",
+            backgroundColor: "#f8f8f8",
             width: 260,
             height: 120
     },
@@ -196,6 +199,16 @@ const styles = StyleSheet.create({
             fontSize: 14,
             borderBottomWidth: 1,
     },
+    text0: {
+            color: "#A8ACAF",
+            textAlign: "center",
+            fontFamily: "NanumSqaureNeo-Rg",
+            fontWeight: "600",
+            lineHeight: 16,
+            letterSpacing: -0.43,
+            fontSize: 14,
+            top: 120
+    },
     wrapper: {
             marginTop: 314,
             marginLeft: 18,
@@ -210,15 +223,19 @@ const styles = StyleSheet.create({
             height: 22,
             backgroundColor: "#f8f8f8"
     },
-    text4: {
-            top: 18,
-            fontFamily: "NanumSquareNeo-Rg"
-    },
     iconPw: {
             top: 16,
             left: 20,
             width: 24,
             height: 24,
+            position: "absolute",
+            overflow: "hidden"
+    },
+    iconlogo: {
+            top: 0,
+            left: 80,
+            width: 100,
+            height: 100,
             position: "absolute",
             overflow: "hidden"
     },
@@ -239,10 +256,6 @@ const styles = StyleSheet.create({
             top: "50%",
             position: "absolute",
             marginVertical: 10,
-    },
-    text6: {
-            top: "30%",
-            fontFamily: "NanumSquareNeo-Rg"
     },
     pressable1: {
             marginTop: -110

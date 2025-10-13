@@ -179,6 +179,13 @@ const toggleCheck = (index: number) => {
                             <Text style={styles.text15}>1234 개</Text>
                           </View>
                         </View>
+                      <Pressable onPress={() => router.push("/login")} hitSlop={10}>
+                      <Image
+                        style={styles.item22}
+                        source={require("../../assets/images/icon-menu.png")}
+                        resizeMode="contain"
+                      />
+                    </Pressable>
                         <View style={{ marginTop: 58, marginHorizontal: 24 }}>
                             {routines.map((routine, index) => (
                                 <Pressable
@@ -227,13 +234,6 @@ const toggleCheck = (index: number) => {
                         resizeMode: "contain",
                         }}
                     />
-                    </Pressable>
-                    <Pressable onPress={() => router.push("/login")} hitSlop={10}>
-                      <Image
-                        style={styles.item22}
-                        source={require("../../assets/images/icon-menu.png")}
-                        resizeMode="contain"
-                      />
                     </Pressable>
                     {/* ✅ 팝업 모달 */}
                     {/* 1. 사전 팝업 */}
@@ -354,7 +354,8 @@ const styles = StyleSheet.create({
     		width: 40,
     		height: 40,
         left: 340,
-        bottom: 728
+        top: -260,
+        zIndex: 10,
         
   	},
   	view3: {
@@ -395,7 +396,7 @@ const styles = StyleSheet.create({
 popupOverlay: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center", 
     backgroundColor: "rgba(0,0,0,0.5)",
     pointerEvents: "box-none",
   },

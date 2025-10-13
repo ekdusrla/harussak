@@ -296,12 +296,6 @@ const styles = StyleSheet.create({
     		textAlign: "left",
     		position: "absolute"
   	},
-  	iconPosition: {
-    		left: 25,
-    		height: 24,
-    		width: 24,
-    		position: "absolute"
-  	},
   	view: {
     		width: "100%",
     		height: 758,
@@ -322,9 +316,9 @@ const styles = StyleSheet.create({
     		position: "absolute"
   	},
   	view2: {
-    		top: 40,
-    		boxShadow: "2px 2px 12px rgba(158, 164, 169, 0.25)",
-    		shadowColor: "rgba(158, 164, 169, 0.25)",
+    		top: 44,
+    		boxShadow: "2px 2px 12px rgba(218, 222, 225, 0.5)",
+    		shadowColor: "rgba(218, 222, 225, 0.25)",
     		shadowOffset: {
       			width: 2,
       			height: 2
@@ -360,7 +354,7 @@ const styles = StyleSheet.create({
     		width: 40,
     		height: 40,
         left: 340,
-        bottom: 736
+        bottom: 728
         
   	},
   	view3: {
@@ -375,13 +369,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#26282c",
     fontFamily: "NanumSquareNeo-Bd",
-  	},
-  	text17: {
-    		fontSize: 17,
-    		fontFamily: "SF Pro",
-    		color: "#464b53",
-    		textAlign: "right",
-    		lineHeight: 22
   	},
   	myRoutine: {
     		top: 308,
@@ -405,36 +392,12 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginTop: 10
     },
-    lineargradientShadowBox: {
-    backgroundColor: "#fff",
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-},
-cardBorderImage: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    borderRadius: 12,
-},
-text2: {
-    fontSize: 16,
-    color: "#26282c",
-    fontWeight: "500",
-    fontFamily: "NanumSquareNeo-Rg",
-},
 popupOverlay: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.5)",
+    pointerEvents: "box-none",
   },
   popupContainer: {
     borderRadius: 18,

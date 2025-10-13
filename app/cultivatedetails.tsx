@@ -67,36 +67,36 @@ export default function CultivateDatails() {
 					style={styles.viewBg} // 기존 viewBg 그대로 사용
 					resizeMode="cover" // cover, contain, stretch 중 선택 가능
 					>
-      			<View>
-				<Image
-				source={require("../assets/images/rainbow.png")}
-				style={{
-					position: "absolute",
-					top: 80, // ✅ 이미지 width 120의 절반
-					width: 300,
-					height: 300,
-					left: 60
-				}}
-				resizeMode="contain"
-				/>
-				<Image
-				source={detailMap[index]}  // ✅ iconIndex에 따라 detail 이미지 선택
-				style={{
-					position: "absolute",
-					top: 208,
-					width: 132,
-					height: 132,
-					left: "35%"
-				}}
-				resizeMode="contain"
-				/>
-				{showCenterImage && (
-				<Animated.Image
-					source={require("../assets/images/bubble-great.png")}
-					style={[styles.centerImage, { opacity: fadeAnim }]}
+					<View>
+					<Image
+					source={require("../assets/images/rainbow.png")}
+					style={{
+						position: "absolute",
+						top: 80, // ✅ 이미지 width 120의 절반
+						width: 300,
+						height: 300,
+						left: 60
+					}}
 					resizeMode="contain"
-				/>
-				)}
+					/>
+					<Image
+					source={detailMap[index]}  // ✅ iconIndex에 따라 detail 이미지 선택
+					style={{
+						position: "absolute",
+						top: 208,
+						width: 132,
+						height: 132,
+						left: "35%"
+					}}
+					resizeMode="contain"
+					/>
+					{showCenterImage && (
+					<Animated.Image
+						source={require("../assets/images/bubble-great.png")}
+						style={[styles.centerImage, { opacity: fadeAnim }]}
+						resizeMode="contain"
+					/>
+					)}
         				<View style={styles.child} />
         				<Text style={styles.text}>{routineName}</Text>
         				<Text style={[styles.safeareaviewText, styles.textPosition2]}>기간 :</Text>
@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
             width: 55
     },
         icon: {
-        top: 36,
+        top: 44,
         left: 20,
         width: 20,
         height: 20,

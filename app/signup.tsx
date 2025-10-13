@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
             height: "50%"
     },
     icon: {
-        top: 36,
+        top: 44,
         left: 28,
         width: 20,
         height: 20,

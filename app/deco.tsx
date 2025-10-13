@@ -188,7 +188,7 @@ export default function Deco() {
 const styles = StyleSheet.create({
     iconBack: {
         position: "absolute",
-        top: 36,
+        top: 44,
         left: 20,
         zIndex: 10,
   },
@@ -207,12 +207,12 @@ const styles = StyleSheet.create({
         height: 40,
     },
         view2: {
-        top: 34,
+        top: 40,
         left: 60, // 화면 왼쪽에서 약간 띄우기
         position: "absolute",
         zIndex: 10, // 최상단으로
-        boxShadow: "2px 2px 12px rgba(158, 164, 169, 0.25)",
-        shadowColor: "rgba(158, 164, 169, 0.25)",
+    		boxShadow: "2px 2px 12px rgba(218, 222, 225, 0.5)",
+    		shadowColor: "rgba(218, 222, 225, 0.25)",
         shadowOffset: { width: 2, height: 2 },
         shadowRadius: 12,
         elevation: 12,

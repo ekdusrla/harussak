@@ -1,5 +1,6 @@
 import { useFonts } from 'expo-font';
 import { Stack } from "expo-router";
+import { RoutineProvider } from "../context/routinecontext";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -21,5 +22,7 @@ export default function RootLayout() {
       if (!fontsLoaded) return null;
 
 
-  return <Stack screenOptions={{headerShown : false}}/>;
+  return   <RoutineProvider>
+    <Stack screenOptions={{ headerShown: false }} />
+  </RoutineProvider>;
 }

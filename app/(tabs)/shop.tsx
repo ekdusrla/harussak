@@ -83,7 +83,7 @@ export default function Shop() {
   <Image
     source={item.img}
     style={item.name === "동화 속 성" ? styles.itemImage : styles.itemImageLarge}
-    resizeMode="cover"
+    resizeMode="contain"
   />
   <Text style={styles.itemText}>{item.name}</Text>
 
@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   sectionTitle: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: "800",
     color: "#26282c",
     marginTop: 40,
@@ -374,10 +374,11 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#464B53",
     fontFamily: "NanumSquareNeo-Bd",
+    marginBottom: 4
   },
   /* 씨앗 표시 */
   view5: {
-    marginTop: 20,
+    marginTop: 24,
     alignSelf: "flex-start",
     backgroundColor: "rgba(255, 255, 255, 0.6)",
     borderColor: "#fff",
@@ -389,15 +390,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     overflow: "hidden",
     flexDirection: "row",
-    shadowColor: "rgba(158, 164, 169, 0.25)",
-    boxShadow: "2px 2px 12px rgba(158, 164, 169, 0.25)",
+    		boxShadow: "2px 2px 12px rgba(218, 222, 225, 0.5)",
+    		shadowColor: "rgba(218, 222, 225, 0.25)",
     shadowOffset: { width: 2, height: 2 },
     shadowRadius: 12,
     elevation: 12,
     shadowOpacity: 1,
   },
     view55: {
-    marginTop: 4,
+    marginBottom: -4,
     backgroundColor: "rgba(255, 255, 255, 0.6)",
     borderColor: "#fff",
     borderWidth: 0.8,
@@ -427,17 +428,18 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#26282c",
     fontFamily: "NanumSquareNeo-Bd",
-    marginLeft: 5,
+    marginLeft: 6,
   },
   view6: {
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",
-    marginTop: -2,
+    marginTop: 0,
   },
   twoRowWrapper: {
   flexDirection: "column", // 위아래로 두 줄
-  gap: 8,                 // 줄 간격
+  gap: 8,
+  marginTop: 8                 // 줄 간격
 },
 row: {
   flexDirection: "row",    // 가로로 나열
@@ -464,7 +466,7 @@ skyItemImage: {
 },
 itemImageLarge: {
   width: 80,   // 다른 카드들 좀 더 큰 크기
-  height: 80,
+  height: 72,
   marginBottom: 5,
 },
   modalContainer: {

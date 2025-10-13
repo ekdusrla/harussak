@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useRoutine } from "../context/routinecontext";
 
 
 
@@ -8,6 +9,8 @@ export default function GenerateRoutine2() {
 
     const router = useRouter();
     const [selectedCard, setSelectedCard] = useState<number | null>(null);
+    const { emotionText } = useRoutine();
+
   const cards = [
     { emoji: "📖", title: "도서 30분 읽기" },
     { emoji: "☀️", title: "오전 10시에 일어나기" },
@@ -28,7 +31,7 @@ export default function GenerateRoutine2() {
 
 
 
-        return (
+return (
                 <View style={styles.safeareaview}>
       {/* 고정되는 상단 로고 + 제목 */}
       <Image
@@ -95,7 +98,7 @@ export default function GenerateRoutine2() {
             >
             <Text style={[styles.text30, styles.textPosition]}>확인</Text>
             </Pressable>
-        <Pressable style={[styles.container, styles.wrapperLayout]} onPress={()=>router.push("./generateroutine1")}>
+        <Pressable style={[styles.container, styles.wrapperLayout]} onPress={() => router.push("/generateroutine1")}>
           <Text style={[styles.text31, styles.textPosition] }>이전으로</Text>
         </Pressable>
       </View>

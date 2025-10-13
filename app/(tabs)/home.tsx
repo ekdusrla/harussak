@@ -1,12 +1,12 @@
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
-import { Image, ImageBackground, Pressable, StyleSheet, Text, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { Animated, Image, ImageBackground, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Home() {
   const router = useRouter();
 
-  const [visible, setVisible] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const opacity = useRef(new Animated.Value(0)).current;
 
     // 👇 위치도 배열로 관리 (top/left를 원하는 좌표로 바꾸면 됨)
   const positions = [
@@ -20,22 +20,30 @@ export default function Home() {
     require("../../assets/images/homebubble-good.png"),
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setVisible(true);
+useEffect(() => {
+  const showImage = () => {
+    // 페이드인
+    Animated.timing(opacity, { toValue: 1, duration: 500, useNativeDriver: true }).start();
 
-      // 인덱스 토글
-      setCurrentIndex((prev) => (prev === 0 ? 1 : 0));
+    // 인덱스 바꾸기
+    setCurrentIndex((prev) => (prev === 0 ? 1 : 0));
 
-      const timeout = setTimeout(() => {
-        setVisible(false);
-      }, 3000);
+    // 5초 후 페이드아웃
+    setTimeout(() => {
+      Animated.timing(opacity, { toValue: 0, duration: 500, useNativeDriver: true }).start();
+    }, 5000);
+  };
 
-      return () => clearTimeout(timeout);
-    }, 10000);
+  // 1️⃣ 화면 켜자마자 실행
+  showImage();
 
-    return () => clearInterval(interval);
-  }, []);
+  // 2️⃣ 이후 10초마다 반복
+  const interval = setInterval(showImage, 10000);
+
+  return () => clearInterval(interval);
+}, []);
+
+
 
   return (
     <View style={{ flex: 1 }}>
@@ -98,19 +106,21 @@ export default function Home() {
           }}
         />
         <View>
-          {visible && (
-            <Image
-              source={images[currentIndex]}
-              style={{
-                position: "absolute", // ✅ 화면 위에 띄움 (레이아웃 영향 X)
-                top: positions[currentIndex].top,
-                left: positions[currentIndex].left,             // 원하는 위치 조정
-                width: 80,
-                height: 80,
-                resizeMode: "contain",
-                zIndex: 50,           // 다른 요소 위로 올리기
-              }}
-            />
+          {(
+            <Animated.Image
+  source={images[currentIndex]}
+  style={{
+    position: "absolute",
+    top: positions[currentIndex].top,
+    left: positions[currentIndex].left,
+    width: 80,
+    height: 80,
+    resizeMode: "contain",
+    zIndex: 50,
+    opacity: opacity, // opacity 애니메이션 적용
+  }}
+/>
+
           )}
     </View>
         <ImageBackground
@@ -133,12 +143,12 @@ export default function Home() {
 const styles = StyleSheet.create({
 
     view2: {
-        top: 40,
+        top: 44,
         left: 20, // 화면 왼쪽에서 약간 띄우기
         position: "absolute",
         zIndex: 10, // 최상단으로
-        boxShadow: "2px 2px 12px rgba(158, 164, 169, 0.25)",
-        shadowColor: "rgba(158, 164, 169, 0.25)",
+    		boxShadow: "2px 2px 12px rgba(218, 222, 225, 0.5)",
+    		shadowColor: "rgba(218, 222, 225, 0.25)",
         shadowOffset: { width: 2, height: 2 },
         shadowRadius: 12,
         elevation: 12,

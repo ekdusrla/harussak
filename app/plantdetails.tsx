@@ -103,12 +103,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#f8f8f8",
   },
   scrollContent: {
-    paddingVertical: 60,
+    paddingVertical: 80,
     alignItems: "center",
   },
   iconBack: {
     position: "absolute",
-    top: 36,
+    top: 44,
     left: 20,
     zIndex: 10,
   },

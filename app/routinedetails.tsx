@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     },
       iconBack: {
     position: "absolute",
-    top: 36,
+    top: 44,
     left: 20,
     zIndex: 10,
   },

@@ -1,15 +1,21 @@
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { useRoutine } from "../context/routinecontext";
 
 
 export default function GenerateRoutine4() {
 
     const router = useRouter();
-	const { routine, period, selectedDays } = useLocalSearchParams();
+	const { emotionText, routineData } = useRoutine();
 
-	const parsedDays =
-	typeof selectedDays === "string" ? JSON.parse(selectedDays) : [];
+	const routine = routineData.routineText;
+	const period = routineData.period;
+	const parsedDays = routineData.selectedDays || [];
 
+	const dayOrder = ["월", "화", "수", "목", "금", "토", "일"];
+	const sortedDays = [...parsedDays].sort(
+	(a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b)
+	);
 
     return (
         <View style={styles.safeareaview}>
@@ -25,7 +31,7 @@ export default function GenerateRoutine4() {
 					<Text style={[styles.text7, styles.textFlexBox]}>{routine}</Text>
 					<Text style={[styles.text6, styles.textFlexBox]}>{period}</Text>
 					<Text style={[styles.text9, styles.textPosition5]}>
-					{parsedDays.length > 0 ? `매주 ${parsedDays.join(" ")}` : ""}
+					{sortedDays.length > 0 ? `매주 ${sortedDays.join(" ")}` : ""}
 					</Text>
                     <Text style={[styles.text11, styles.textPosition6]}>백합과</Text>
                     <View style={[styles.inner, styles.innerLayout]} />

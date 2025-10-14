@@ -27,12 +27,24 @@ export default function GenerateRoutine3() {
     });
   };
 
-  useEffect(() => {
-    if (routineText && routineText !== "나의 루틴 만들기") {
-      setRoutine(routineText);
-      setRoutineData({ ...routineData, routineText, period, selectedDays });
-    }
-  }, [routineText]);
+useEffect(() => {
+  if (routineText && routineText !== "나의 루틴 만들기") {
+    setRoutine(routineText);
+
+    // generate2에서 넘어온 경우 기간과 반복 주기 초기화
+    setPeriod("");
+    setSelectedDays([]);
+
+    // context도 초기화 반영
+    setRoutineData({
+      ...routineData,
+      routineText,
+      period: "",
+      selectedDays: [],
+    });
+  }
+}, [routineText]);
+
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);

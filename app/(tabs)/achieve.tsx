@@ -1,6 +1,6 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Achieve() {
 
@@ -76,6 +76,20 @@ const cards = [
                     <Text style={styles.text15}>1234 개</Text>
                   </View>
               </View>
+
+                <Pressable
+                onPress={() => router.push("/login")} hitSlop={10}
+                style={[
+                    styles.item0,
+                    { zIndex: 10 },
+                ]}
+                >
+                <Image
+                    source={require("../../assets/images/icon-menu.png")}
+                    resizeMode="contain"
+                    style={{ width: 44, height: 44 }}
+                />
+                </Pressable>
 
               {/* 탭 버튼 Row */}
               <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 0 }}>
@@ -378,5 +392,10 @@ card: {
   },
   scroll:{
     marginTop: -500
-  }
+  },
+  item0: {
+        position: "absolute",
+        left : 340,
+        top : 40
+  	},
 });

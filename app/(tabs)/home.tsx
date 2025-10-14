@@ -85,6 +85,19 @@ useEffect(() => {
           </View>
         </View>
         <Pressable
+        onPress={() => router.push("/login")} hitSlop={10}
+        style={[
+            styles.itemm,
+            { zIndex: 10 },
+        ]}
+        >
+        <Image
+            source={require("../../assets/images/icon-menu.png")}
+            resizeMode="contain"
+            style={{ width: 44, height: 44 }}
+        />
+        </Pressable>
+        <Pressable
         onPress={() => router.push("/deco")} hitSlop={10}
         style={[
             styles.item,
@@ -200,9 +213,13 @@ const styles = StyleSheet.create({
         },
         item: {
             position: "absolute",
-    		width: 32,
-    		height: 32,
-        left : 352,
+        left : 356,
+        top : 100
+  	},
+    itemm: {
+        position: "absolute",
+        left : 340,
         top : 40
-  	}
+  	},
+    
   })

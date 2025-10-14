@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Image, ImageBackground, Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
@@ -8,6 +9,7 @@ type ShopItem = {
 };
 
 export default function Shop() {
+  const router = useRouter();
   const [selectedItem, setSelectedItem] = useState<ShopItem | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -53,6 +55,19 @@ export default function Shop() {
             <Text style={styles.text15}>1234 개</Text>
           </View>
         </View>
+                <Pressable
+        onPress={() => router.push("/login")} hitSlop={10}
+        style={[
+            styles.item0,
+            { zIndex: 10 },
+        ]}
+        >
+        <Image
+            source={require("../../assets/images/icon-menu.png")}
+            resizeMode="contain"
+            style={{ width: 44, height: 44 }}
+        />
+        </Pressable>
 
         {/* ===== 안내 배너 ===== */}
         <View style={styles.bannerContainer}>
@@ -107,10 +122,9 @@ export default function Shop() {
       <View style={[styles.view6, styles.viewFlexBox]}>
         <Text style={styles.text15}>122 개</Text>
       </View>
-    </View>
-  )}
-</Pressable>
-
+      </View>
+      )}
+    </Pressable>
                 ))}
             </View>
 
@@ -434,7 +448,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",
-    marginTop: 0,
+    marginTop: -2,
   },
   twoRowWrapper: {
   flexDirection: "column", // 위아래로 두 줄
@@ -598,6 +612,11 @@ purchaseDoneText: {
   fontFamily: "NanumSquareNeo-Bd",
   color: "#1C1E1F", // 초록색 같은 강조 컬러
 },
+    item0: {
+        position: "absolute",
+        left : 340,
+        top : 40
+  	},
 
 
 

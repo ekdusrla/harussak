@@ -351,10 +351,10 @@ const styles = StyleSheet.create({
   	},
     item22: {
       position: "absolute",
-    		width: 40,
-    		height: 40,
+    		width: 44,
+    		height: 44,
         left: 340,
-        top: -252,
+        top: -250,
         zIndex: 10,
         
   	},

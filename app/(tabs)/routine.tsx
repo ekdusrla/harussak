@@ -354,7 +354,7 @@ const styles = StyleSheet.create({
     		width: 40,
     		height: 40,
         left: 340,
-        top: -260,
+        top: -252,
         zIndex: 10,
         
   	},

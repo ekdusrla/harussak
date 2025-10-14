@@ -98,9 +98,14 @@ return (
             >
             <Text style={[styles.text30, styles.textPosition]}>확인</Text>
             </Pressable>
-        <Pressable style={[styles.container, styles.wrapperLayout]} onPress={() => router.push("/generateroutine1")}>
-          <Text style={[styles.text31, styles.textPosition] }>이전으로</Text>
-        </Pressable>
+            <Pressable
+              style={[styles.container, styles.wrapperLayout]}
+              onPress={() => {
+                router.replace("/generateroutine1?from=generate2");
+              }}
+            >
+              <Text style={[styles.text31, styles.textPosition]}>이전으로</Text>
+            </Pressable>
       </View>
     </View>
   );

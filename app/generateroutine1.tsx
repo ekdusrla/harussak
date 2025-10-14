@@ -1,66 +1,97 @@
-import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-
-
+import { useRoutine } from "../context/routinecontext";
 
 export default function GenerateRoutine1() {
+  const router = useRouter();
+  const params = useLocalSearchParams();
+  const from = params?.from as string | undefined;
 
-    const [text, setText] = useState("");
-    const maxLength = 1000;
+  const { emotionText, saveEmotionText, clearEmotionText } = useRoutine();
+  const [text, setText] = useState(emotionText || "");
+  const maxLength = 1000;
 
-    const router = useRouter();
+  // ✅ generate2에서 돌아온 경우만 유지, 그 외에는 초기화
+  useEffect(() => {
+    if (from === "generate2") {
+      setText(emotionText); // 유지
+    } else {
+      clearEmotionText(); // 초기화
+      setText("");
+    }
+  }, [from]);
 
+  return (
+    <View style={styles.safeareaview}>
+      <View style={[styles.view, styles.viewBg]}>
+        <View style={styles.child} />
+        <Text style={[styles.text, styles.textTypo]}>
+          지금 감정을 적어주세요{"\n"}변화의 시작이 될 거에요
+        </Text>
 
-    return (
-        <View style={styles.safeareaview}>
-                <View style={[styles.view, styles.viewBg]}>
-                        <View style={styles.child} />
-                        <Text style={[styles.text, styles.textTypo]}>지금 감정을 적어주세요{"\n"}변화의 시작이 될 거에요</Text>
-                        <View style={[styles.lineargradient, styles.wrapperPosition]}>
-                        <TextInput
-                            style={styles.input}
-                            multiline
-                            placeholder={"현재 나의 상태 및 목표를 기록하고\n루틴을 추천해줍니다"}
-                            placeholderTextColor="#9EA4A9"
-                            value={text}
-                            onChangeText={setText}
-                        />
-                        <Text style={[styles.safeareaviewText, styles.textFlexBox]}>
-                            {text.length}/{maxLength}자
-                        </Text>
-                        </View>
-                        <View style={[styles.buttonWrap, styles.itemPosition]}>
-                        { text.length > maxLength && (
-                        <Text style={[styles.errorText]}>
-                            입력수를 초과하였습니다
-                        </Text>
-                        )}
-                            <Pressable
-                            style={[
-                                styles.wrapper,
-                                styles.wrapperPosition,
-                                text.length > 0 && text.length <= 1000 && styles.wrapperActive
-                            ]}
-                            onPress={() => {
-                                // 글자 수가 1~1000일 때만 이동
-                                if (text.length > 0 && text.length <= 1000) {
-                                router.push("./generateroutine2"); // 이동할 페이지 경로
-                                }
-                            }}
-                            >
-                            <Text style={[styles.text2, styles.itemPosition]}>확인</Text>
-                            </Pressable>
-                        </View>
-                        <Image style={[styles.item, styles.itemPosition]} width={153} height={28} resizeMode="contain" source={require("../assets/images/bar1.png")} />
-                        <Pressable style={[styles.iconBack, styles.wrapPosition]} onPress={()=> router.push("/routine")}>
-                        <Image style={styles.icon} resizeMode="contain" source={require("../assets/images/icon-back.png")} />
-                        </Pressable>
-                </View>
-            </View>
-    );
+        <View style={[styles.lineargradient, styles.wrapperPosition]}>
+          <TextInput
+            style={styles.input}
+            multiline
+            placeholder={"현재 나의 상태 및 목표를 기록하고\n루틴을 추천해줍니다"}
+            placeholderTextColor="#9EA4A9"
+            value={text}
+            onChangeText={setText}
+          />
+          <Text style={[styles.safeareaviewText, styles.textFlexBox]}>
+            {text.length}/{maxLength}자
+          </Text>
+        </View>
 
+        <View style={[styles.buttonWrap, styles.itemPosition]}>
+          {text.length > maxLength && (
+            <Text style={[styles.errorText]}>입력수를 초과하였습니다</Text>
+          )}
+          <Pressable
+            style={[
+              styles.wrapper,
+              styles.wrapperPosition,
+              text.length > 0 && text.length <= 1000 && styles.wrapperActive,
+            ]}
+            onPress={() => {
+              if (text.length > 0 && text.length <= 1000) {
+                saveEmotionText(text);
+                router.push({
+                  pathname: "./generateroutine2",
+                  params: { from: "generate1" }, // ✅ generate2로 이동
+                });
+              }
+            }}
+          >
+            <Text style={[styles.text2, styles.itemPosition]}>확인</Text>
+          </Pressable>
+        </View>
+
+        <Image
+          style={[styles.item, styles.itemPosition]}
+          width={153}
+          height={28}
+          resizeMode="contain"
+          source={require("../assets/images/bar1.png")}
+        />
+
+        {/* ✅ '이전으로' 버튼은 routine으로 돌아가도록 수정 */}
+        <Pressable
+          style={[styles.iconBack, styles.wrapPosition]}
+          onPress={() => router.push("/routine")}
+        >
+          <Image
+            style={styles.icon}
+            resizeMode="contain"
+            source={require("../assets/images/icon-back.png")}
+          />
+        </Pressable>
+      </View>
+    </View>
+  );
 }
+
 
 
 const styles = StyleSheet.create({

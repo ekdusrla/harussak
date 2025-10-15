@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { Animated, Image, ImageBackground, Pressable, StyleSheet, Text, View } from "react-native";
+import { WebView, } from "react-native-webview";
 
 export default function Home() {
   const router = useRouter();
@@ -10,8 +11,8 @@ export default function Home() {
 
     // 👇 위치도 배열로 관리 (top/left를 원하는 좌표로 바꾸면 됨)
   const positions = [
-    { top: -420, left: -120 },
-    { top: -440, left: 80 },
+    { top: -640, left: 60 },
+    { top: -680, left: 260 },
   ];
 
   // 두 개의 이미지 배열로 관리
@@ -47,32 +48,14 @@ useEffect(() => {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* 가장 아래 배경 */}
-      <ImageBackground
-        source={require("../../assets/images/background-morning.png")}
-        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-      >
-        {/* sky.gif를 분리해서 겹침 */}
-        <View
-        style={{
-            position: "absolute",
-            top: 40,
-            width: "100%",
-            height: "100%",
-        }}
-        pointerEvents="none" // 👈 이건 View에만 가능
-        >
-        <Image
-            source={require("../../assets/images/sky.gif")}
-            style={{
-            width: "100%",
-            height: "100%",
-            resizeMode: "cover",
-            }}
-        />
-        </View>
-        {/* 이제 나머지 UI 요소들은 그대로 */}
-        <View style={[styles.view2, styles.viewFlexBox2]}>
+      <View style={{ flex: 1 }}>
+        <WebView source={{ uri: "https://terrarium-web-gl-for-homescreen.vercel.app/" }} // Unity 빌드한 주소 
+        style={{ flex: 1 }} 
+        allowsInlineMediaPlayback javaScriptEnabled domStorageEnabled />
+      </View>
+  <View>
+    {/* 이제 나머지 UI 요소들은 그대로 */}
+        <View style={[styles.view2, styles.viewFlexBox2,]}>
           <Image
             style={styles.item2}
             width={20}
@@ -110,45 +93,35 @@ useEffect(() => {
             style={{ width: 32, height: 32 }}
         />
         </Pressable>
-        <Image
-          source={require("../../assets/images/terrarium.png")}
-          style={{
-            width: 440,
-            height: 440,
-            top: 20,
-          }}
-        />
-        <View>
           {(
             <Animated.Image
-  source={images[currentIndex]}
-  style={{
-    position: "absolute",
-    top: positions[currentIndex].top,
-    left: positions[currentIndex].left,
-    width: 80,
-    height: 80,
-    resizeMode: "contain",
-    zIndex: 50,
-    opacity: opacity, // opacity 애니메이션 적용
-  }}
-/>
-
+              source={images[currentIndex]}
+              style={{
+                position: "absolute",
+                top: positions[currentIndex].top,
+                left: positions[currentIndex].left,
+                width: 80,
+                height: 80,
+                resizeMode: "contain",
+                zIndex: 50,
+                opacity: opacity, // opacity 애니메이션 적용
+              }}
+            />
           )}
-    </View>
-        <ImageBackground
+          <ImageBackground
           source={require("../../assets/images/homeborder.png")}
           style={{
+            position: "absolute",
             width: 140,
             height: 52,
-            bottom: -140,
-            left: -120
+            bottom: 20,
+            left: 20,
           }}
           resizeMode="contain"
         >
           <Text style={styles.text1}>남은 루틴 : 7개</Text>
         </ImageBackground>
-      </ImageBackground>
+        </View>    
     </View>
   );
 }
@@ -157,7 +130,7 @@ useEffect(() => {
 const styles = StyleSheet.create({
 
     view2: {
-        top: 44,
+        top: -760,
         left: 20, // 화면 왼쪽에서 약간 띄우기
         position: "absolute",
         zIndex: 10, // 최상단으로
@@ -208,18 +181,15 @@ const styles = StyleSheet.create({
         left : 34,
         bottom : -18
         },
-        view : {
-            top: 10
-        },
         item: {
             position: "absolute",
         left : 356,
-        top : 100
+        top : -700,
   	},
     itemm: {
         position: "absolute",
         left : 340,
-        top : 40
+        top : -765
   	},
     
   })

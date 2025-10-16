@@ -19,13 +19,23 @@ export default function GenerateRoutine3() {
   const isConfirmEnabled = routine.trim() !== "" && period.trim() !== "" && selectedDays.length > 0;
 
   // 요일 선택 토글 + context 업데이트
-  const toggleDay = (day: string) => {
-    setSelectedDays((prev) => {
-      const newSelected = prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day];
-      setRoutineData({ ...routineData, routineText: routine, period, selectedDays: newSelected });
-      return newSelected;
-    });
-  };
+// 1️⃣ toggleDay 간소화
+const toggleDay = (day: string) => {
+  setSelectedDays((prev) =>
+    prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
+  );
+};
+
+// 2️⃣ useEffect 추가
+useEffect(() => {
+  setRoutineData({
+    ...routineData,
+    routineText: routine,
+    period,
+    selectedDays,
+  });
+}, [routine, period, selectedDays]);
+
 
 useEffect(() => {
   if (routineText) {

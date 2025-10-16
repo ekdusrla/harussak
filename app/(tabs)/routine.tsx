@@ -418,7 +418,7 @@ const styles = StyleSheet.create({
     		width: 44,
     		height: 44,
         left: 340,
-        top: -250,
+        top: -257,
         zIndex: 10,
         
   	},

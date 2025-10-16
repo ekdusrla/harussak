@@ -174,33 +174,88 @@ export default function Routine() {
       <View style={styles.view}>
         <Text style={styles.todayText}>{todayText}</Text>
         <Text style={[styles.textt, styles.textTypo]}>오늘 하루도 힘내!</Text>
-        <View style={{ flexDirection: "row", gap: 34, marginHorizontal: 30, marginTop: 200 }}>
-          {weekDates.map((d, index) => (
-            <View key={index} style={{ alignItems: "center" }}>
-              <Text
-                style={[
-                  styles.weekdayText,
-                  index === 0 && { color: "#FF7C57" },
-                  index === 6 && { color: "#5E86DF" },
-                ]}
-              >
-                {weekDays[index]}
-              </Text>
-            <Pressable onPress={() => handleDatePress(d)}>
-              <Text style={[
-                styles.dateText, 
-                d.date === selectedDateObj.date && d.month === selectedDateObj.month && d.year === selectedDateObj.year
-                  ? { color: "#91E04C", fontWeight: "600" }
-                  : {}
-              ]}>
-                {d.date}
-              </Text>
-            </Pressable>
-              {d.date === selectedDateObj.date && (
-                <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: "#91E04C", marginTop: 4 }} />
-              )}
-            </View>
-          ))}
+        <View style={{ flexDirection: "row", justifyContent: "space-between", marginHorizontal: 30, marginTop: 200 }}>
+          {weekDates.map((d, index) => {
+            const isToday =
+              d.date === today &&
+              d.month === todayMonth &&
+              d.year === todayYear;
+
+            const isSelected =
+              d.date === selectedDateObj.date &&
+              d.month === selectedDateObj.month &&
+              d.year === selectedDateObj.year;
+
+            return (
+              <View key={index} style={{ alignItems: "center" }}>
+                {/* 요일 텍스트 */}
+                <Text
+                  style={[
+                    styles.weekdayText,
+                    index === 0 && { color: "#FF7C57" },
+                    index === 6 && { color: "#5E86DF" },
+                  ]}
+                >
+                  {weekDays[index]}
+                </Text>
+
+                {/* 날짜 선택 */}
+                <Pressable onPress={() => handleDatePress(d)}>
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: 36,
+                      height: 36,
+                    }}
+                  >
+                    {/* ✅ 선택된 날짜이거나 오늘 날짜 + 선택된 경우에는 연두색 원 */}
+                    {isSelected && (
+                      <View
+                        style={{
+                          position: "absolute",
+                          width: 36,
+                          height: 36,
+                          borderRadius: 18,
+                          backgroundColor: "#91E04C",
+                          zIndex: -1,
+                        }}
+                      />
+                    )}
+
+                    {/* 날짜 숫자 */}
+                    <Text
+                      style={{
+                        color: isSelected
+                          ? "#ffffff"
+                          : isToday
+                          ? "#91E04C"
+                          : "#74777D",
+                        fontWeight: "600",
+                        fontFamily: "NanumSquareNeo-Bd",
+                        fontSize: 16,
+                      }}
+                    >
+                      {d.date}
+                    </Text>
+                  </View>
+                </Pressable>
+
+                {/* ✅ 오늘 날짜는 항상 점 표시 */}
+                {isToday && (
+                  <View
+                    style={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: 3,
+                      backgroundColor: "#91E04C",
+                      marginTop: 4,
+                    }}
+                  />
+                )}
+              </View>
+            );
+          })}
         </View>
         {/* 루틴 리스트 */}
         <Image

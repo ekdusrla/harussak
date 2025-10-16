@@ -28,22 +28,33 @@ export default function GenerateRoutine3() {
   };
 
 useEffect(() => {
-  if (routineText && routineText !== "나의 루틴 만들기") {
-    setRoutine(routineText);
-
-    // generate2에서 넘어온 경우 기간과 반복 주기 초기화
-    setPeriod("");
-    setSelectedDays([]);
-
-    // context도 초기화 반영
-    setRoutineData({
-      ...routineData,
-      routineText,
-      period: "",
-      selectedDays: [],
-    });
+  if (routineText) {
+    if (routineText === "나의 루틴 만들기") {
+      // 🔹 완전 초기화
+      setRoutine("");
+      setPeriod("");
+      setSelectedDays([]);
+      setRoutineData({
+        ...routineData,
+        routineText: "",
+        period: "",
+        selectedDays: [],
+      });
+    } else {
+      // 🔹 일반 카드 선택 시
+      setRoutine(routineText);
+      setPeriod("");
+      setSelectedDays([]);
+      setRoutineData({
+        ...routineData,
+        routineText,
+        period: "",
+        selectedDays: [],
+      });
+    }
   }
 }, [routineText]);
+
 
 
   const today = new Date();
@@ -190,18 +201,26 @@ useEffect(() => {
         <Image style={[styles.frameIcon, styles.frameIconPosition]} width={153} height={28} source={require("../assets/images/bar3.png")} />
 
         {/* 루틴 입력 */}
-        <View style={[styles.wrapper5, styles.wrapperFlexBox]}>
-          <TextInput
-            style={styles.textInput}
-            value={routine}
-            onChangeText={(val) => {
-              setRoutine(val);
-              setRoutineData({ ...routineData, routineText: val, period, selectedDays });
-            }}
-            placeholder={routineText === "나의 루틴 만들기" ? "반복하고 싶은 습관을 적어주세요" : ""}
-            placeholderTextColor="#CACDD3"
-          />
-        </View>
+{/* 루틴 입력 */}
+<View style={[styles.wrapper5, styles.wrapperFlexBox]}>
+  <TextInput
+    style={styles.textInput}
+    value={routine}
+    onChangeText={(val) => {
+      setRoutine(val);
+      setRoutineData({ ...routineData, routineText: val, period, selectedDays });
+    }}
+    placeholder={
+      routineText === "나의 루틴 만들기"
+        ? "루틴을 입력해주세요"
+        : routineText && routineText !== "나의 루틴 만들기"
+        ? routineText
+        : "반복하고 싶은 습관을 적어주세요"
+    }
+    placeholderTextColor="#CACDD3"
+  />
+</View>
+
 
         {/* 기간 입력 */}
         <Pressable style={[styles.wrapper6, styles.wrapperFlexBox]} onPress={() => setModalVisible(true)}>
